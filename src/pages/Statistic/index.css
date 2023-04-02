@@ -1,0 +1,10 @@
+#stat_box{
+    position: absolute;
+    top:70px;
+    left: 16%;
+    right: 4%;
+    width: 400px;
+    height: 500px;
+    background-color: #87e8de;
+
+}

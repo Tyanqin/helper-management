@@ -1,0 +1,10 @@
+
+.ant-table-row-level-0{
+    text-align: left;
+    line-height: 0.1!important;
+}
+
+/*设置分页宽度*/
+.ant-pagination ,.ant-table-pagination ,.ant-table-pagination-right{
+    width: 95%;
+}

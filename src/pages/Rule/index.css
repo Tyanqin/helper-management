@@ -1,0 +1,9 @@
+.ant-tooltip-inner {
+    color: #000000;
+    background-color: #FFFFFF;
+    box-shadow: 0 3px 6px -4px;
+}
+.ant-tooltip-arrow-content {
+    --antd-arrow-background-color:#6CACFF !important;
+
+}

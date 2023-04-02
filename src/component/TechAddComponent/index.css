@@ -1,0 +1,16 @@
+#add_box{
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    margin:auto;
+    width: 500px;
+    height: 600px;
+
+}
+.upload_box{
+    height: 300px;
+    width: 490px;
+    padding-left: 10px;
+}

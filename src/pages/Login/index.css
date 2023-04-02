@@ -1,0 +1,25 @@
+#login_box{
+    width: 400px;
+    height: 400px;
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    margin:auto;
+    z-index: 99999;
+    border:1px solid #F0F0F0;
+    padding:70px;
+
+
+}
+
+#components-form-demo-normal-login .login-form {
+    max-width: 300px;
+}
+#components-form-demo-normal-login .login-form-forgot {
+    float: right;
+}
+#components-form-demo-normal-login .login-form-button {
+    width: 100%;
+}
