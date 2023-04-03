@@ -6,6 +6,7 @@ import Home from '../pages/Home'
 import Rule from '../pages/Rule'
 import Technology from '../pages/Technology'
 import Regulation from '../pages/Regulation'
+import PdfComponent from '../pages/Regulation/component/PdfComponent'
 
 export default [
     {
@@ -34,7 +35,13 @@ export default [
                 element:<Rule/>
             },{
                 path:'regulation',
-                element:<Regulation/>
+                element:<Regulation/>,
+                // children:[
+                //     {
+                //         path:'pdf/:id',
+                //         element:<PdfComponent/>
+                //     }
+                // ]
             },
 
         ]

@@ -32,23 +32,13 @@ export default class RegDrawerComponent extends Component {
                 >
                     {
                         isEdit===true?
-                            <div key={1}>
-                                <Input key={updData.ruRegId+4} defaultValue = {updData.regName}onChange={(e)=>{
+                            <div key={1} className = "upLoad_box">
+                                <Input key={6} defaultValue = {updData.regName}onChange={(e)=>{
                                     console.log(e.target.value)
-                                    this.setState({regName:e.target.value})}} addonBefore = "规章名称" style={{marginTop:30,width:300}}/>
-                                <Input key={updData.ruRegId+5} defaultValue = {updData.resName}onChange={(e)=>{
+                                    this.setState({regName:e.target.value})}} addonBefore = "规章名称" style={{marginTop:30,width:500}}/>
+                                <Input key={7} defaultValue = {updData.resName}onChange={(e)=>{
                                    console.log(e.target.value)
-                                    this.setState({resName:e.target.value})}} addonBefore = "规章名称" style={{marginTop:30,width:300}}/>
-                                {/*<Dragger {...this.props} style = {{width:600,height:400,marginTop:30}}>*/}
-                                    {/*<p className="ant-upload-drag-icon">*/}
-                                        {/*<InboxOutlined />*/}
-                                    {/*</p>*/}
-                                    {/*<p className="ant-upload-text">Click or drag file to this area to upload</p>*/}
-                                    {/*<p className="ant-upload-hint">*/}
-                                        {/*Support for a single or bulk upload. Strictly prohibit from uploading company data or other*/}
-                                        {/*band files*/}
-                                    {/*</p>*/}
-                                {/*</Dragger>*/}
+                                    this.setState({resName:e.target.value})}} addonBefore = "规章名称" style={{marginTop:30,width:500}}/>
                         </div>:
                             <div key={2} className = "upLoad_box">
                                     <Input key={8}

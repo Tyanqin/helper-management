@@ -1,25 +1,21 @@
 import React, {Component} from 'react';
-import { SearchOutlined,PlusOutlined} from '@ant-design/icons';
-import {Input,Button, Table, Select, message, Tooltip, Divider, Pagination} from 'antd'
-import {regPage, distinctRegName, reqRuleGetId, regGetId, regUpdateSubmit, reqInsertRule,regUploadSubmit,regUpLoad} from '../../api/req'
+import { SearchOutlined,PlusOutlined,ExclamationCircleOutlined} from '@ant-design/icons';
+import {Input, Button, Table, Select, message, Tooltip, Divider, Pagination, Modal} from 'antd'
+import {regPage, distinctRegName, regGetId, regUpdateSubmit, regUpLoad, regDeleteById, regDownload} from '../../api/req'
 import RegDrawerComponent from './component/RegDrawerComponent'
-import PdfComponent from './component/PdfComponent'
-
-
-
 const {Option} = Select
 
 /**
- * 规章制度
+ * 规章制度page
  */
 export default class Regulation extends Component {
 
     state={
         display:'none',   //是否显示PDF（详情）
-        visible:false,
-        isEdit:true,
-        pageData:[], // 分页
-        updData:[],  //修改
+        visible:false,    //抽屉开关标识
+        isEdit:true,     //修改与新增标识
+        pageData:[],     // 分页
+        updData:[],      //修改
         detailsData:[],  //详情
         regNames:[],
         total:1,
@@ -29,8 +25,7 @@ export default class Regulation extends Component {
         pageSize:""
     }
 
-
-
+    //打开页面进行数据初始化
     componentDidMount() {
         this.getRegName()
         this.handelPage()
@@ -73,20 +68,17 @@ export default class Regulation extends Component {
                     close = {this.onClose}
                     submit={this.submit}
                 />
-                <PdfComponent
-                    detailsData={this.state.detailsData}
-                    handelDisPlay = {this.handelDisplay}
-                    display = {this.state.display}
-                />
+                {/*<Outlet/>*/}
+                {/*<PdfComponent*/}
+                    {/*detailsData={this.state.detailsData}*/}
+                    {/*handelDisPlay = {this.handelDisplay}*/}
+                    {/*display = {this.state.display}*/}
+                {/*/>*/}
             </div>
         );
     }
 
-    /**
-     * 获取规章细则名称
-     * @returns {Promise<void>}
-     */
-
+     //获取规章制度下拉列表名称
     getRegName=async()=>{
         const result = await distinctRegName();
         if(result.status){
@@ -96,11 +88,7 @@ export default class Regulation extends Component {
         }
     }
 
-
-    /**
-     * 查询page数据
-     * @returns {Promise<void>}
-     */
+    //分页
     handelPage =async()=>{
         let {regName,resName,currentPage,pageSize} = this.state
         let params = {regName:regName, resName: resName,currentPage:currentPage,pageSize:pageSize}
@@ -110,83 +98,93 @@ export default class Regulation extends Component {
         }
     }
 
-
-
-    /**
-     * 提交（修改与新增）
-     * @returns {Promise<void>}
-     */
+     //提交（修改与新增）
     submit = async(params) => {
         let result = null
         if(this.state.isEdit){
-            result =  await regUpdateSubmit(params)
-
+            await regUpdateSubmit(params).then((res)=>{
+                this.handelPage()
+                message.info("修改成功！")
+            })
         }else{
             const formData = new window.FormData();
             const size = params.files.length
             for(let i = 0;i<size;i++){formData.append("files",params.files[i])}
             const regName = params.regName
             formData.append("regName",regName);
-            regUpLoad(formData).then(res=>{
-                message.info("上传成功")
-                this.handelPage();
-            },err=>{
-                console.log("上传失败")
+            await regUpLoad(formData).then((res)=>{
+                this.handelPage()
+                message.info("上传成功！")
             })
+
+
         }
         this.setState({visible:false,isEdit:true})
-        if(result.status === 200){
-            this.handelSelectData();
-        }
+
 
     };
 
-
-
-    /**
-     * 关闭抽屉
-     */
-    onClose=()=>{
-        this.setState({visible: false});
-    }
-
-    onOpen =async (text)=>{
-        console.log("text===>>>",text.ruRegId)
+    //点击修改按钮获取数据，更改状态
+    updateDataById =async (text)=>{
+        this.handelPage()
         const result = await regGetId(text.ruRegId)
+        console.log("修改--->>>> result=====》》》》",result)
         if(result.status === 200){
-            console.log("result===>>>",result)
             this.setState({updData:{...result.data}},()=>{this.setState({visible:true,isEdit:true})})
         }
-
-
     }
-
-
 
     //打开抽屉
     handelShowDrawer=()=>{
+        this.handelPage()
         this.setState({isEdit:false,visible:true})
     }
-    // //关闭抽屉
-    // handelCloseDrawer=()=>{
-    //     this.setState({mark:1,visible:false})
-    // }
 
-    //修改Mark
-    handelMark=()=>{
-        this.setState({mark:0,visible:true})
+    //删除
+    handelDelete=async(text)=>{
+        Modal.confirm({
+            title: '确认删除此条数据?',
+            icon: <ExclamationCircleOutlined/>,
+            content: '',
+            okText: '是',
+            okType: 'danger',
+            cancelText: '否',
+            onOk: () => {
+                this.handleOk(text)
+            }
+            ,
+            onCancel() {
+                message.error("删除失败!")
+            },
+        });
     }
 
-
-    //查看详情
-    handelGetDetails=async(text)=>{
-        this.setState({display:'block'})
-        console.log("text===>>>",text.ruRegId)
-        const result = await regGetId(text.ruRegId)
+    //删除回调
+    handleOk= async (text)=>{
+        let params = {ruRegId:text.ruRegId}
+        console.log("params=====>>>>>",params)
+        const result = await regDeleteById(params)
         if(result.status === 200){
-            console.log("result===>>>",result)
-            this.setState({detailsData:{...result.data}})
+            this.handelPage()
+            message.success("删除成功!")
         }
+    };
+
+    //下载
+    handelDownLoad= async(text)=> {
+        let params = {fileName: text.fileName}
+        const result = await regDownload(params, {responseType: 'blob'}); //调用接口
+        if (result) {
+            const blob = new Blob([result], {type: 'application/pdf'})
+            const blobUrl = window.URL.createObjectURL(blob)
+            let a = document.createElement('a');
+            a.href = blobUrl;
+            a.download = text.fileName;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+        }
+
     }
 
     //控制PDF显示
@@ -194,6 +192,12 @@ export default class Regulation extends Component {
        this.setState({display:"none"})
     }
 
+    //关闭抽屉
+    onClose=()=>{
+        this.setState({visible: false});
+    }
+
+    //列表字段
     columns=[
         {
             title: '序号',
@@ -224,11 +228,15 @@ export default class Regulation extends Component {
             )
         },
         {title: '操作', key: 'action', render: (text, record) => (<span>
-                    <a onClick={this.onOpen.bind(text,record)}>修改</a>
-                    {/*<Divider type="vertical" />*/}
-                    {/*<a >删除</a>*/}
+                    <a onClick={this.updateDataById.bind(text,record)}>修改</a>
                     <Divider type="vertical" />
-                    <a onClick = {this.handelGetDetails.bind(text,record)}>详情</a>
+                    <a onClick = {this.handelDownLoad.bind(text,record)}>下载</a>
+                    <Divider type="vertical" />
+                    <a onClick = {this.handelDelete.bind(text,record)}>删除</a>
+                    {/*<NavLink*/}
+                        {/*// to={`/home/regulation/pdf/${text.ruRegId}`}*/}
+                             {/*onClick = {this.handelGetDetails.bind(text,record)}*/}
+                    {/*>详情</NavLink>*/}
         </span>),
         },
     ]

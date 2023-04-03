@@ -22,6 +22,11 @@ export const regGetId=(params)=>(instance.get(`${ACCESS_ADDRESS}/reg/${params}`)
 export const regUpdateSubmit =(params)=>(instance.post(`${ACCESS_ADDRESS}/reg/upd`,params))
 export const regUploadSubmit =(params)=>(instance.post(`${ACCESS_ADDRESS}/reg/upload`,params))
 export const regUpLoad = (params)=>(instance.post(`${ACCESS_ADDRESS}/reg/upload`,params))
+export const regDeleteById=(params)=>(instance.get(`${ACCESS_ADDRESS}/reg/delByRuRegId?${qs.stringify(params)}`))
+export const regDownload = (params,config)=>(instance.get(`${ACCESS_ADDRESS}/reg/download?${qs.stringify(params)}`,config))
+
+
+
 //==================================login=======================================================================================
 export const checkUserName =(params)=>(instance.post(`${ACCESS_ADDRESS}/user/selectOne`,params))
 export const reqLogin =(params)=>(instance.post(`${ACCESS_ADDRESS}/user/login`,params))
