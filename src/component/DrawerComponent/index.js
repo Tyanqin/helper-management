@@ -8,9 +8,6 @@ const { Option } = Select;
 
 export default class DrawerComponent extends Component {
     render() {
-        console.log("this.props.mark===actionMark>"+this.props.actionMark)
-        console.log("this.props.mark===pageMark>"+this.props.pageMark)
-        console.log("this.props.mark===visible>"+this.props.visible)
         return (
             <div>
                 <Drawer

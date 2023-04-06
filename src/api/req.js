@@ -20,11 +20,16 @@ export const regPage =(params)=>(instance.get(`${ACCESS_ADDRESS}/reg/queryPage?$
 export const distinctRegName =(params)=>(instance.post(`${ACCESS_ADDRESS}/reg/distinctRegName`))
 export const regGetId=(params)=>(instance.get(`${ACCESS_ADDRESS}/reg/${params}`))
 export const regUpdateSubmit =(params)=>(instance.post(`${ACCESS_ADDRESS}/reg/upd`,params))
-export const regUploadSubmit =(params)=>(instance.post(`${ACCESS_ADDRESS}/reg/upload`,params))
+// export const regUploadSubmit =(params)=>(instance.post(`${ACCESS_ADDRESS}/reg/upload`,params))
 export const regUpLoad = (params)=>(instance.post(`${ACCESS_ADDRESS}/reg/upload`,params))
 export const regDeleteById=(params)=>(instance.get(`${ACCESS_ADDRESS}/reg/delByRuRegId?${qs.stringify(params)}`))
 export const regDownload = (params,config)=>(instance.get(`${ACCESS_ADDRESS}/reg/download?${qs.stringify(params)}`,config))
 
+//=================================标准工艺======================technologyPage
+export const technologyPage =(params)=>(instance.get(`${ACCESS_ADDRESS}/pro-menu/getTitle?${qs.stringify(params)}`))
+export const proGetId=(params)=>(instance.get(`${ACCESS_ADDRESS}/pro-content/${params}`))
+export const disProName =(params)=>(instance.get(`${ACCESS_ADDRESS}/pro-menu/disProName?${qs.stringify(params)}`))
+export const proUpdateSubmit =(params)=>(instance.post(`${ACCESS_ADDRESS}/pro-menu/updByProContentId`,params))
 
 
 //==================================login=======================================================================================
