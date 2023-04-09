@@ -1,0 +1,59 @@
+#upload_wrap{
+    width:600px;
+    height: 200px;
+    position: absolute;
+    top:480px;
+    left: -73px;
+    right: 0;
+    bottom:0;
+    margin:auto;
+    border:1px solid #D5D8DB;
+}
+
+#upload_wrap:hover{
+    border:1px solid #85BEFF;
+}
+
+#upload_wrap > ul{
+    width: 200px;
+    height: 100px;
+    position: absolute;
+    top:0;
+    left: 0;
+    right: 0;
+    bottom:0;
+    margin:auto;
+    text-align: center;
+    padding: 30px;
+}
+
+
+#upload_wrap>ul > li{
+    width: 100%;
+    text-align: center;
+    line-height: 20px;
+}
+
+
+#upload_wrap > .upLoad_btn{
+    position: absolute;
+    top:-108px;
+    left:0;
+    right:0;
+    bottom:0;
+    margin:auto;
+}
+
+#upload_wrap >input{
+    position: absolute;
+    top:-80px;
+    left:0;
+    right:0;
+    bottom:0;
+    margin:auto;
+    height:60px;
+    width:123px;
+    background-color:#FFFFFF;
+    border:none;
+    opacity:0;
+}

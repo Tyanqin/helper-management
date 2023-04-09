@@ -59,6 +59,7 @@ export default class Rule extends Component {
                     <Select defaultValue="项目可研阶段" style={{marginRight:20,width:120}}
                             onChange = {(value)=>this.setState({staName:`${value}`})}
                     >
+                        <Option value="">全部</Option>
                         {
 
                             this.state.proStaNames.map((item,index)=>{
@@ -67,11 +68,9 @@ export default class Rule extends Component {
                                 )
                             })
                         }
-                        <Option value=""></Option>
+
                     </Select>
-                    <Input addonBefore = "细则标题" style={{marginRight:20,width:230}} onChange = {e=>this.setState({ruleTitle:e.target.value})}/>
-                    <span className = "data_span">时间</span>
-                    <RangePicker onChange={(data,dateStr)=>{this.setState({startTime:dateStr[0],endTime:dateStr[1]})}}  style={{marginRight:20}}/>
+                    <Input addonBefore = "细则标题" pattern="[A-z]{3}" style={{marginRight:20,width:230}} onChange = {e=>this.setState({ruleTitle:e.target.value})}/>
                     <Button type="primary" style={{marginRight:20}} onClick = {this.handelSelectData}><SearchOutlined/>查询</Button>
                     <Button type="primary" style={{marginRight:20}} onClick = {this.handelAddData}><PlusOutlined/>新增</Button>
                     {/*<Button  type="primary" style = {{marginTop:10}}>*/}

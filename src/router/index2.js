@@ -1,6 +1,6 @@
 import {Navigate,useRoutes} from 'react-router-dom'
 import User from '../pages/User'
-import Dept from '../pages/Dept'
+import Major from '../pages/Major'
 import Login from '../pages/Login'
 import Home from '../pages/Home'
 import Technology from '../pages/Technology'
@@ -20,8 +20,8 @@ export default useRoutes([
                 element:<User/>
             },
             {
-                path:'dept',
-                element:<Dept/>
+                path:'major',
+                element:<Major/>
             },
             {
                 path:'technology',

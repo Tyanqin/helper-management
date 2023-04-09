@@ -25,7 +25,7 @@ export default class MenuComponent extends Component {
                             <Menu.Item key="3">Option 3</Menu.Item>
                             <Menu.Item key="4">Option 4</Menu.Item>
                         </SubMenu>
-                        <SubMenu key="sub3" title={<span><ApartmentOutlined/><span><NavLink  to = "/home/dept">组织管理</NavLink></span></span>}>
+                        <SubMenu key="sub3" title={<span><ApartmentOutlined/><span><NavLink  to = "/home/major">专业管理</NavLink></span></span>}>
                             <Menu.Item key="5">Option 5</Menu.Item>
                             <Menu.Item key="6">Option 6</Menu.Item>
                             <Menu.Item key="7">Option 7</Menu.Item>

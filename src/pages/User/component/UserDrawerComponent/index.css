@@ -1,0 +1,17 @@
+/*.cascader_wrap{*/
+    /*width: 400px;*/
+    /*height: 60px;*/
+    /*background-color: pink;*/
+/*}*/
+
+.major_span{
+    position: absolute;
+    top:171px;
+    border:1px solid #D9D9D9;
+    background-color:#FAFAFA;
+    display:inline-block;
+    line-height:30px;
+    text-align: center;
+    width: 50px;
+    border-right:none;
+}

@@ -1,15 +1,15 @@
-import React from 'react';
-import {userGetPage, userUpdateSubmit, majorAll, userGetId, userInsert, userDeleteById} from '../../api/req'
+import React, {Component} from 'react';
+import {Button, Divider, Input, message, Modal, Pagination, Table, Tooltip} from "antd";
+import MajorDrawerComponent from "./component/MajorDrawerComponent";
 import { SearchOutlined,PlusOutlined,ExclamationCircleOutlined} from '@ant-design/icons';
-import {Input, Button, Table, Select, message, Tooltip, Divider, Pagination, Modal} from 'antd'
-import UserDrawerComponent from './component/UserDrawerComponent'
-import './index.css'
-export default class User extends React.Component {
-    componentDidMount() {
-        this.init()
-        this.handelPage()
+import {majorAll, userDeleteById, userGetId, userGetPage, userInsert, userUpdateSubmit} from "../../api/req";
 
-    }
+export default class Major extends Component {
+    // componentDidMount() {
+    //     this.init()
+    //     this.handelPage()
+    //
+    // }
 
 
     state={
@@ -31,9 +31,8 @@ export default class User extends React.Component {
             <div style={{marginBottom:20}}>
                 <div style ={{height:10}}/>
                 <Input.Group style={{marginLeft:10,marginTop:8}}>
-                    <Input addonBefore = "姓名" autoFocus placeholder="请输入用户名称" onChange = {e=>this.setState({userName:e.target.value})} style={{marginRight:20,width:300}}/>
                     <Input addonBefore = "专业"  placeholder="请输入专业名称" onChange = {e=>this.setState({majorName:e.target.value})} style={{marginRight:20,width:300}}/>
-                     <Button type="primary" style={{marginRight:20}} onClick = {this.handelPage}><SearchOutlined/>查询</Button>
+                    <Button type="primary" style={{marginRight:20}} onClick = {this.handelPage}><SearchOutlined/>查询</Button>
                     <Button type="primary" onClick = {this.handelShowDrawer}><PlusOutlined /> 新增</Button>
                 </Input.Group>
                 <div style ={{height:15}}/>
@@ -44,7 +43,7 @@ export default class User extends React.Component {
                     total={this.state.total}
                     onChange = {(page,pageSize)=>{this.setState({currentPage:page,pageSiz:pageSize}, ()=>{this.handelPage()})}}/>
 
-                <UserDrawerComponent
+                <MajorDrawerComponent
                     visible={this.state.visible}
                     isEdit = {this.state.isEdit}
                     updData = {this.state.updData}
@@ -211,5 +210,4 @@ export default class User extends React.Component {
         </span>),
         },
     ]
-
 }

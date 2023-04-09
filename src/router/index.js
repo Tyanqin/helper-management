@@ -1,6 +1,6 @@
 import {Navigate} from 'react-router-dom'
 import User from '../pages/User'
-import Dept from '../pages/Dept'
+import Major from '../pages/Major'
 import Login from '../pages/Login'
 import Home from '../pages/Home'
 import Rule from '../pages/Rule'
@@ -25,8 +25,8 @@ export default [
                 path:'user',
                 element:<User/>
             },{
-                path:'dept',
-                element:<Dept/>
+                path:'major',
+                element:<Major/>
             },{
                 path:'technology',
                 element:<Technology/>

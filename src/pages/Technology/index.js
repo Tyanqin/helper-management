@@ -1,10 +1,8 @@
 import React, {Component} from 'react';
-import MultiTableComponent from '../../component/MultiTableComponent'
-import MenuTableComponent from '../../component/MenuTableComponent'
-import {Input, DatePicker, Button, Table, Pagination, Tooltip, Divider, message} from 'antd'
-import { SearchOutlined,PlusOutlined} from '@ant-design/icons';
+import {Input, DatePicker, Button, Table, Pagination, Tooltip, Divider, message, Modal} from 'antd'
+import { SearchOutlined,PlusOutlined,ExclamationCircleOutlined} from '@ant-design/icons';
 import TecDrawerComponent from "./component/TecDrawerComponent";
-import {technologyPage, disProName, proGetId, proUpdateSubmit, regUpLoad} from '../../api/req'
+import {technologyPage, disProName, proGetId, proUpdateSubmit, proUpLoad,proDeleteById} from '../../api/req'
 const {RangePicker } = DatePicker;
 /**
  * 标准工艺
@@ -16,6 +14,9 @@ export default class Technology extends Component {
         isEdit:true,
         pageData:[],    //分页数据
         updData:[],
+        firstData:[],
+        secData:[],
+        terData:[],
         total:"",
         firstTitle:"",
         secTitle:"",
@@ -56,6 +57,9 @@ export default class Technology extends Component {
                     total={this.state.total}
                     onChange = {(page,pageSize)=>{this.setState({currentPage:page,pageSiz:pageSize}, ()=>{this.handelSelectData()})}}/>
                 <TecDrawerComponent
+                    firstData={this.state.firstData}
+                    secData={this.state.secData}
+                    terData={this.state.terData}
                     isEdit = {this.state.isEdit}
                     updData = {this.state.updData}
                     visible = {this.state.visible}
@@ -70,7 +74,6 @@ export default class Technology extends Component {
     //提交（修改与新增）
     submit = async(params) => {
         let result = null
-        console.log("======params=====>>>>123123",params)
         if(this.state.isEdit){
             await proUpdateSubmit(params).then((res)=>{
                 this.handelSelectData()
@@ -80,14 +83,21 @@ export default class Technology extends Component {
             const formData = new window.FormData();
             const size = params.files.length
             for(let i = 0;i<size;i++){formData.append("files",params.files[i])}
-            const regName = params.regName
-            formData.append("regName",regName);
-            await regUpLoad(formData).then((res)=>{
+            formData.append("firstTitle",params.firstTitle);
+            formData.append("secTitle",params.secTitle);
+            formData.append("terTitle",params.terTitle);
+            formData.append("processName",params.processName);
+            formData.append("processStandard",params.processStandard);
+            formData.append("constructionPoints",params.constructionPoints);
+            formData.append("firstMenuCode",params.firstMenuCode);
+            formData.append("secMenuCode",params.secMenuCode);
+            formData.append("terMenuCode",params.terMenuCode);
+            formData.append("processCode",params.processCode);
+            formData.append("imgDesc",params.imgDesc);
+            await proUpLoad(formData).then((res)=>{
                 this.handelSelectData()
                 message.info("上传成功！")
             })
-
-
         }
         this.setState({visible:false,isEdit:true})
 
@@ -106,8 +116,13 @@ export default class Technology extends Component {
 
 
     //打开抽屉
-    handelShowDrawer=()=>{
-        this.setState({actionMark:1,visible:true})
+    handelShowDrawer=async ()=>{
+        let firstParams = {levelMenu:"1",proName:"",menuCode:""}
+        let secParams = {levelMenu:"2",proName:"",menuCode:""}
+        let terParams = {levelMenu:"3",proName:"",menuCode:""}
+        await disProName(firstParams).then(res=>{this.setState({firstData:res.data})})
+        await disProName(secParams).then(res=>{this.setState({secData:res.data})})
+        await disProName(terParams).then(res=>{this.setState({terData:res.data},()=>{this.setState({isEdit:0,visible:true})})})
     }
 
     //关闭抽屉
@@ -117,16 +132,41 @@ export default class Technology extends Component {
 
 
     onOpen=async(text)=>{
-        console.log("proContentId---proContentId--->",text.proContentId)
+        this.handelSelectData()
         const result = await proGetId(text.proContentId)
-        console.log("onOpen---result--->",result)
         if(result.status === 200){
             this.setState({updData:{...result.data}},()=>{this.setState({visible:true,isEdit:true},()=>{console.log("56789",this.state.updData)})})
         }
     }
+     //删除
+    handelDeleteClick=async (text)=>{
+        Modal.confirm({
+            title: '确认删除此条数据?',
+            icon: <ExclamationCircleOutlined/>,
+            content: '',
+            okText: '是',
+            okType: 'danger',
+            cancelText: '否',
+            onOk: () => {
+                this.handleOk(text)
+            }
+            ,
+            onCancel() {
+                message.error("删除失败!")
+            },
+        });
 
-    handelDeleteClick=()=>{}
-
+    }
+     //删除回调
+    handleOk=async (text)=>{
+        let params = {proContentId:text.proContentId}
+        await proDeleteById(params).then(res=>{
+            this.handelSelectData()
+            message.info("删除成功！")
+        }).catch(err=>{
+            message.err("删除失败！")
+        })
+    }
 
     columns=[
         {
@@ -139,10 +179,71 @@ export default class Technology extends Component {
                 )
             }
         },
-        {title: '一级目录', dataIndex: 'firstTitle', key: 'firstTitle'},
-        {title: '二级目录', dataIndex: 'secTitle', key: 'secTitle'},
-        {title: '三级目录', dataIndex: 'terTitle', key: 'terTitle'},
-        {title: '工艺名称', dataIndex: 'processName', key: 'processName'},
+        {title: '一级目录', dataIndex: 'firstTitle', key: 'firstTitle',onCell: () => {
+                return {
+                    style: {
+                        maxWidth: 180,
+                        overflow: 'hidden',
+                        whiteSpace: 'nowrap',
+                        textOverflow: 'ellipsis',
+                        cursor: 'pointer'
+                    }
+                }
+            },
+            render: firstTitle => (
+                <Tooltip placement="topLeft" title={firstTitle}>
+                    {firstTitle}
+                </Tooltip>
+            )},
+        {title: '二级目录', dataIndex: 'secTitle', key: 'secTitle',onCell: () => {
+                return {
+                    style: {
+                        maxWidth: 200,
+                        overflow: 'hidden',
+                        whiteSpace: 'nowrap',
+                        textOverflow: 'ellipsis',
+                        cursor: 'pointer'
+                    }
+                }
+            },
+            render: firstTitle => (
+                <Tooltip placement="topLeft" title={firstTitle}>
+                    {firstTitle}
+                </Tooltip>
+            )},
+        {title: '三级目录', dataIndex: 'terTitle', key: 'terTitle',onCell: () => {
+                return {
+                    style: {
+                        maxWidth: 200,
+                        overflow: 'hidden',
+                        whiteSpace: 'nowrap',
+                        textOverflow: 'ellipsis',
+                        cursor: 'pointer'
+                    }
+                }
+            },
+            render: firstTitle => (
+                <Tooltip placement="topLeft" title={firstTitle}>
+                    {firstTitle}
+                </Tooltip>
+            )},
+        {title: '工艺名称', dataIndex: 'processName', key: 'processName',
+            onCell: () => {
+                return {
+                    style: {
+                        maxWidth: 200,
+                        overflow: 'hidden',
+                        whiteSpace: 'nowrap',
+                        textOverflow: 'ellipsis',
+                        cursor: 'pointer'
+                    }
+                }
+            },
+            render: firstTitle => (
+                <Tooltip placement="topLeft" title={firstTitle}>
+                    {firstTitle}
+                </Tooltip>
+            )},
         {title: '工艺标准', dataIndex: 'processStandard', key: 'processStandard',
             onCell: () => {
                 return {
@@ -167,7 +268,7 @@ export default class Technology extends Component {
             onCell: () => {
                 return {
                     style: {
-                        maxWidth: 350,
+                        maxWidth: 200,
                         overflow: 'hidden',
                         whiteSpace: 'nowrap',
                         textOverflow: 'ellipsis',
