@@ -4,9 +4,7 @@ import { SearchOutlined,PlusOutlined,ExclamationCircleOutlined} from '@ant-desig
 import {Input, DatePicker, Button, Table, Divider, Select, Tooltip, Pagination,Modal,message } from 'antd'
 import DrawerComponent from './component/DrawerComponent'
 import './index.css'
-const {RangePicker } = DatePicker;
 const { Option } = Select;
-const { TextArea } = Input;
 
 /**
  * 监督细则
@@ -44,8 +42,9 @@ export default class Rule extends Component {
                 <Input.Group style={{marginLeft:10,marginTop:8}}>
                     <span className = "data_span" style = {{width:80}}>细则名称</span>
                     <Select defaultValue=""
-                            style={{marginRight:20,width:185}}
+                            style={{marginRight:20,width:200}}
                             onChange = {(value)=>this.setState({ruleName:`${value}`})}>
+                        <Option value="">全部</Option>
                         {
                             this.state.ruleNames.map((item,index)=>{
                                 return (
@@ -53,10 +52,9 @@ export default class Rule extends Component {
                                 )
                             })
                         }
-                        <Option value=""></Option>
                     </Select>
                     <span className = "data_span" style = {{width:80}}>项目阶段</span>
-                    <Select defaultValue="项目可研阶段" style={{marginRight:20,width:120}}
+                    <Select defaultValue="项目可研阶段" style={{marginRight:20,width:200}}
                             onChange = {(value)=>this.setState({staName:`${value}`})}
                     >
                         <Option value="">全部</Option>
@@ -70,15 +68,9 @@ export default class Rule extends Component {
                         }
 
                     </Select>
-                    <Input addonBefore = "细则标题" pattern="[A-z]{3}" style={{marginRight:20,width:230}} onChange = {e=>this.setState({ruleTitle:e.target.value})}/>
+                    <Input addonBefore = "细则标题"  style={{marginRight:20,width:300}} onChange = {e=>this.setState({ruleTitle:e.target.value})}/>
                     <Button type="primary" style={{marginRight:20}} onClick = {this.handelSelectData}><SearchOutlined/>查询</Button>
                     <Button type="primary" style={{marginRight:20}} onClick = {this.handelAddData}><PlusOutlined/>新增</Button>
-                    {/*<Button  type="primary" style = {{marginTop:10}}>*/}
-                        {/*<PlusOutlined /> 导入*/}
-                    {/*</Button>*/}
-                    {/*<Button  type="primary" style = {{marginTop:10,marginLeft:20}}>*/}
-                        {/*<PlusOutlined /> 导出*/}
-                    {/*</Button>*/}
                 </Input.Group>
                 <div style ={{height:15}}/>
                 {/*表格组件*/}
@@ -195,6 +187,7 @@ export default class Rule extends Component {
 
     onOpen =async (text)=>{
         const result = await reqRuleGetId(text.detailId)
+        console.log("result====>>>>>>>>>>",result);
         if(result.status === 200){
             this.setState({updData:{...result.data}},()=>{this.setState({visible:true,isEdit:true})})
         }

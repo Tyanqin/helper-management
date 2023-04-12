@@ -49,6 +49,7 @@ export default class User extends React.Component {
                     isEdit = {this.state.isEdit}
                     updData = {this.state.updData}
                     majorData = {this.state.majorData}
+                    userMarkData = {this.state.userMarkData}
                     close = {this.close}
                     submit = {this.updateSubmit}
                 />
@@ -110,11 +111,14 @@ export default class User extends React.Component {
      * @returns {Promise<void>}
      */
     updateSubmit = async(params) => {
+
         let result = null
         if(this.state.isEdit){
             result =  await userUpdateSubmit(params)
         }else{
-            result =  await userInsert(params)
+            let {userName,password,phone,userMark,majorName} = params
+            let paramsValue = {userName,password,phone,userMark,majorName:majorName.toString()}
+            result =  await userInsert(paramsValue)
         }
         this.setState({visible:false,isEdit:true})
         if(result.status === 200){
@@ -125,10 +129,8 @@ export default class User extends React.Component {
 
     //修改
     updateDataById=async(text)=>{
-
         this.handelPage()
-        const result = await userGetId(text.uId)
-        console.log("result====>>>>",result.data)
+        const result = await userGetId({uId:text.uId})
         if(result.status){
             this.setState({updData:result.data})
         }else{
@@ -154,6 +156,7 @@ export default class User extends React.Component {
         }else{
             message.useMessage(value.message)
         }
+
     }
 
     //列表字段

@@ -2,8 +2,7 @@ import React, {Component} from 'react';
 import {Input, DatePicker, Button, Table, Pagination, Tooltip, Divider, message, Modal} from 'antd'
 import { SearchOutlined,PlusOutlined,ExclamationCircleOutlined} from '@ant-design/icons';
 import TecDrawerComponent from "./component/TecDrawerComponent";
-import {technologyPage, disProName, proGetId, proUpdateSubmit, proUpLoad,proDeleteById} from '../../api/req'
-const {RangePicker } = DatePicker;
+import {technologyPage, disProName, proGetId, proUpdateSubmit, proAdd,proDeleteById} from '../../api/req'
 /**
  * 标准工艺
  */
@@ -26,7 +25,6 @@ export default class Technology extends Component {
         pageSize:"10",
     }
 
-
     componentDidMount() {
         this.handelSelectData()
     }
@@ -38,11 +36,11 @@ export default class Technology extends Component {
                 <Input.Group style={{marginLeft:10,marginTop:8}}>
                     <Input addonBefore = "一级目录" autoFocus placeholder="请输入名称" style={{marginRight:20,width:250}}
                            onChange = {(e)=>{this.setState({firstTitle:e.target.value})}}/>
-                    <Input addonBefore = "二级目录" autoFocus placeholder="请输入名称" style={{marginRight:20,width:250}}
+                    <Input addonBefore = "二级目录"  placeholder="请输入名称" style={{marginRight:20,width:250}}
                            onChange = {(e)=>{this.setState({secTitle:e.target.value})}}/>
-                    <Input addonBefore = "三级目录" autoFocus placeholder="请输入名称" style={{marginRight:20,width:250}}
+                    <Input addonBefore = "三级目录"  placeholder="请输入名称" style={{marginRight:20,width:250}}
                            onChange = {(e)=>{this.setState({terTitle:e.target.value})}}/>
-                    <Input addonBefore = "工艺名称" autoFocus placeholder="请输入名称" style={{marginRight:20,width:250}}
+                    <Input addonBefore = "工艺名称"  placeholder="请输入名称" style={{marginRight:20,width:250}}
                            onChange = {(e)=>{this.setState({processName:e.target.value})}}/>
                     <Button type="primary" style={{marginRight:20}} onClick = {this.handelSelectData}><SearchOutlined/>查询</Button>
                     <Button  type="primary" onClick = {this.handelShowDrawer}>
@@ -51,14 +49,11 @@ export default class Technology extends Component {
                 </Input.Group>
                 <div style ={{height:15}}/>
                 <Table columns={this.columns} dataSource={this.state.pageData} pagination = {false}/>
-                {/*分页组件*/}
                 <Pagination
                     style = {{marginLeft:950,marginTop:20}}
                     total={this.state.total}
                     onChange = {(page,pageSize)=>{this.setState({currentPage:page,pageSiz:pageSize}, ()=>{this.handelSelectData()})}}/>
                 <TecDrawerComponent
-                    firstData={this.state.firstData}
-                    secData={this.state.secData}
                     terData={this.state.terData}
                     isEdit = {this.state.isEdit}
                     updData = {this.state.updData}
@@ -80,21 +75,7 @@ export default class Technology extends Component {
                 message.info("修改成功！")
             })
         }else{
-            const formData = new window.FormData();
-            const size = params.files.length
-            for(let i = 0;i<size;i++){formData.append("files",params.files[i])}
-            formData.append("firstTitle",params.firstTitle);
-            formData.append("secTitle",params.secTitle);
-            formData.append("terTitle",params.terTitle);
-            formData.append("processName",params.processName);
-            formData.append("processStandard",params.processStandard);
-            formData.append("constructionPoints",params.constructionPoints);
-            formData.append("firstMenuCode",params.firstMenuCode);
-            formData.append("secMenuCode",params.secMenuCode);
-            formData.append("terMenuCode",params.terMenuCode);
-            formData.append("processCode",params.processCode);
-            formData.append("imgDesc",params.imgDesc);
-            await proUpLoad(formData).then((res)=>{
+            await proAdd(params).then((res)=>{
                 this.handelSelectData()
                 message.info("上传成功！")
             })
@@ -104,7 +85,7 @@ export default class Technology extends Component {
 
     };
 
-
+      //分页
     handelSelectData=async()=>{
         let {firstTitle,secTitle,terTitle,processName,currentPage,pageSize} = this.state
         let params = {firstTitle:firstTitle,secTitle:secTitle,terTitle:terTitle,processName:processName,currentPage:currentPage,pageSize:pageSize}
@@ -114,14 +95,9 @@ export default class Technology extends Component {
         }
     }
 
-
     //打开抽屉
     handelShowDrawer=async ()=>{
-        let firstParams = {levelMenu:"1",proName:"",menuCode:""}
-        let secParams = {levelMenu:"2",proName:"",menuCode:""}
         let terParams = {levelMenu:"3",proName:"",menuCode:""}
-        await disProName(firstParams).then(res=>{this.setState({firstData:res.data})})
-        await disProName(secParams).then(res=>{this.setState({secData:res.data})})
         await disProName(terParams).then(res=>{this.setState({terData:res.data},()=>{this.setState({isEdit:0,visible:true})})})
     }
 
@@ -129,13 +105,12 @@ export default class Technology extends Component {
     onClose=()=>{
         this.setState({visible: false});
     }
-
-
+     //修改打开抽屉
     onOpen=async(text)=>{
         this.handelSelectData()
         const result = await proGetId(text.proContentId)
         if(result.status === 200){
-            this.setState({updData:{...result.data}},()=>{this.setState({visible:true,isEdit:true},()=>{console.log("56789",this.state.updData)})})
+            this.setState({updData:{...result.data}},()=>{this.setState({visible:true,isEdit:true})})
         }
     }
      //删除
@@ -167,12 +142,12 @@ export default class Technology extends Component {
             message.err("删除失败！")
         })
     }
-
+     //字段
     columns=[
         {
             title: '序号',
             align: 'center',
-            width: 100,
+            width: 80,
             render:(text,record,index)=> {
                 return(
                     `${(this.state.currentPage-1)*(this.state.pageSize)+(index+1)}`//当前页数减1乘以每一页页数再加当前页序号+1
@@ -182,7 +157,7 @@ export default class Technology extends Component {
         {title: '一级目录', dataIndex: 'firstTitle', key: 'firstTitle',onCell: () => {
                 return {
                     style: {
-                        maxWidth: 180,
+                        maxWidth: 100,
                         overflow: 'hidden',
                         whiteSpace: 'nowrap',
                         textOverflow: 'ellipsis',
@@ -198,7 +173,7 @@ export default class Technology extends Component {
         {title: '二级目录', dataIndex: 'secTitle', key: 'secTitle',onCell: () => {
                 return {
                     style: {
-                        maxWidth: 200,
+                        maxWidth: 120,
                         overflow: 'hidden',
                         whiteSpace: 'nowrap',
                         textOverflow: 'ellipsis',
@@ -214,7 +189,7 @@ export default class Technology extends Component {
         {title: '三级目录', dataIndex: 'terTitle', key: 'terTitle',onCell: () => {
                 return {
                     style: {
-                        maxWidth: 200,
+                        maxWidth: 120,
                         overflow: 'hidden',
                         whiteSpace: 'nowrap',
                         textOverflow: 'ellipsis',
@@ -231,7 +206,7 @@ export default class Technology extends Component {
             onCell: () => {
                 return {
                     style: {
-                        maxWidth: 200,
+                        maxWidth: 120,
                         overflow: 'hidden',
                         whiteSpace: 'nowrap',
                         textOverflow: 'ellipsis',

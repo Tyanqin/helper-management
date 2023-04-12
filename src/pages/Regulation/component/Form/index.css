@@ -1,0 +1,27 @@
+.form{
+    position: absolute;
+    top:0;
+    left:0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 100%;
+    height: 750px;
+    text-align: center;
+}
+
+.upload_wrap{
+    width: 65.5%;
+    height: 300px;
+    position: absolute;
+    top:160px;
+    left:6px;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    border:1px solid #FAFAFA;
+}
+
+/*.upload_wrap:hover{*/
+    /*border:1px solid #85BEFF;*/
+/*}*/

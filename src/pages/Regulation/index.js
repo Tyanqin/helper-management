@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { SearchOutlined,PlusOutlined,ExclamationCircleOutlined} from '@ant-design/icons';
 import {Input, Button, Table, Select, message, Tooltip, Divider, Pagination, Modal} from 'antd'
-import {regPage, distinctRegName, regGetId, regUpdateSubmit, regUpLoad, regDeleteById, regDownload} from '../../api/req'
+import {regPage, distinctRegName, regGetId, regUpdateSubmit, regAdd, regDeleteById, regDownload} from '../../api/req'
 import RegDrawerComponent from './component/RegDrawerComponent'
 const {Option} = Select
 
@@ -104,20 +104,13 @@ export default class Regulation extends Component {
         if(this.state.isEdit){
             await regUpdateSubmit(params).then((res)=>{
                 this.handelPage()
-                message.info("修改成功！")
+                this.getRegName()
             })
         }else{
-            const formData = new window.FormData();
-            const size = params.files.length
-            for(let i = 0;i<size;i++){formData.append("files",params.files[i])}
-            const regName = params.regName
-            formData.append("regName",regName);
-            await regUpLoad(formData).then((res)=>{
+            await regAdd(params).then((res)=>{
                 this.handelPage()
-                message.info("上传成功！")
+                this.getRegName()
             })
-
-
         }
         this.setState({visible:false,isEdit:true})
 
@@ -128,7 +121,6 @@ export default class Regulation extends Component {
     updateDataById =async (text)=>{
         this.handelPage()
         const result = await regGetId(text.ruRegId)
-        console.log("修改--->>>> result=====》》》》",result)
         if(result.status === 200){
             this.setState({updData:{...result.data}},()=>{this.setState({visible:true,isEdit:true})})
         }

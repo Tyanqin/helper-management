@@ -1,110 +1,108 @@
 import React, {Component} from 'react';
-import {Button, Drawer, Input, Cascader } from "antd";
+import {Button, Drawer, Input, Form} from "antd";
 import './index.css'
-import { InboxOutlined,UploadOutlined} from '@ant-design/icons';
 
 export default class MajorDrawerComponent extends Component {
 
-
-    state={
-        updData:{},
-        userName:"",
-        majorName:"",
-        phone:"",
-        password:"",
-    }
-
     render() {
-        let {visible,isEdit,updData,majorData} = this.props
-        let {userName,uid,majorName} =  updData
+        let {visible,isEdit,updData} = this.props
+        let {majorName,majorId} =  updData
         return (
             <div>
                 <Drawer
                     title={isEdit?"修改":"新增"}
                     width={720}
-                    onClose={()=>{this.props.close()}}
+                    closable={false}
                     open={visible}
                     bodyStyle={{ paddingBottom: 80 }}
                 >
                     {
                         isEdit===true?
-                            <div key={uid}>
-                                <Input key={uid}
-                                       defaultValue = {userName}
-                                       onChange={(e)=>{this.setState({userName:e.target.value})}}
-                                       addonBefore = "用户名称" style={{marginTop:30,width:500}}/>
-                            <div className="cascader_wrap">
-                                <span className = "major_span" style = {{width:80}}>专业名称</span>
-                                <Cascader
-                                    defaultValue = {majorName}
-                                    style={{ width: 420,marginTop:30,marginLeft:80}}
-                                    options={majorData}
-                                    onChange={value=>this.setState({majorName:value.toString()},()=>{console.log(console.log("this.state.majorName===>>>",this.state.majorName))})}
-                                    multiple
-                                />
-                            </div>
-
+                            <div className="form_box">
+                                <Form
+                                    name="basic"
+                                    labelCol={{ span: 8 }}
+                                    wrapperCol={{ span: 16 }}
+                                    initialValues={{ remember: true }}
+                                    onFinish={this.onFinish}
+                                    onFinishFailed={this.onFinishFailed}
+                                    autoComplete="off"
+                                    className = "form"
+                                >
+                                    <Form.Item
+                                        style = {{marginRight:120,marginTop:130}}
+                                        label="专业"
+                                        name="majorName"
+                                        // rules={[{ required: false, message: '请输入专业名称!' }]}
+                                    >
+                                        <Input key={majorId} maxLength = {50} defaultValue = {majorName}/>
+                                    </Form.Item>
+                                    <div style={{position: 'absolute', right: 0, bottom: 0, width: '100%', borderTop: '1px solid #e9e9e9', padding: '10px 16px', background: '#fff', textAlign: 'right',}}>
+                                        <Button onClick={()=>this.props.close()} style={{ marginRight: 8 }}>
+                                            退出
+                                        </Button>
+                                        <Button type="primary" htmlType="submit">
+                                            提交
+                                        </Button>
+                                    </div>
+                                </Form>
                             </div>:
-                            <div key = {2}>
-                                <Input
-                                       type = "text"
-                                       name = "userName"
-                                       onChange = {e=>this.setState({userName:e.target.value})}
-                                       addonBefore = "用户名称"
-                                       style={{marginTop:30,width:500}}/>
-                                <div className="cascader_wrap">
-                                    <span className = "major_span" style = {{width:80}}>专业名称</span>
-                                    <Cascader
-                                        style={{ width: 420,marginTop:30,marginLeft:80}}
-                                        options={majorData}
-                                        onChange={value=>this.setState({majorName:value.toString()})}
-                                        multiple
-                                        maxTagCount={1}
-                                    />
-                                </div>
-                                <Input
-                                    type = "password"
-                                    name = "password"
-                                    onChange = {e=>this.setState({password:e.target.value})}
-                                    addonBefore = "用户密码"
-                                    style={{marginTop:30,width:500}}/>
-                                <Input
-                                    type = "phone"
-                                    name = "phone"
-                                    onChange = {e=>this.setState({phone:e.target.value})}
-                                    addonBefore = "联系电话"
-                                    style={{marginTop:30,width:500}}/>
+                            <div key = {2} className="form_box">
+
+                                <Form
+                                    name="basic"
+                                    labelCol={{ span: 8 }}
+                                    wrapperCol={{ span: 16 }}
+                                    initialValues={{ remember: true }}
+                                    onFinish={this.onFinish}
+                                    onFinishFailed={this.onFinishFailed}
+                                    autoComplete="off"
+                                    className = "form"
+                                >
+                                    <Form.Item
+                                        style = {{marginRight:120,marginTop:130}}
+                                        label="专业"
+                                        name="majorName"
+                                        rules={[{ required: true, message: '请输入专业名称!' }]}
+                                    >
+                                        <Input maxLength = {50}/>
+                                    </Form.Item>
+                                    <div style={{position: 'absolute', right: 0, bottom: 0, width: '100%', borderTop: '1px solid #e9e9e9', padding: '10px 16px', background: '#fff', textAlign: 'right',}}>
+                                        <Button onClick={()=>this.props.close()} style={{ marginRight: 8 }}>
+                                            退出
+                                        </Button>
+                                        <Button type="primary" htmlType="submit">
+                                            提交
+                                        </Button>
+                                    </div>
+                                </Form>
                             </div>
                     }
 
-                    <div style={{position: 'absolute', right: 0, bottom: 0, width: '100%', borderTop: '1px solid #e9e9e9', padding: '10px 16px', background: '#fff', textAlign: 'right',}}>
-                        <Button onClick={()=>this.props.close()} style={{ marginRight: 8 }}>
-                            退出
-                        </Button>
-                        <Button onClick={this.submit} type="primary">
-                            提交
-                        </Button>
-                    </div>
                 </Drawer>
             </div>
         );
     }
-    submit=(e)=>{
+
+    onFinish = (values) => {
+        console.log('Success:', values.majorName);
         let params = {}
         if(this.props.isEdit){
             params = {
-                uid:this.props.updData.uid,
-                userName:this.state.userName?this.state.userName:this.props.updData.userName,
-                majorName:this.state.majorName?this.state.majorName:this.props.updData.majorName
+                majorId:this.props.updData.majorId,
+                majorName:values.majorName?values.majorName:this.props.updData.majorName
             }
         }else{
             params = {
-                userName:this.state.userName,
-                majorName:this.state.majorName
+                majorName:values.majorName
             }
         }
         this.props.submit(params)
+    };
 
-    }
+    onFinishFailed = (errorInfo) => {
+        console.log('Failed:', errorInfo);
+    };
+
 
 }

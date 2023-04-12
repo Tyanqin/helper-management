@@ -1,0 +1,11 @@
+.upload_box{
+    width: 65.5%;
+    height:50px;
+    position: absolute;
+    top:250px;
+    left:6px;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    border:1px solid #FAFAFA;
+}

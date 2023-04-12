@@ -6,6 +6,7 @@ import Home from '../pages/Home'
 import Rule from '../pages/Rule'
 import Technology from '../pages/Technology'
 import Regulation from '../pages/Regulation'
+import Opinion from '../pages/Opinion'
 import PdfComponent from '../pages/Regulation/component/PdfComponent'
 
 export default [
@@ -27,6 +28,9 @@ export default [
             },{
                 path:'major',
                 element:<Major/>
+            },{
+                path:'opinion',
+                element:<Opinion/>
             },{
                 path:'technology',
                 element:<Technology/>

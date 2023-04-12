@@ -56,3 +56,6 @@ li{
     list-style-type: none !important;
 }
 
+.ant-table-tbody > tr > td {
+    padding: 13px!important;
+}
