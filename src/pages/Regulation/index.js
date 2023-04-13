@@ -154,7 +154,6 @@ export default class Regulation extends Component {
     //删除回调
     handleOk= async (text)=>{
         let params = {ruRegId:text.ruRegId}
-        console.log("params=====>>>>>",params)
         const result = await regDeleteById(params)
         if(result.status === 200){
             this.handelPage()

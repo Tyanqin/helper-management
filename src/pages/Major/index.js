@@ -2,10 +2,12 @@ import React, {Component} from 'react';
 import {Button, Divider, Input, message, Modal, Pagination, Table, Tooltip} from "antd";
 import MajorDrawerComponent from "./component/MajorDrawerComponent";
 import { SearchOutlined,PlusOutlined,ExclamationCircleOutlined} from '@ant-design/icons';
-import {majorPage, majorGetId,majorDel,majorUpd,majorInsert,  userInsert, userUpdateSubmit} from "../../api/req";
+import Auth from '../../utils/auth'
+import {majorPage, majorGetId,majorDel,majorUpd,majorInsert} from "../../api/req";
 
 export default class Major extends Component {
     componentDidMount() {
+        Auth()
         this.handelPage()
 
     }

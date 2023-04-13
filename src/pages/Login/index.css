@@ -9,17 +9,45 @@
     margin:auto;
     z-index: 99999;
     border:1px solid #F0F0F0;
-    padding:70px;
-
-
+    padding:50px;
 }
 
-#components-form-demo-normal-login .login-form {
-    max-width: 300px;
+
+.login_form{
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    margin:auto;
+    width: 400px;
+    height: 200px;
+
+    /*background-color: pink;*/
 }
-#components-form-demo-normal-login .login-form-forgot {
-    float: right;
+
+.login_form_item{
+    margin-right: 55px;
 }
-#components-form-demo-normal-login .login-form-button {
-    width: 100%;
+
+
+.login_btn{
+    position: absolute;
+    top:-110px;
+    left:80px;
+    right:0;
+    bottom:0;
+    margin:auto;
+    width: 100px;
+    margin-right: 55px;
 }
+
+/*#components-form-demo-normal-login .login-form {*/
+    /*max-width: 300px;*/
+/*}*/
+/*#components-form-demo-normal-login .login-form-forgot {*/
+    /*float: right;*/
+/*}*/
+/*#components-form-demo-normal-login .login-form-button {*/
+    /*width: 100%;*/
+/*}*/

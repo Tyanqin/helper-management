@@ -2,10 +2,21 @@ import React from 'react';
 import {userGetPage, userUpdateSubmit, majorAll, userGetId, userInsert, userDeleteById} from '../../api/req'
 import { SearchOutlined,PlusOutlined,ExclamationCircleOutlined} from '@ant-design/icons';
 import {Input, Button, Table, Select, message, Tooltip, Divider, Pagination, Modal} from 'antd'
+import {connect} from 'react-redux'
+import Auth from '../../utils/auth'
 import UserDrawerComponent from './component/UserDrawerComponent'
 import './index.css'
-export default class User extends React.Component {
+import {userInfo} from "./user_action";
+
+
+export default connect(state=>({
+    login:state.login,
+    user:state.user
+}),{userInfo:userInfo
+
+})(class User extends React.Component {
     componentDidMount() {
+        Auth()
         this.init()
         this.handelPage()
 
@@ -71,8 +82,10 @@ export default class User extends React.Component {
         let {userName,majorName,currentPage,pageSize} = this.state
         let params = {userName:userName, majorName: majorName,currentPage:currentPage,pageSize:pageSize}
         const result =  await userGetPage(params)
+
         if(result.status){
             this.setState({pageData:result.data.rows,total:result.data.total})
+            this.props.userInfo({...result.data.rows,total:result.data.total})
         }else{
             message.useMessage(result.message)
         }
@@ -215,4 +228,4 @@ export default class User extends React.Component {
         },
     ]
 
-}
+})

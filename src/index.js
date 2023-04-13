@@ -6,14 +6,24 @@ import 'moment/locale/zh-cn';
 import { ConfigProvider } from 'antd';
 import zhCN from 'antd/es/locale/zh_CN';
 import moment from 'moment';
+import Store from './redux/store'
+import {Provider} from 'react-redux'
 moment.locale('zh-cn');
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-      <BrowserRouter>
-          <ConfigProvider locale={zhCN} >
-              <App />
-          </ConfigProvider>
-      </BrowserRouter>
+    <Provider store={Store}>
+        <BrowserRouter>
+            <ConfigProvider locale={zhCN}>
+                <App />
+            </ConfigProvider>
+        </BrowserRouter>
+    </Provider>
 );
+
+
+
+
+
+
 

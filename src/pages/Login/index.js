@@ -1,78 +1,126 @@
 import React from 'react';
-import { Button, Checkbox, Form, Input,Cascader,Select} from 'antd';
-const {Option} = Select
-export default class  Login  extends  React.Component{
+import {connect} from 'react-redux'
+import { Button, Checkbox, Form, Input,message} from 'antd';
+import {userLogin} from '../../api/req'
+import './index.css'
+import LoginState from './LoginState'
+import Cache from '../../api/cache'
+import {login} from './login_action'
 
-    onFinish = (values) => {
+
+
+export default connect(state=>({
+    login:state.login
+}),{login:login})(
+
+class  Login  extends  React.Component{
+
+     onFinish = (values) => {
         console.log('Success:', values);
+        this.loginHandel(values)
     };
-
-    onFinishFailed = (errorInfo) => {
+     onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
 
+
     render(){
         return(
-            <Form
-                name="basic"
-                labelCol={{ span: 8 }}
-                wrapperCol={{ span: 16 }}
-                style={{ maxWidth: 600 }}
-                initialValues={{ remember: true }}
-                onFinish={this.onFinish}
-                onFinishFailed={this.onFinishFailed}
-                autoComplete="off"
-            >
-                <Form.Item
-                    label="姓名"
-                    name="userName"
-                    rules={[{ required: true, message: 'Please input your username!' }]}
+            <div id = "login_box">
+                <Form
+                    className="login_form"
+                    name="basic"
+                    labelCol={{
+                        span: 8,
+                    }}
+                    wrapperCol={{
+                        span: 16,
+                    }}
+                    style={{
+                        maxWidth: 600,
+                    }}
+                    initialValues={{
+                        remember: true,
+                    }}
+                    onFinish={this.onFinish}
+                    onFinishFailed={this.onFinishFailed}
+                    autoComplete="off"
                 >
-                    <Input />
-                </Form.Item>
-                <Form.Item
-                    label="密码"
-                    name="password"
-                    rules={[{ required: true, message: 'Please input your password!' }]}
-                >
-                    <Input.Password />
-                </Form.Item>
-                <Form.Item
-                    name="专业"
-                    label="majorName"
-                    rules={[
-                        {
-                            type: 'array',
-                            required: true,
-                            message: 'Please select your habitual residence!',
-                        },
-                    ]}
-                >
-                    <Cascader options={this.props.majorData} />
-                </Form.Item>
-                <Form.Item
-                    name="userMark"
-                    label="标识"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please select gender!',
-                        },
-                    ]}
-                >
-                    <Select placeholder="select your gender">
-                        <Option value="male">Male</Option>
-                        <Option value="female">Female</Option>
-                        <Option value="other">Other</Option>
-                    </Select>
-                </Form.Item>
-                <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                    <Button type="primary" htmlType="submit">
-                        Submit
-                    </Button>
-                </Form.Item>
-            </Form>
+                    <Form.Item
+                        className="login_form_item"
+                        label="用户名称"
+                        name="loginName"
+                        rules={[
+                            {
+                                required: false,
+                                message: '请输入用户名称!',
+                            },
+                        ]}
+                    >
+                        <Input />
+                    </Form.Item>
+
+                    <Form.Item
+                        className="login_form_item"
+                        label="用户密码"
+                        name="password"
+                        rules={[
+                            {
+                                required: false,
+                                message: '请输入用户密码!',
+                            },
+                        ]}
+                    >
+                        <Input.Password />
+                    </Form.Item>
+
+                    <Form.Item
+                        className="login_form_item"
+                        name="remember"
+                        valuePropName="checked"
+                        wrapperCol={{
+                            offset: 8,
+                            span: 16,
+                        }}
+                    >
+                        <Checkbox>记住我</Checkbox>
+                    </Form.Item>
+
+                    <Form.Item
+                        wrapperCol={{
+                            offset: 8,
+                            span: 16,
+                        }}
+                    >
+                        <Button type="primary" htmlType="submit" className="login_btn">
+                            登录
+                        </Button>
+                    </Form.Item>
+                </Form>
+            </div>
         );
     }
-}
+
+    loginHandel=async(params)=>{
+       const result = await userLogin(params)
+        if (result.status) {
+            if (result.data !== null ){
+                let {uId,userName,loginName,majorName,userMark,token}= result.data
+                let loginState = new LoginState(uId,userName,loginName,majorName,userMark,token)
+                Cache.localSet("uId",uId).localSet("userName",userName).localSet("loginName",loginName)
+                    .localSet("majorName",majorName).localSet("userMark",userMark).localSet("token",token)
+                this.props.login({...loginState})
+                window.location.href="/user"
+
+
+            }else{
+                message.info(result.message)
+            }
+        }else {
+            message.error(result.message)
+        }
+
+
+    }
+})
 
