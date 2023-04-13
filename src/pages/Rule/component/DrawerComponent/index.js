@@ -26,7 +26,7 @@ export default class DrawerComponent extends Component {
                 <Drawer
                     title={isEdit?"修改":"新增"}
                     width={720}
-                    onClose={()=>this.props.close()}
+                    closable={false}
                     open={visible}
                     bodyStyle={{ paddingBottom: 80 }}
                 >

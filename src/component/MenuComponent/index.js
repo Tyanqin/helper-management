@@ -30,7 +30,7 @@ export default class MenuComponent extends Component {
                     breakpoint="lg" collapsedWidth="0" onBreakpoint={broken => {console.log(broken);}} onCollapse={(collapsed, type) => {console.log(collapsed, type);}}>
                     <div className = "title_box">全过程监督助手</div>
                     <Menu style={{marginTop:30}} theme="dark"  mode="inline" openKeys={this.state.openKeys} onOpenChange={this.onOpenChange}>
-                        <SubMenu key="sub1" title={<span><HomeOutlined/><span><NavLink key = {1} activeClassName="active" to = "/user">首页</NavLink></span></span>}>
+                        <SubMenu key="sub1" title={<span><HomeOutlined/><span><NavLink key = {1} activeClassName="active" to = "/stat">首页</NavLink></span></span>}>
                         </SubMenu>
                         <SubMenu key="sub2" title={<span><UserOutlined/><span><NavLink key = {2} activeClassName="active" to = "/user">用户管理</NavLink></span></span>}>
                             {/*<Menu.Item key="1">Option 1</Menu.Item>*/}

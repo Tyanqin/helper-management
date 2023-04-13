@@ -104,7 +104,7 @@ export default connect(state=>({
             }
             ,
             onCancel() {
-                message.error("删除失败!")
+
             },
         });
 
@@ -167,7 +167,7 @@ export default connect(state=>({
             value.data.forEach(item=>{majorData.push({label: item.majorName,value:item.majorName})})
             this.setState({majorData:majorData})
         }else{
-            message.useMessage(value.message)
+            message.info(value.message)
         }
 
     }

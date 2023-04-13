@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Input, DatePicker, Button, Table, Pagination, Tooltip, Divider, message, Modal} from 'antd'
 import { SearchOutlined,PlusOutlined,ExclamationCircleOutlined} from '@ant-design/icons';
 import TecDrawerComponent from "./component/TecDrawerComponent";
+import Auth from '../../utils/auth'
 import {technologyPage, disProName, proGetId, proUpdateSubmit, proAdd,proDeleteById} from '../../api/req'
 /**
  * 标准工艺
@@ -26,6 +27,7 @@ export default class Technology extends Component {
     }
 
     componentDidMount() {
+        Auth()
         this.handelSelectData()
     }
 

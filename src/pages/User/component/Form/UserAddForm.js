@@ -56,7 +56,7 @@ export default class  UserAddForm  extends  React.Component{
                     <Cascader
                         options={this.props.majorData}
                         multiple
-                        maxTagCount={1}
+                        maxTagCount={3}
                     />
                 </Form.Item>
                 <Form.Item

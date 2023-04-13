@@ -1,14 +1,16 @@
 import React, {Component} from 'react';
 import * as echarts from 'echarts';
+import Auth from '../../utils/auth'
 import './index.css'
 
 export default class Statistic extends Component {
 
     componentDidMount() {
+        Auth()
         let myChart = echarts.init(document.getElementById('main'));
         let option = {
             title: {
-                text: 'ECharts 入门示例'
+                text: 'XXXXXX'
             },
             tooltip: {},
             legend: {
@@ -33,7 +35,7 @@ export default class Statistic extends Component {
         return (
             <div id = "stat_box">
                 <div style ={{height:10}}/>
-                <div id="main" style={{ width: 400, height: 400 }}></div>
+                <div id="main" style={{ width: 450, height: 400 }}></div>
             </div>
 
         );

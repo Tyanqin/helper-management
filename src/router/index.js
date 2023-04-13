@@ -8,6 +8,7 @@ import Rule from '../pages/Rule'
 import Technology from '../pages/Technology'
 import Regulation from '../pages/Regulation'
 import Opinion from '../pages/Opinion'
+import Statistic from '../pages/Statistic'
 // import {Routes,Route} from 'react-router-dom'
 // const User = lazy(() => import('../pages/User'));
 // const Major = lazy(() => import('../pages/Major'));
@@ -34,6 +35,9 @@ export default [
             {
                 path:'user',
                 element:<User/>
+            }, {
+                path:'stat',
+                element:<Statistic/>
             },{
                 path:'major',
                 element:<Major/>

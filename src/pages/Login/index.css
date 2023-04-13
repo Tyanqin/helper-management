@@ -33,12 +33,12 @@
 
 .login_btn{
     position: absolute;
-    top:-110px;
+    top:0px;
     left:80px;
     right:0;
     bottom:0;
     margin:auto;
-    width: 100px;
+    width: 230px;
     margin-right: 55px;
 }
 

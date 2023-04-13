@@ -3,7 +3,7 @@ import {Button, Divider, Input, Select, Tooltip, message, Table, Pagination, Mod
 import { SearchOutlined,PlusOutlined,ExclamationCircleOutlined} from '@ant-design/icons';
 import {staGetName,volGetName,opinionPage,opinionDel} from '../../api/req'
 import OpiDrawerComponent from './component/OpiDrawerComponent'
-
+import Auth from '../../utils/auth'
 
 
 const {Option} = Select
@@ -30,6 +30,7 @@ export default class Opinion extends Component {
 
 
     componentDidMount() {
+        Auth()
         this.getStaName()
         this.getVolName()
         this.opinionPage()
@@ -218,8 +219,8 @@ export default class Opinion extends Component {
             )
         },
         {title: '操作', key: 'action', render: (text, record) => (<span>
-                <a onClick={this.updateDataById.bind(text,record)}>修改</a>
-                <Divider type="vertical" />
+                {/*<a onClick={this.updateDataById.bind(text,record)}>修改</a>*/}
+                {/*<Divider type="vertical" />*/}
                 <a onClick = {this.handelReader.bind(text,record)}>查看</a>
                  <Divider type="vertical" />
                 <a onClick = {this.handelDownLoad.bind(text,record)}>下载</a>

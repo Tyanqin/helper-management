@@ -14,7 +14,7 @@ export const userLogin =(params)=>(instance.post(`${ACCESS_ADDRESS}/user/login`,
 //====================================监督细则=========================
 export const distinctRuleName =(params)=>(instance.post(`${ACCESS_ADDRESS}/supervisionRules/distinctRuleName`))
 export const page =(params)=>(instance.get(`${ACCESS_ADDRESS}/supervisionRules/pageHandel?${qs.stringify(params)}`))
-export const proAll =(params)=>(instance.post(`${ACCESS_ADDRESS}/pro/all`))
+export const proAll =(params)=>(instance.post(`${ACCESS_ADDRESS}/pro-sta/all`))
 export const updateSubmit =(params)=>(instance.post(`${ACCESS_ADDRESS}/supervisionRules/upd`,params))
 export const reqRuleGetId=(params)=>(instance.get(`${ACCESS_ADDRESS}/supervisionRules/${params}`))
 export const reqInsertRule =(params)=>(instance.post(`${ACCESS_ADDRESS}/supervisionRules/add`,params))
@@ -41,7 +41,7 @@ export const proGetMaxCode= (params)=>(instance.get(`${ACCESS_ADDRESS}/pro-menu/
 
 //==================================user========================================================================================
 export const userGetPage =(params)=>(instance.get(`${ACCESS_ADDRESS}/user/queryPage?${qs.stringify(params)}`))
-export const majorAll =()=>(instance.post(`${ACCESS_ADDRESS}/major/all`))
+export const majorAll =()=>(instance.get(`${ACCESS_ADDRESS}/major/getDisName`))
 export const userGetId =(params)=>(instance.get(`${ACCESS_ADDRESS}/user/getByUserId?${qs.stringify(params)}`))
 export const userUpdateSubmit =(params)=>(instance.get(`${ACCESS_ADDRESS}/user/updateByUserId?${qs.stringify(params)}`))
 export const userDeleteById =(params)=>(instance.get(`${ACCESS_ADDRESS}/user/delById?${qs.stringify(params)}`))

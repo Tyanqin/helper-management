@@ -74,17 +74,17 @@ class  Login  extends  React.Component{
                         <Input.Password />
                     </Form.Item>
 
-                    <Form.Item
-                        className="login_form_item"
-                        name="remember"
-                        valuePropName="checked"
-                        wrapperCol={{
-                            offset: 8,
-                            span: 16,
-                        }}
-                    >
-                        <Checkbox>记住我</Checkbox>
-                    </Form.Item>
+                    {/*<Form.Item*/}
+                        {/*className="login_form_item"*/}
+                        {/*name="remember"*/}
+                        {/*valuePropName="checked"*/}
+                        {/*wrapperCol={{*/}
+                            {/*offset: 8,*/}
+                            {/*span: 16,*/}
+                        {/*}}*/}
+                    {/*>*/}
+                        {/*<Checkbox>记住我</Checkbox>*/}
+                    {/*</Form.Item>*/}
 
                     <Form.Item
                         wrapperCol={{
@@ -114,10 +114,10 @@ class  Login  extends  React.Component{
 
 
             }else{
-                message.info(result.message)
+                message.error(result.message,1)
             }
         }else {
-            message.error(result.message)
+            message.error(result.message,1)
         }
 
 

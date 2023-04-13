@@ -3,6 +3,7 @@ import { SearchOutlined,PlusOutlined,ExclamationCircleOutlined} from '@ant-desig
 import {Input, Button, Table, Select, message, Tooltip, Divider, Pagination, Modal} from 'antd'
 import {regPage, distinctRegName, regGetId, regUpdateSubmit, regAdd, regDeleteById, regDownload} from '../../api/req'
 import RegDrawerComponent from './component/RegDrawerComponent'
+import Auth from '../../utils/auth'
 const {Option} = Select
 
 /**
@@ -27,6 +28,7 @@ export default class Regulation extends Component {
 
     //打开页面进行数据初始化
     componentDidMount() {
+        Auth()
         this.getRegName()
         this.handelPage()
     }

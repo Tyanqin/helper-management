@@ -3,6 +3,7 @@ import {distinctRuleName,proAll,page,updateSubmit,reqRuleGetId,reqInsertRule,req
 import { SearchOutlined,PlusOutlined,ExclamationCircleOutlined} from '@ant-design/icons';
 import {Input, DatePicker, Button, Table, Divider, Select, Tooltip, Pagination,Modal,message } from 'antd'
 import DrawerComponent from './component/DrawerComponent'
+import Auth from '../../utils/auth'
 import './index.css'
 const { Option } = Select;
 
@@ -31,6 +32,7 @@ export default class Rule extends Component {
         pageSize:"",
     }
     componentDidMount() {
+        Auth()
       this.init()
 
 
@@ -187,12 +189,9 @@ export default class Rule extends Component {
 
     onOpen =async (text)=>{
         const result = await reqRuleGetId(text.detailId)
-        console.log("result====>>>>>>>>>>",result);
         if(result.status === 200){
             this.setState({updData:{...result.data}},()=>{this.setState({visible:true,isEdit:true})})
         }
-
-
     }
 
 
@@ -253,6 +252,8 @@ export default class Rule extends Component {
         {title: '操作', key: 'action', render: (text, record) => (<span>
                     <a onClick={this.onOpen.bind(text,record)}>修改</a>
                     <Divider type="vertical" />
+                    {/*<a onClick={this.hadelReader.bind(text,record)}>查看</a>*/}
+                    {/*<Divider type="vertical" />*/}
                     <a onClick={this.handelDeleteClick.bind(text, record)}>删除</a>
         </span>),
         },

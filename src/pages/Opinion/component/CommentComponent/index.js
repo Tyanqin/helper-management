@@ -28,7 +28,7 @@ export default class CommentComponent extends React.Component{
 const ExampleComment = (props) => {
      let {item}= props
         return <Comment
-            actions={[<span key="comment-nested-reply-to">回复</span>]}
+            actions={[<span key="comment-nested-reply-to">回复:</span>]}
             author={<span style = {{fontSize:14}}>{item.proUserName}</span>}
             avatar={<Avatar src="https://joeschmoe.io/api/v1/random" alt="Han Solo" />}
             content={

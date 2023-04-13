@@ -34,7 +34,7 @@ export default class  RegAddForm  extends  React.Component{
             >
                 <Form.Item
                     style = {{marginRight:120,marginTop:240}}
-                    label="制度名称"
+                    label="规章名称"
                     name="regName"
                     rules={[{
                         required: true,
