@@ -14,7 +14,7 @@ export const userLogin =(params)=>(instance.post(`${ACCESS_ADDRESS}/user/login`,
 //====================================监督细则=========================
 export const distinctRuleName =(params)=>(instance.post(`${ACCESS_ADDRESS}/supervisionRules/distinctRuleName`))
 export const page =(params)=>(instance.get(`${ACCESS_ADDRESS}/supervisionRules/pageHandel?${qs.stringify(params)}`))
-export const proAll =(params)=>(instance.post(`${ACCESS_ADDRESS}/pro-sta/all`))
+export const proAll =()=>(instance.post(`${ACCESS_ADDRESS}/pro-sta/all`))
 export const updateSubmit =(params)=>(instance.post(`${ACCESS_ADDRESS}/supervisionRules/upd`,params))
 export const reqRuleGetId=(params)=>(instance.get(`${ACCESS_ADDRESS}/supervisionRules/${params}`))
 export const reqInsertRule =(params)=>(instance.post(`${ACCESS_ADDRESS}/supervisionRules/add`,params))
@@ -54,7 +54,7 @@ export const volGetName =()=>(instance.get(`${ACCESS_ADDRESS}/vol/getVolName`))
 //==================================审批意见========================================================================================
 export const opinionPage =(params)=>(instance.get(`${ACCESS_ADDRESS}/opinion/queryPage?${qs.stringify(params)}`))
 export const opinionDel =(params)=>(instance.get(`${ACCESS_ADDRESS}/opinion/delByFormId?${qs.stringify(params)}`))
-
+export const opinionDownload =(params,config)=>(instance.get(`${ACCESS_ADDRESS}/opinion/downloadFile?${qs.stringify(params)}`,config))
 
 
 //==================================major========================================================================================

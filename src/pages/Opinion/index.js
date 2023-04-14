@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Button, Divider, Input, Select, Tooltip, message, Table, Pagination, Modal} from "antd";
 import { SearchOutlined,PlusOutlined,ExclamationCircleOutlined} from '@ant-design/icons';
-import {staGetName,volGetName,opinionPage,opinionDel} from '../../api/req'
+import {staGetName, volGetName, opinionPage, opinionDel, opinionDownload, regDownload} from '../../api/req'
 import OpiDrawerComponent from './component/OpiDrawerComponent'
 import Auth from '../../utils/auth'
 
@@ -230,9 +230,36 @@ export default class Opinion extends Component {
         },
     ]
 
-    handelDownLoad=()=>{
+    handelDownLoad=async(text)=>{
+        let params = {formId: text.formId}
+        const result = await opinionDownload(params,{responseType: 'blob'})
+        if (result) {
+            const blob = new Blob([result], {type: 'application/msword'})
+            const blobUrl = window.URL.createObjectURL(blob)
+            let a = document.createElement('a');
+            a.href = blobUrl;
+            a.download = text.title;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+        }
 
     }
+
+
+    // let params = {fileName: text.fileName}
+    // const result = await regDownload(params, {responseType: 'blob'}); //调用接口
+    // if (result) {
+    //     const blob = new Blob([result], {type: 'application/pdf'})
+    //     const blobUrl = window.URL.createObjectURL(blob)
+    //     let a = document.createElement('a');
+    //     a.href = blobUrl;
+    //     a.download = text.fileName;
+    //     document.body.appendChild(a);
+    //     a.click();
+    //     a.remove();
+    // }
+
     updateDataById=async(text)=>{
 
 

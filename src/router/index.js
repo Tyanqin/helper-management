@@ -9,13 +9,15 @@ import Technology from '../pages/Technology'
 import Regulation from '../pages/Regulation'
 import Opinion from '../pages/Opinion'
 import Statistic from '../pages/Statistic'
-// import {Routes,Route} from 'react-router-dom'
+
 // const User = lazy(() => import('../pages/User'));
 // const Major = lazy(() => import('../pages/Major'));
+// const Home= lazy(()=>import('../pages/Home'))
 // const Rule = lazy(() => import('../pages/Rule'));
 // const Technology = lazy(() => import('../pages/Technology'));
 // const Regulation = lazy(() => import('../pages/Regulation'));
 // const Opinion = lazy(() => import('../pages/Opinion'));
+// const Statistic = lazy(()=>import('../pages/Statistic'))
 // import PdfComponent from '../pages/Regulation/component/PdfComponent'
 
 
@@ -23,9 +25,14 @@ export default [
     {
         path:'/login',
         element:<Login/>,
-    },
-    {
+    },{
         path:'/',
+        element:<Navigate to = {<Login/>}/>
+    },{
+        path:'',
+        element:<Navigate to = {<Login/>}/>
+    },{
+        path:'*',
         element:<Navigate to = {<Login/>}/>
     },
     {
