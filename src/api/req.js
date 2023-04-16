@@ -22,9 +22,9 @@ export const reqRuleDelId=(params)=>(instance.get(`${ACCESS_ADDRESS}/supervision
 
 //==================================规章制度=======================
 export const regPage =(params)=>(instance.get(`${ACCESS_ADDRESS}/reg/queryPage?${qs.stringify(params)}`))
-export const distinctRegName =(params)=>(instance.post(`${ACCESS_ADDRESS}/reg/distinctRegName`))
+export const distinctRegName =(params)=>(instance.post(`${ACCESS_ADDRESS}/rule-entry/distinctRegName`))
 export const regGetId=(params)=>(instance.get(`${ACCESS_ADDRESS}/reg/${params}`))
-export const regUpdateSubmit =(params)=>(instance.post(`${ACCESS_ADDRESS}/reg/upd`,params))
+export const regUpdateSubmit =(params)=>(instance.post(`${ACCESS_ADDRESS}/reg/updRuleReg`,params))
 export const regAdd=(params)=>(instance.post(`${ACCESS_ADDRESS}/reg/regAdd`,params))
 export const regDeleteById=(params)=>(instance.get(`${ACCESS_ADDRESS}/reg/delByRuRegId?${qs.stringify(params)}`))
 export const regDownload = (params,config)=>(instance.get(`${ACCESS_ADDRESS}/reg/download?${qs.stringify(params)}`,config))
@@ -38,6 +38,7 @@ export const proUpdateSubmit =(params)=>(instance.post(`${ACCESS_ADDRESS}/pro-me
 export const proAdd = (params)=>(instance.post(`${ACCESS_ADDRESS}/pro-menu/addPro`,params))
 export const proDeleteById = (params)=>(instance.get(`${ACCESS_ADDRESS}/pro-menu/delById?${qs.stringify(params)}`))
 export const proGetMaxCode= (params)=>(instance.get(`${ACCESS_ADDRESS}/pro-menu/getMaxCode?${qs.stringify(params)}`))
+export const getContentById = (params)=>(instance.get(`${ACCESS_ADDRESS}/pro-content/findByContentId?${qs.stringify(params)}`))
 
 //==================================user========================================================================================
 export const userGetPage =(params)=>(instance.get(`${ACCESS_ADDRESS}/user/queryPage?${qs.stringify(params)}`))

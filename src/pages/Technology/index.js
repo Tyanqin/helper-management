@@ -3,7 +3,7 @@ import {Input, DatePicker, Button, Table, Pagination, Tooltip, Divider, message,
 import { SearchOutlined,PlusOutlined,ExclamationCircleOutlined} from '@ant-design/icons';
 import TecDrawerComponent from "./component/TecDrawerComponent";
 import Auth from '../../utils/auth'
-import {technologyPage, disProName, proGetId, proUpdateSubmit, proAdd,proDeleteById} from '../../api/req'
+import {technologyPage, disProName, proGetId, proUpdateSubmit, proAdd,proDeleteById,getContentById} from '../../api/req'
 /**
  * 标准工艺
  */
@@ -11,9 +11,10 @@ export default class Technology extends Component {
 
     state={
         visible: false,
-        isEdit:true,
+        isEdit:1,
         pageData:[],    //分页数据
         updData:[],
+        detailData:[],
         firstData:[],
         secData:[],
         terData:[],
@@ -59,6 +60,7 @@ export default class Technology extends Component {
                     terData={this.state.terData}
                     isEdit = {this.state.isEdit}
                     updData = {this.state.updData}
+                    detailData={this.state.detailData}
                     visible = {this.state.visible}
                     close = {this.onClose}
                     submit={this.submit}
@@ -71,18 +73,18 @@ export default class Technology extends Component {
     //提交（修改与新增）
     submit = async(params) => {
         let result = null
-        if(this.state.isEdit){
+        if(this.state.isEdit===1){
             await proUpdateSubmit(params).then((res)=>{
                 this.handelSelectData()
                 message.info("修改成功！")
             })
-        }else{
+        }else if(this.state.isEdit===2){
             await proAdd(params).then((res)=>{
                 this.handelSelectData()
                 message.info("上传成功！")
             })
         }
-        this.setState({visible:false,isEdit:true})
+        this.setState({visible:false,isEdit:1})
 
 
     };
@@ -100,7 +102,7 @@ export default class Technology extends Component {
     //打开抽屉
     handelShowDrawer=async ()=>{
         let terParams = {levelMenu:"3",proName:"",menuCode:""}
-        await disProName(terParams).then(res=>{this.setState({terData:res.data},()=>{this.setState({isEdit:0,visible:true})})})
+        await disProName(terParams).then(res=>{this.setState({terData:res.data},()=>{this.setState({isEdit:2,visible:true})})})
     }
 
     //关闭抽屉
@@ -112,7 +114,21 @@ export default class Technology extends Component {
         this.handelSelectData()
         const result = await proGetId(text.proContentId)
         if(result.status === 200){
-            this.setState({updData:{...result.data}},()=>{this.setState({visible:true,isEdit:true})})
+            this.setState({updData:{...result.data}},()=>{this.setState({visible:true,isEdit:1})})
+        }
+    }
+    /**
+     * 详情
+     * @returns {Promise<void>}
+     */
+    handelGetDetails=async(text)=>{
+        console.log("text=====>>>>>　　　",text)
+        let params = {proContentId:text.proContentId}
+        console.log("params=====>>>>>　　　",params)
+        const result = await getContentById(params)
+        console.log("result=====>>>>>　　　",result)
+        if(result.status === 200){
+            this.setState({detailData:{...result.data}},()=>{this.setState({visible:true,isEdit:3})})
         }
     }
      //删除
@@ -263,6 +279,8 @@ export default class Technology extends Component {
             )
         },
         {title: '操作', key: 'action', render: (text, record) => (<span>
+                    <a onClick={this.handelGetDetails.bind(text,record)}>详情</a>
+                    <Divider type="vertical" />
                     <a onClick={this.onOpen.bind(text,record)}>修改</a>
                     <Divider type="vertical" />
                     <a onClick={this.handelDeleteClick.bind(text, record)}>删除</a>

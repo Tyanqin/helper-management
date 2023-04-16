@@ -4,6 +4,7 @@ import RegAddForm from '../../component/Form/RegAddForm'
 import RegUpdForm from '../../component/Form/RegUpdForm'
 import './index.css'
 import { InboxOutlined,UploadOutlined} from '@ant-design/icons';
+import PdfComponent from '../../component/PdfComponent/index'
 
 
 
@@ -24,30 +25,36 @@ export default class RegDrawerComponent extends Component {
         return (
             <div>
                 <Drawer
-                    title={isEdit ? "修改" : "新增"}
-                    width={720}
+                    title={isEdit===1? "修改":""||isEdit===2?"新增":""||isEdit===3?"预览":"" }
+                    width={isEdit===3?"100%":720}
                     closable={false}
                     onClose={() => this.props.close()}
                     open={visible}
                     bodyStyle={{paddingBottom: 80}}
                 >
                     {
-                        isEdit === true ?
+                        isEdit === 1 ?
                             <div  className="form_wrap">
                                 <RegUpdForm
                                     updData = {this.props.updData}
                                     submit = {this.props.submit}
                                     close = {this.props.close}
+                                    regNames = {this.props.regNames}
                                 />
-                            </div> :
+                            </div> : "" || isEdit === 2 ?
                             <div  className="form_wrap">
                                 <RegAddForm
                                     updData = {this.props.updData}
                                     submit = {this.props.submit}
                                     close = {this.props.close}
                                 />
-
-                            </div>
+                            </div>:"" ||isEdit === 3?
+                                <div  className="form_wrap">
+                                    <PdfComponent
+                                        detailsData = {this.props.detailsData}
+                                        close = {this.props.close}
+                                    />
+                               </div>:""
                     }
                 </Drawer>
             </div>

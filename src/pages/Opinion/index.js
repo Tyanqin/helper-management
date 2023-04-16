@@ -44,6 +44,7 @@ export default class Opinion extends Component {
                     <Input addonBefore = "评审意见标题"  onChange = {(e)=>{this.setState({title:e.target.value})}} style={{marginRight:20,width:400}}/>
                     <span   className = "data_span" style = {{width:80}}>阶段</span>
                     <Select defaultValue="" style={{marginRight:20,width:185}} onChange = {(value)=>this.setState({stageName:`${value}`})}>
+                        <Option  value="">全部</Option>
                         {
                             this.state.staNameData.map((item,index)=>{
                                 return (
@@ -54,6 +55,7 @@ export default class Opinion extends Component {
                     </Select>
                     <span   className = "data_span" style = {{width:80}}>电压</span>
                     <Select defaultValue="" style={{marginRight:20,width:100}} onChange = {(value)=>this.setState({voltageName:`${value}`})}>
+                        <Option  value="">全部</Option>
                         {
                             this.state.volNameData.map((item,index)=>{
                                 return (
@@ -64,6 +66,7 @@ export default class Opinion extends Component {
                     </Select>
                     <span   className = "data_span" style = {{width:80}}>是否完成</span>
                     <Select defaultValue="" style={{marginRight:20,width:100}} onChange = {(value)=>this.setState({isComplete:`${value}`})}>
+                        <Option  value="">全部</Option>
                         <Option value={1}>{"完成"}</Option>
                         <Option value={0}>{"未完成"}</Option>
                     </Select>

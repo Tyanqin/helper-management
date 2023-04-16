@@ -1,6 +1,7 @@
 import React from 'react';
-import { Button, Form, Input} from 'antd';
+import {Button, Form, Input, Select} from 'antd';
 import './index.css'
+const {Option} = Select
 
 export default class  RegUpdForm  extends  React.Component{
 
@@ -8,6 +9,7 @@ export default class  RegUpdForm  extends  React.Component{
         console.log('Success:', values);
         let params = {
                 ruRegId: this.props.updData.ruRegId,
+                regId:this.props.updData.regId,
                 regName: values.regName?values.regName:this.props.updData.regName,
                 resName: values.resName?values.resName:this.props.updData.resName
             }
@@ -40,7 +42,17 @@ export default class  RegUpdForm  extends  React.Component{
                         // message: '请输入名称!'
                     }]}
                 >
-                    <Input key = {ruRegId} defaultValue ={regName} />
+                    {/*<Input key = {ruRegId} defaultValue ={regName} />*/}
+                    <Select defaultValue ={regName} style={{width:400,textAlign:"Left"}} onChange = {(value)=>this.setState({regName:`${value}`})}>
+                        <Option value="">全部</Option>
+                        {
+                            this.props.regNames.map((item,index)=>{
+                                return (
+                                    <Option key={index} value={item}>{item}</Option>
+                                )
+                            })
+                        }
+                    </Select>
                 </Form.Item>
                 <Form.Item
                     style = {{marginRight:120,marginTop:30}}

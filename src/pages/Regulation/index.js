@@ -14,7 +14,7 @@ export default class Regulation extends Component {
     state={
         display:'none',   //是否显示PDF（详情）
         visible:false,    //抽屉开关标识
-        isEdit:true,     //修改与新增标识
+        isEdit:1,     //修改与新增标识
         pageData:[],     // 分页
         updData:[],      //修改
         detailsData:[],  //详情
@@ -65,17 +65,14 @@ export default class Regulation extends Component {
                 <RegDrawerComponent
                     isEdit = {this.state.isEdit}
                     updData = {this.state.updData}
+                    detailsData = {this.state.detailsData}
                     regNames = {this.state.regNames}
                     visible = {this.state.visible}
                     close = {this.onClose}
                     submit={this.submit}
+
                 />
                 {/*<Outlet/>*/}
-                {/*<PdfComponent*/}
-                    {/*detailsData={this.state.detailsData}*/}
-                    {/*handelDisPlay = {this.handelDisplay}*/}
-                    {/*display = {this.state.display}*/}
-                {/*/>*/}
             </div>
         );
     }
@@ -103,35 +100,47 @@ export default class Regulation extends Component {
      //提交（修改与新增）
     submit = async(params) => {
         let result = null
-        if(this.state.isEdit){
+        if(this.state.isEdit === 1){
             await regUpdateSubmit(params).then((res)=>{
                 this.handelPage()
                 this.getRegName()
             })
-        }else{
+        }else if(this.state.isEdit === 2){
             await regAdd(params).then((res)=>{
                 this.handelPage()
                 this.getRegName()
             })
         }
-        this.setState({visible:false,isEdit:true})
+        this.setState({visible:false,isEdit:1})
 
 
     };
+
+    /**
+     * 详情
+     * @param text
+     * @returns {Promise<void>}
+     */
+    handelGetDetails=async(text)=>{
+        const result = await regGetId(text.ruRegId)
+        if(result.status === 200){
+            this.setState({detailsData:{...result.data}},()=>{this.setState({isEdit:3,visible:true})})
+        }
+    }
 
     //点击修改按钮获取数据，更改状态
     updateDataById =async (text)=>{
         this.handelPage()
         const result = await regGetId(text.ruRegId)
         if(result.status === 200){
-            this.setState({updData:{...result.data}},()=>{this.setState({visible:true,isEdit:true})})
+            this.setState({updData:{...result.data}},()=>{this.setState({visible:true,isEdit:1})})
         }
     }
 
     //打开抽屉
     handelShowDrawer=()=>{
         this.handelPage()
-        this.setState({isEdit:false,visible:true})
+        this.setState({isEdit:2,visible:true})
     }
 
     //删除
@@ -223,13 +232,12 @@ export default class Regulation extends Component {
         {title: '操作', key: 'action', render: (text, record) => (<span>
                     <a onClick={this.updateDataById.bind(text,record)}>修改</a>
                     <Divider type="vertical" />
+                    <a onClick = {this.handelGetDetails.bind(text,record)}>预览</a>
+                    <Divider type="vertical" />
                     <a onClick = {this.handelDownLoad.bind(text,record)}>下载</a>
                     <Divider type="vertical" />
                     <a onClick = {this.handelDelete.bind(text,record)}>删除</a>
-                    {/*<NavLink*/}
-                        {/*// to={`/home/regulation/pdf/${text.ruRegId}`}*/}
-                             {/*onClick = {this.handelGetDetails.bind(text,record)}*/}
-                    {/*>详情</NavLink>*/}
+
         </span>),
         },
     ]

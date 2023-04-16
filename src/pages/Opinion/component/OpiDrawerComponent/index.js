@@ -18,7 +18,8 @@ export default class OpiDrawerComponent extends Component {
                 <Drawer
                     title={isEdit?"修改":"详情"}
                     width={720}
-                    onClose={()=>this.props.close()}
+                    // onClose={()=>this.props.close()}
+                    closable={false}
                     open={visible}
                     bodyStyle={{ paddingBottom: 80 }}
                 >
@@ -39,6 +40,11 @@ export default class OpiDrawerComponent extends Component {
                                 <CommentComponent
                                     problemData = {this.props.detailData[0]?this.props.detailData[0].problems:[]}
                                 />
+                                <div style={{position: 'absolute', right: 0, bottom: 0, width: '100%', borderTop: '1px solid #e9e9e9', padding: '10px 16px', background: '#fff', textAlign: 'right',}}>
+                                    <Button type="primary" onClick={()=>this.props.close()} style={{ marginRight: 8 }}>
+                                        退出
+                                    </Button>
+                                </div>
                             </div>
                     }
                 </Drawer>
