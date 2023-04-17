@@ -9,6 +9,7 @@ import Technology from '../pages/Technology'
 import Regulation from '../pages/Regulation'
 import Opinion from '../pages/Opinion'
 import Statistic from '../pages/Statistic'
+import Problem from '../pages/Problem'
 
 // const User = lazy(() => import('../pages/User'));
 // const Major = lazy(() => import('../pages/Major'));
@@ -66,7 +67,10 @@ export default [
                 //         element:<PdfComponent/>
                 //     }
                 // ]
-            },
+            },{
+                path:'problem',
+                element:<Problem/>
+            }
 
         ]
     },

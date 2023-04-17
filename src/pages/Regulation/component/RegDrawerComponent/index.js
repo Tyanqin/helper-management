@@ -53,6 +53,7 @@ export default class RegDrawerComponent extends Component {
                                     <PdfComponent
                                         detailsData = {this.props.detailsData}
                                         close = {this.props.close}
+                                        submit = {this.props.submit}
                                     />
                                </div>:""
                     }

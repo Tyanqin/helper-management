@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { SearchOutlined,PlusOutlined,ExclamationCircleOutlined} from '@ant-design/icons';
 import {Input, Button, Table, Select, message, Tooltip, Divider, Pagination, Modal} from 'antd'
-import {regPage, distinctRegName, regGetId, regUpdateSubmit, regAdd, regDeleteById, regDownload} from '../../api/req'
+import {regPage, distinctRegName, regGetId, regUpdateSubmit,regDeleteById, regDownload,regAdd} from '../../api/req'
 import RegDrawerComponent from './component/RegDrawerComponent'
 import Auth from '../../utils/auth'
 const {Option} = Select
@@ -100,6 +100,7 @@ export default class Regulation extends Component {
      //提交（修改与新增）
     submit = async(params) => {
         let result = null
+        console.log("params2=====>>>>>>　　",params)
         if(this.state.isEdit === 1){
             await regUpdateSubmit(params).then((res)=>{
                 this.handelPage()

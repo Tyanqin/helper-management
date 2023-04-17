@@ -9,3 +9,14 @@
 .active{
     color: #FFFFFF;
 }
+
+
+#individual_center{
+    width: 200px;
+    position: absolute;
+    top:0;
+    right:0;
+    text-align: center;
+
+
+}

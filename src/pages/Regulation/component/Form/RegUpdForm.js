@@ -13,6 +13,7 @@ export default class  RegUpdForm  extends  React.Component{
                 regName: values.regName?values.regName:this.props.updData.regName,
                 resName: values.resName?values.resName:this.props.updData.resName
             }
+            console.log("params===>>>>>>>   ",params)
         this.props.submit(params)
     };
 

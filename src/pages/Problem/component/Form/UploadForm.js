@@ -1,15 +1,14 @@
 import React from 'react';
 import { InboxOutlined } from '@ant-design/icons';
-import { message, Upload ,Form,Input,Button,Select} from 'antd';
+import { message, Upload ,Form,Input,Button} from 'antd';
 import {ACCESS_ADDRESS} from '../../../../conf/conf'
-import './index.css'
+
 const { Dragger } = Upload;
 
-export default class  RegAddForm  extends  React.Component{
+export default class  UploadForm  extends  React.Component{
 
     onFinish = (values) => {
-        let params = {regName:values.regName,fileInfo:this.state.filesInfo}
-        this.props.submit(params)
+
     };
     onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
@@ -33,26 +32,15 @@ export default class  RegAddForm  extends  React.Component{
                 autoComplete="off"
                 className = "form"
             >
-                <Form.Item
-                    style = {{marginRight:120,marginTop:240}}
-                    label="规章名称"
-                    name="regName"
-                    rules={[{
-                        required: true,
-                        message: '请输入名称!'
-                    }]}
-                >
-                    <Input  />
-                </Form.Item>
                 <div className = "upload_wrap">
-                    <Form.Item name="files">
+                    <Form.Item name="file">
                         <Dragger
-                            name="files"
+                            name="file"
                             multiple = {true}
                             onChange = {this.handelChange}
                             onDrop = {this.handelDrop}
                             beforeUpload={(value) => {console.log("value===>>>>",value)}}
-                            action = {`${ACCESS_ADDRESS}/reg/uploadFile`}
+                            action = {`${ACCESS_ADDRESS}/problem/importProblem`}
                             maxCount={3}
                             style = {{width:470}}
                         >
@@ -72,9 +60,6 @@ export default class  RegAddForm  extends  React.Component{
                         <Button onClick={()=>this.props.close()} style={{ marginRight: 8 }}>
                             退出
                         </Button>
-                        <Button type="primary" htmlType="submit">
-                            提交
-                        </Button>
                     </Form.Item>
                 </div>
             </Form>
@@ -83,17 +68,20 @@ export default class  RegAddForm  extends  React.Component{
     values = []
     handelChange=(info)=>{
         const { status } = info.file;
+        console.log("this.values====>>>>",this.values)
+        console.log("status====>>>>",status)
         if (status !== 'uploading') {console.log(info.file, info.fileList);}
         if (status === 'done') {
-            console.log("info.file.response.data====>>>>",info.file.response.data[0])
-            this.values.push(...info.file.response.data)
+            // console.log("info.file.response.data====>>>>",info.file.response.data)
+            // this.values.push(info.file.response.data)
         } else if (status === 'error') {
             message.error(`${info.file.name}上传失败`);
         }
-        this.setState({filesInfo:[...this.values]},()=>{console.log("this.fileInfo---》》》",this.state.filesInfo)})
+
+        this.props.handelPage()
+        // this.setState({filesInfo:[...this.values]},()=>{console.log("this.fileInfo---》》》",this.state.filesInfo)})
     }
     handelDrop=(e)=> {
         console.log('Dropped files', e.dataTransfer.files);
     }
 }
-

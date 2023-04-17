@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {NavLink,Outlet} from 'react-router-dom'
-import {Layout, Menu,Dropdown, Space} from 'antd';
+import {Layout, Menu,Button, Dropdown, Space} from 'antd';
 import { DownOutlined,HomeOutlined,ToolOutlined, FileSearchOutlined, SettingOutlined,UserOutlined,ApartmentOutlined,MailOutlined,ReadOutlined} from '@ant-design/icons';
 import './index.css'
 import Cache from '../../api/cache'
@@ -68,6 +68,13 @@ export default class MenuComponent extends Component {
                             {/*<Menu.Item key="19">Option 19</Menu.Item>*/}
                             {/*<Menu.Item key="20">Option 20</Menu.Item>*/}
                         </SubMenu>
+
+                        <SubMenu key="sub8" title={<span><ReadOutlined/><span><NavLink key = {7} activeClassName="active" to = "/problem">问题汇总</NavLink></span></span>}>
+                            {/*<Menu.Item key="17">Option 17</Menu.Item>*/}
+                            {/*<Menu.Item key="18">Option 18</Menu.Item>*/}
+                            {/*<Menu.Item key="19">Option 19</Menu.Item>*/}
+                            {/*<Menu.Item key="20">Option 20</Menu.Item>*/}
+                        </SubMenu>
                         {/*<SubMenu key="sub8" title={<span><MailOutlined/><span><NavLink key = {8} activeClassName="active" to = "/problem">问题汇总</NavLink></span></span>}>*/}
                             {/*/!*<Menu.Item key="21">Option 21</Menu.Item>*!/*/}
                             {/*/!*<Menu.Item key="22">Option 22</Menu.Item>*!/*/}
@@ -84,7 +91,7 @@ export default class MenuComponent extends Component {
                 </Sider>
                 <Layout>
                     <Header style={{ background: '#fff', padding: 0,marginBottom:10,height:60,borderBottom:'1px solid #F0F0F0'}}>
-
+                        <div id = "individual_center"><a>个人中心</a></div>
                     </Header>
                     <Content style={{marginLeft:10,marginRight:10}}>
                         <div style={{ background: '#fff', minHeight: 700 }}>

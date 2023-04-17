@@ -58,16 +58,25 @@ export const opinionDel =(params)=>(instance.get(`${ACCESS_ADDRESS}/opinion/delB
 export const opinionDownload =(params,config)=>(instance.get(`${ACCESS_ADDRESS}/opinion/downloadFile?${qs.stringify(params)}`,config))
 
 
+//==================================问题汇总========================================================================================
+export const problemQueryPage =(params)=>(instance.get(`${ACCESS_ADDRESS}/problem/queryPage?${qs.stringify(params)}`))
+export const problemFindById =(params)=>(instance.get(`${ACCESS_ADDRESS}/problem/findById?${qs.stringify(params)}`))
+export const problemUpdById =(params)=>(instance.post(`${ACCESS_ADDRESS}/problem/updateById`,params))
+export const problemDelById =(params)=>(instance.get(`${ACCESS_ADDRESS}/problem/updateByProblemId?${qs.stringify(params)}`))
+export const problemUpdate =(params)=>(instance.post(`${ACCESS_ADDRESS}/problem/update`,params))
+export const majorNames =()=>(instance.get(`${ACCESS_ADDRESS}/major/getDisName`))
+export const proDownload =(params,config)=>(instance.get(`${ACCESS_ADDRESS}/problem/getDownloadTemplate?${qs.stringify(params)}`,config))
+export const importProblem =()=>(instance.get(`${ACCESS_ADDRESS}/problem/importProblem`))
+export const exportProblem =(params,config)=>(instance.get(`${ACCESS_ADDRESS}/problem/exportProblem?${qs.stringify(params)}`,config))
+
+
+
 //==================================major========================================================================================
 export const majorPage=(params)=>(instance.get(`${ACCESS_ADDRESS}/major/getPage?${qs.stringify(params)}`))
 export const majorGetId=(params)=>(instance.get(`${ACCESS_ADDRESS}/major/${params}`))
 export const majorUpd =(params)=>(instance.post(`${ACCESS_ADDRESS}/major/upd`,params))
 export const majorInsert =(params)=>(instance.post(`${ACCESS_ADDRESS}/major/add`,params))
 export const majorDel =(params)=>(instance.post(`${ACCESS_ADDRESS}/major/upd`,params))
-
-
-
-
 
 
 
