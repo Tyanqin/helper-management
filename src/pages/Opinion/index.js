@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {Button, Divider, Input, Select, Tooltip, message, Table, Pagination, Modal} from "antd";
 import { SearchOutlined,PlusOutlined,ExclamationCircleOutlined} from '@ant-design/icons';
 import {staGetName, volGetName, opinionPage, opinionDel, opinionDownload, regDownload} from '../../api/req'
+import {InputComponent,SelectAttrComponent,SelectConstantComponent,ReSet} from '../../component/SearchComponent'
+
 import OpiDrawerComponent from './component/OpiDrawerComponent'
 import Auth from '../../utils/auth'
 
@@ -16,6 +18,7 @@ export default class Opinion extends Component {
         volNameData:[],     //电压
         pageData:[],     //问题
         detailData:[],
+
         title:"",
         stageName:"",
         voltageName:"",
@@ -23,8 +26,8 @@ export default class Opinion extends Component {
         formId:"",
         total:"",
         currentPage:"1",
-        pageSize:"10"
-
+        pageSize:"10",
+        completeData:[{1:"完成",0:"未完成"}],
     }
 
 
@@ -41,36 +44,68 @@ export default class Opinion extends Component {
             <div style={{marginBottom:20}}>
                 <div style ={{height:10}}/>
                 <Input.Group style={{marginLeft:10,marginTop:8}}>
-                    <Input addonBefore = "评审意见标题"  onChange = {(e)=>{this.setState({title:e.target.value})}} style={{marginRight:20,width:400}}/>
-                    <span   className = "data_span" style = {{width:80}}>阶段</span>
-                    <Select defaultValue="" style={{marginRight:20,width:185}} onChange = {(value)=>this.setState({stageName:`${value}`})}>
-                        <Option  value="">全部</Option>
-                        {
-                            this.state.staNameData.map((item,index)=>{
-                                return (
-                                    <Option key={index} value={item}>{item}</Option>
-                                )
-                            })
-                        }
-                    </Select>
-                    <span   className = "data_span" style = {{width:80}}>电压</span>
-                    <Select defaultValue="" style={{marginRight:20,width:100}} onChange = {(value)=>this.setState({voltageName:`${value}`})}>
-                        <Option  value="">全部</Option>
-                        {
-                            this.state.volNameData.map((item,index)=>{
-                                return (
-                                    <Option key={index} value={item}>{item}</Option>
-                                )
-                            })
-                        }
-                    </Select>
-                    <span   className = "data_span" style = {{width:80}}>是否完成</span>
-                    <Select defaultValue="" style={{marginRight:20,width:100}} onChange = {(value)=>this.setState({isComplete:`${value}`})}>
-                        <Option  value="">全部</Option>
-                        <Option value={1}>{"完成"}</Option>
-                        <Option value={0}>{"未完成"}</Option>
-                    </Select>
+                    {/*<Input addonBefore = "评审意见标题"  onChange = {(e)=>{this.setState({title:e.target.value})}} style={{marginRight:20,width:400}}/>*/}
+                    {/*<span   className = "data_span" style = {{width:80}}>阶段</span>*/}
+                    {/*<Select defaultValue="" style={{marginRight:20,width:185}} onChange = {(value)=>this.setState({stageName:`${value}`})}>*/}
+                        {/*<Option  value="">全部</Option>*/}
+                        {/*{*/}
+                            {/*this.state.staNameData.map((item,index)=>{*/}
+                                {/*return (*/}
+                                    {/*<Option key={index} value={item}>{item}</Option>*/}
+                                {/*)*/}
+                            {/*})*/}
+                        {/*}*/}
+                    {/*</Select>*/}
+                    {/*<span   className = "data_span" style = {{width:80}}>电压</span>*/}
+                    {/*<Select defaultValue="" style={{marginRight:20,width:100}} onChange = {(value)=>this.setState({voltageName:`${value}`})}>*/}
+                    {/*<Option  value="">全部</Option>*/}
+                    {/*{*/}
+                    {/*this.state.volNameData.map((item,index)=>{*/}
+                    {/*return (*/}
+                    {/*<Option key={index} value={item}>{item}</Option>*/}
+                    {/*)*/}
+                    {/*})*/}
+                    {/*}*/}
+                    {/*</Select>*/}
+                    {/*<span   className = "data_span" style = {{width:80}}>是否完成</span>*/}
+                    {/*<Select defaultValue="" style={{marginRight:20,width:100}} onChange = {(value)=>this.setState({isComplete:`${value}`})}>*/}
+                    {/*<Option  value="">全部</Option>*/}
+                    {/*<Option value={1}>{"完成"}</Option>*/}
+                    {/*<Option value={0}>{"未完成"}</Option>*/}
+                    {/*</Select>*/}
+                    <InputComponent
+                        id = "title"
+                        title = "评审意见标题"
+                        type = "text"
+                        placeholder = "请输入评审意见标题"
+                        onChange = {e=>this.setState({title:e.target.value})}
+                        style={{marginRight:20,width:250}}
+                    />
+                    <SelectAttrComponent
+                        id = "stageName"
+                        key = "1"
+                        title = "阶段"
+                        data = {this.state.staNameData}
+                        onChange = {(e)=>this.setState({stageName:e.target.value})}
+                        style={{marginRight:20,width:185}}
+                    />
+                    <SelectAttrComponent
+                        id = "voltageName"
+                        key = "2"
+                        title = "电压"
+                        data = {this.state.volNameData}
+                        onChange = {(e)=>this.setState({voltageName:e.target.value})}
+                        style={{marginRight:20,width:100}}
+                    />
+                    <SelectConstantComponent
+                        id = "isComplete"
+                        key = "3"
+                        title = "是否完成"
+                        onChange = {(e)=>this.setState({isComplete:e.target.value})}
+                        style={{marginRight:20,width:100}}
+                    />
                     <Button type="primary" onClick={this.opinionPage} style={{marginRight:20}}><SearchOutlined/>查询</Button>
+                    <Button type="primary" style={{marginRight:20}} onClick = {this.handelReset}>重置</Button>
                 </Input.Group>
                 <div style ={{height:15}}/>
                 <Table columns={this.columns} dataSource={this.state.pageData} pagination = {false}/>
@@ -90,9 +125,15 @@ export default class Opinion extends Component {
         );
     }
 
+
+    handelReset=()=>{
+        ReSet()
+        this.setState({title:"",stageName:"",voltageName:"",isComplete:""})
+    }
     opinionPage=async()=>{
         let {title,stageName,voltageName,isComplete,currentPage,pageSize} = this.state
         let params = {title,stageName,voltageName,isComplete,currentPage,pageSize}
+        console.log("params====>>>>>  ",params)
         const result =  await opinionPage(params)
           if(result.status){
              this.setState({pageData:result.data.rows})

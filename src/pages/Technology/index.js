@@ -3,7 +3,8 @@ import {Input, DatePicker, Button, Table, Pagination, Tooltip, Divider, message,
 import { SearchOutlined,PlusOutlined,ExclamationCircleOutlined} from '@ant-design/icons';
 import TecDrawerComponent from "./component/TecDrawerComponent";
 import Auth from '../../utils/auth'
-import {technologyPage, disProName, proGetId, proUpdateSubmit, proAdd,proDeleteById,getContentById} from '../../api/req'
+import {technologyPage, disProName, proGetId, proUpdateSubmit, proAdd,proDeleteById,getContentById,getMenu} from '../../api/req'
+import {SelectComponent,InputComponent,ReSet} from '../../component/SearchComponent'
 /**
  * 标准工艺
  */
@@ -30,6 +31,9 @@ export default class Technology extends Component {
     componentDidMount() {
         Auth()
         this.handelSelectData()
+        this.getFirstMenu();
+        this.getSecMenu();
+        this.getTerMenu();
     }
 
     render() {
@@ -37,18 +41,52 @@ export default class Technology extends Component {
             <div>
                 <div style ={{height:10}}/>
                 <Input.Group style={{marginLeft:10,marginTop:8}}>
-                    <Input addonBefore = "一级目录" autoFocus placeholder="请输入名称" style={{marginRight:20,width:250}}
-                           onChange = {(e)=>{this.setState({firstTitle:e.target.value})}}/>
-                    <Input addonBefore = "二级目录"  placeholder="请输入名称" style={{marginRight:20,width:250}}
-                           onChange = {(e)=>{this.setState({secTitle:e.target.value})}}/>
-                    <Input addonBefore = "三级目录"  placeholder="请输入名称" style={{marginRight:20,width:250}}
-                           onChange = {(e)=>{this.setState({terTitle:e.target.value})}}/>
-                    <Input addonBefore = "工艺名称"  placeholder="请输入名称" style={{marginRight:20,width:250}}
-                           onChange = {(e)=>{this.setState({processName:e.target.value})}}/>
+                    {/*<Input addonBefore = "一级目录" autoFocus placeholder="请输入名称" style={{marginRight:20,width:250}}*/}
+                           {/*onChange = {(e)=>{this.setState({firstTitle:e.target.value})}}/>*/}
+                    {/*<Input addonBefore = "二级目录"  placeholder="请输入名称" style={{marginRight:20,width:250}}*/}
+                    {/*onChange = {(e)=>{this.setState({secTitle:e.target.value})}}/>*/}
+                    {/*<Input addonBefore = "三级目录"  placeholder="请输入名称" style={{marginRight:20,width:250}}*/}
+                    {/*onChange = {(e)=>{this.setState({terTitle:e.target.value})}}/>*/}
+                    {/*<Input addonBefore = "工艺名称"  placeholder="请输入名称" style={{marginRight:20,width:250}}*/}
+                    {/*onChange = {(e)=>{this.setState({processName:e.target.value})}}/>*/}
+
+                    <SelectComponent
+                       id = "firstTitle"
+                       title = "一级目录"
+                       data = {this.state.firstData}
+                       style={{marginRight:20,width:160}}
+                       onChange = {(e)=>{this.setState({firstTitle:e.target.value})}}
+                       attr = "proName"
+                    />
+                    <SelectComponent
+                        id = "secTitle"
+                        title = "二级目录"
+                        data = {this.state.secData}
+                        style={{marginRight:20,width:120}}
+                        onChange = {(e)=>{this.setState({secTitle:e.target.value})}}
+                        attr = "proName"
+                    />
+                    <SelectComponent
+                        id = "terTitle"
+                        title = "三级目录"
+                        data = {this.state.terData}
+                        style={{marginRight:20,width:120}}
+                        onChange = {(e)=>{this.setState({terTitle:e.target.value})}}
+                        attr = "proName"
+                    />
+                    <InputComponent
+                        title = "工艺名称"
+                        id = "processName"
+                        placeholder = "请输入名称"
+                        onChange = {(e)=>{this.setState({processName:e.target.value})}}
+                        style={{marginRight:20,width:140}}
+                    />
+
                     <Button type="primary" style={{marginRight:20}} onClick = {this.handelSelectData}><SearchOutlined/>查询</Button>
-                    <Button  type="primary" onClick = {this.handelShowDrawer}>
+                    <Button  type="primary" style={{marginRight:20}} onClick = {this.handelShowDrawer}>
                         <PlusOutlined /> 新增
                     </Button>
+                    <Button type="primary" style={{marginRight:20}} onClick = {this.handelReset}>重置</Button>
                 </Input.Group>
                 <div style ={{height:15}}/>
                 <Table columns={this.columns} dataSource={this.state.pageData} pagination = {false}/>
@@ -57,6 +95,8 @@ export default class Technology extends Component {
                     total={this.state.total}
                     onChange = {(page,pageSize)=>{this.setState({currentPage:page,pageSiz:pageSize}, ()=>{this.handelSelectData()})}}/>
                 <TecDrawerComponent
+                    firstData = {this.state.firstData}
+                    secData = {this.state.secData}
                     terData={this.state.terData}
                     isEdit = {this.state.isEdit}
                     updData = {this.state.updData}
@@ -68,16 +108,44 @@ export default class Technology extends Component {
             </div>
         );
     }
+    handelReset =()=>{
+        ReSet()
+        this.setState({firstTitle:"",secTitle:"",terTitle:"",processName:""})
+    }
 
+    getFirstMenu =async ()=>{
+        let params = {levelMenu:1}
+        const result = await getMenu(params)
+        if(result.status){
+            this.setState({firstData:result.data})
+        }
+    }
+    getSecMenu =async ()=>{
+        let params = {levelMenu:2}
+        const result = await getMenu(params)
+        if(result.status){
+            this.setState({secData:result.data})
+        }
+    }
+    getTerMenu =async ()=>{
+        let params = {levelMenu:3}
+        const result = await getMenu(params)
+        if(result.status){
+            this.setState({terData:result.data})
+        }
+    }
 
     //提交（修改与新增）
     submit = async(params) => {
+        alert(123123+"进入")
         let result = null
         if(this.state.isEdit===1){
-            await proUpdateSubmit(params).then((res)=>{
-                this.handelSelectData()
-                message.info("修改成功！")
-            })
+
+            alert(123123+"修改")
+            // await proUpdateSubmit(params).then((res)=>{
+            //     this.handelSelectData()
+            //     message.info("修改成功！")
+            // })
         }else if(this.state.isEdit===2){
             await proAdd(params).then((res)=>{
                 this.handelSelectData()
@@ -111,10 +179,10 @@ export default class Technology extends Component {
     }
      //修改打开抽屉
     onOpen=async(text)=>{
-        this.handelSelectData()
-        const result = await proGetId(text.proContentId)
+        let params = {proContentId:text.proContentId}
+        const result = await getContentById(params)
         if(result.status === 200){
-            this.setState({updData:{...result.data}},()=>{this.setState({visible:true,isEdit:1})})
+            this.setState({detailData:{...result.data}},()=>{this.setState({visible:true,isEdit:1})})
         }
     }
     /**
@@ -122,11 +190,8 @@ export default class Technology extends Component {
      * @returns {Promise<void>}
      */
     handelGetDetails=async(text)=>{
-        console.log("text=====>>>>>　　　",text)
         let params = {proContentId:text.proContentId}
-        console.log("params=====>>>>>　　　",params)
         const result = await getContentById(params)
-        console.log("result=====>>>>>　　　",result)
         if(result.status === 200){
             this.setState({detailData:{...result.data}},()=>{this.setState({visible:true,isEdit:3})})
         }

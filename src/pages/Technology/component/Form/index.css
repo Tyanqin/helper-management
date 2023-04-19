@@ -1,11 +1,75 @@
-.upload_box{
-    width: 65.5%;
-    height:50px;
+/*#add_wrap{*/
+    /*width: 100%;*/
+    /*!*background-color: pink;*!*/
+    /*text-align: center;*/
+    /*position: relative;*/
+    /*top:-50px;*/
+    /*left:0;*/
+/*}*/
+
+
+
+
+
+/*.upload_box{*/
+    /*width: 30%;*/
+    /*height:50px;*/
+    /*position: absolute;*/
+    /*top:250px;*/
+    /*left:6px;*/
+    /*right: 0;*/
+    /*bottom: 0;*/
+    /*margin: auto;*/
+    /*border:1px solid #FAFAFA;*/
+    /*!*background-color: red;*!*/
+/*}*/
+
+/*.form{*/
+    /*background-color: #87e8de;*/
+    /*height: 700px;*/
+    /*width: 500px;*/
+    /*position: absolute;*/
+    /*top:50px;*/
+    /*right:100px;*/
+    /*margin: auto;*/
+    /*text-align: left;*/
+/*}*/
+
+.clear_fix{
+    width: 120px;
     position: absolute;
-    top:250px;
-    left:6px;
-    right: 0;
-    bottom: 0;
+    left:545px;
+    top:160px;
     margin: auto;
-    border:1px solid #FAFAFA;
+    /*border:1px solid #FAFAFA;*/
+    text-align: left;
+    /*background-color: #000c17;*/
+
+
 }
+
+#imageDesc{
+    width: 450px;
+    position: absolute;
+    top: 180px;
+    left: 670px;
+    z-index: 99999;
+    /*border:1px solid red;*/
+    text-align: left;
+}
+
+.div_flag{
+    margin-bottom: 70px;
+}
+
+#img_add{
+    /*width: 225px !important;*/
+    /*height: 100px !important;*/
+    /*background-color: #000c17 !important;*/
+    /*position: relative !important;*/
+
+
+
+}
+
+

@@ -1,6 +1,6 @@
 #upload_wrap{
     width:600px;
-    height: 200px;
+    height: 210px;
     position: absolute;
     top:480px;
     left: -73px;
@@ -15,8 +15,8 @@
 }
 
 #upload_wrap > ul{
-    width: 200px;
-    height: 100px;
+    width: 210px;
+    /*height: 100px;*/
     position: absolute;
     top:0;
     left: 0;
@@ -57,3 +57,18 @@
     border:none;
     opacity:0;
 }
+
+.img_box{
+    width: 420px;
+    height: 200px;
+    /*background-color: #87e8de;*/
+}
+.img_box > img{
+    width: 300px;
+    height: 210px;
+    margin-right: 25px;
+}
+
+/*.add_box{*/
+    /*background-color: pink;*/
+/*}*/

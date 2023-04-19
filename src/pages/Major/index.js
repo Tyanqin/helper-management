@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Button, Divider, Input, message, Modal, Pagination, Table, Tooltip} from "antd";
+import {InputComponent,ReSet} from '../../component/SearchComponent'
 import MajorDrawerComponent from "./component/MajorDrawerComponent";
 import { SearchOutlined,PlusOutlined,ExclamationCircleOutlined} from '@ant-design/icons';
 import Auth from '../../utils/auth'
@@ -30,12 +31,21 @@ export default class Major extends Component {
             <div style={{marginBottom:20}}>
                 <div style ={{height:10}}/>
                 <Input.Group style={{marginLeft:10,marginTop:8}}>
-                    <Input addonBefore = "专业名称"
-                           placeholder="请输入专业名称"
-                           onChange = {e=>this.setState({majorName:e.target.value})}
-                           style={{marginRight:20,width:400}}/>
+                    {/*<Input addonBefore = "专业名称"*/}
+                           {/*placeholder="请输入专业名称"*/}
+                           {/*onChange = {e=>this.setState({majorName:e.target.value})}*/}
+                           {/*style={{marginRight:20,width:400}}/>*/}
+                    <InputComponent
+                        id = "major"
+                        title = "专业"
+                        type = "text"
+                        placeholder = "请输入专业名称"
+                        onChange = {e=>this.setState({majorName:e.target.value})}
+                        style={{marginRight:20,width:300}}
+                    />
                     <Button type="primary" style={{marginRight:20}} onClick = {this.handelPage}><SearchOutlined/>查询</Button>
-                    <Button type="primary" onClick = {this.handelShowDrawer}><PlusOutlined /> 新增</Button>
+                    <Button type="primary" style={{marginRight:20}} onClick = {this.handelShowDrawer}><PlusOutlined /> 新增</Button>
+                    <Button type="primary" style={{marginRight:20}} onClick = {this.handelReset}>重置</Button>
                 </Input.Group>
                 <div style ={{height:15}}/>
                 <Table columns={this.columns} dataSource={this.state.pageData} pagination = {false}/>
@@ -57,7 +67,10 @@ export default class Major extends Component {
         );
     }
 
-
+    handelReset=()=>{
+        ReSet()
+        this.setState({majorName:""})
+    }
 
 
     //新增
@@ -70,6 +83,7 @@ export default class Major extends Component {
     handelPage =async()=>{
         let {majorName,currentPage,pageSize} = this.state
         let params = {majorName: majorName,currentPage:currentPage,pageSize:pageSize}
+        console.log("params===>>>>>  ",params)
         const result =  await majorPage(params)
         if(result.status){
             this.setState({pageData:result.data.rows,total:result.data.total})

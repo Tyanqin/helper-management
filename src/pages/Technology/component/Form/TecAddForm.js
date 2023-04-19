@@ -1,24 +1,38 @@
 import React from 'react';
 import { InboxOutlined } from '@ant-design/icons';
-import { message, Upload ,Form,Input,Button,Select} from 'antd';
-import {ACCESS_ADDRESS} from '../../../../conf/conf'
-import {proGetMaxCode} from '../../../../api/req'
+import { message ,Form,Input,Button,Select} from 'antd';
+import ImageForm from '../ImageForm'
+import {ACCESS_ADDRESS,IMG_ACCESS_ADDRESS} from '../../../../conf/conf'
+import {proGetMaxCode,getMenuByNameAndLevel} from '../../../../api/req'
+import {IsHaveValue,RemoveAll} from '../ImageForm/imageElement'
 import './index.css'
-const { Dragger } = Upload;
+// const { Dragger } = Upload;
 const {Option} = Select
 export default class  TecAddForm  extends  React.Component{
 
+
+
     onFinish = (values) => {
-        let imgDescs = values.imgDesc.split("，")
+        if(IsHaveValue()){
+            message.info("请填写图片描述！")
+            return
+        }
+
         let params = {
-            terMenuCode:values.menucode,
+            firstTitle:values.firstTitle,
+            secTitle:values.secTitle,
+            terTitle:values.terTitle,
+            terMenuCode:values.menuCode,
             processName:values.processName,
             processCode:values.processCode,
-            imgDesc:imgDescs,
+            imgDesc:this.imgDescs,
             processStandard:values.processStandard,
             constructionPoints:values.constructionPoints,
             fileInfo:this.state.filesInfo
+
         }
+
+        console.log("params====>>>>>>　　",params)
         this.props.submit(params)
     };
     onFinishFailed = (errorInfo) => {
@@ -26,14 +40,20 @@ export default class  TecAddForm  extends  React.Component{
     };
 
     state = {
-        filesInfo:"",
+        filesInfo:[],
+        firstTitle:"",
+        secTitle:"",
+        terTitle:"",
         menuCode:"",
-        maxMenuCode:""
+        maxMenuCode:"",
+        secData:"",
+        terData:"",
 
     };
 
     render(){
         return(
+          <>
             <Form
                 name="basic"
                 labelCol={{ span: 8 }}
@@ -42,53 +62,99 @@ export default class  TecAddForm  extends  React.Component{
                 onFinish={this.onFinish}
                 onFinishFailed={this.onFinishFailed}
                 autoComplete="off"
-                className = "form"
+                style = {{marginLeft:0,marginTop:80}}
+
             >
                 <Form.Item
-                    style = {{marginRight:120,marginTop:70}}
-                    label="三级标题"
-                    name="menucode"
-                    rules={[{ required: true, message: '请用输入标题!' }]}
+                    label="一级标题"
+                    name="firstTitle"
+                    rules={[{ required: true, message: '请输入标题!' }]}
+                    style={{marginLeft:-300}}
                 >
                     <Select
-                        key={this.props.terData.proMenuId}
-                        style={{marginTop:0,width:400,textAlign:"left"}}
-                        onChange = {(value)=>{this.setState({menuCode:value},this.handelOnChange)}}
+                        key={this.props.firstData.proMenuId}
+                        style={{marginTop:0,width:300,textAlign:"left",}}
+                        onChange = {(value)=>{this.setState({firstTitle:value},this.getMenuByNameAndLevel)}}
                     >
                         {
-                            this.props.terData.map((item,index)=>{
+                            this.props.firstData.map((item,index)=>{
                                 return (
-                                    <Option value={item.menucode}>{item.proName}</Option>
+                                    <Option key = {item.proMenuId} value={item.proName}>{item.proName}</Option>
                                 )
                             })
                         }
                     </Select>
                 </Form.Item>
                 <Form.Item
-                    style = {{marginRight:120,marginTop:10}}
+                    style = {{marginTop:20,marginLeft:-300}}
+                    label="二级标题"
+                    name="secTitle"
+                    rules={[{ required: true, message: '请输入标题!' }]}
+
+                >
+                    <Select
+                        key={this.props.secData.proMenuId}
+                        style={{marginTop:0,width:300,textAlign:"left",}}
+                        onChange = {(value)=>{this.setState({secTitle:value},this.getMenuByNameAndLevel2)}}
+                    >
+                        {
+                            this.state.secData==null ||this.state.secData.length <= 0 ?"":this.state.secData.map((item,index)=>{
+                                return (
+                                    <Option key = {item.proMenuId} value={item.proName}>{item.proName}</Option>
+                                )
+                            })
+                        }
+                    </Select>
+                </Form.Item>
+                <Form.Item
+                    style = {{marginTop:20,marginLeft:-300}}
+                    label="三级标题"
+                    name="menuCode"
+                    rules={[{ required: true, message: '请输入标题!' }]}
+                >
+                    <Select
+                        key={this.props.terData.proMenuId}
+                        style={{marginTop:0,width:300,textAlign:"left",}}
+                        onChange = {(value)=>{this.setState({menuCode:value},this.handelOnChange)}}
+                    >
+                        {
+                            this.state.terData==null || this.state.terData.length <= 0?"":this.state.terData.map((item,index)=>{
+                                return (
+                                    <Option key = {item.proMenuId} value={item.menuCode}>{item.proName}</Option>
+                                )
+                            })
+                        }
+                    </Select>
+                </Form.Item>
+
+
+                <Form.Item
+                    style = {{marginTop:5,marginLeft:-300}}
                     label="工艺名称"
                     name="processName"
-                    rules={[{ required: true, message: '请用输入工艺名称!' }]}
+                    rules={[{ required: true, message: '请输入工艺名称!' }]}
                 >
                     <Input
                         key={this.props.terData.proMenuId}
+                        style={{marginTop:0,width:300,textAlign:"left",}}
                         maxLength = {50}
                     />
                 </Form.Item>
                 <Form.Item
-                    style = {{marginRight:120,marginTop:10}}
+                    style = {{marginTop:5,marginLeft:-300}}
                     label="工艺编号"
                     name="processCode"
-                    rules={[{ required: true, message: '请用输入工艺编号!' }]}
+                    rules={[{ required: true, message: '请输入工艺编号!' }]}
                 >
                     <Input
                         key={this.props.terData.proMenuId}
                         placeholder = {this.state.maxMenuCode?"当前最大编号是："+this.state.maxMenuCode:""}
+                        style={{marginTop:0,width:300,textAlign:"left",}}
                         maxLength = {50}
                     />
                 </Form.Item>
                 <Form.Item
-                    style = {{marginRight:120,marginTop:10}}
+                    style = {{marginTop:5,marginLeft:-300}}
                     label="工艺内容"
                     name="processStandard"
                     rules={[{ required: true, message: '请用输入工艺内容!' }]}
@@ -96,11 +162,12 @@ export default class  TecAddForm  extends  React.Component{
                     <Input.TextArea
                         key={this.props.terData.proMenuId}
                         maxLength = {500}
+                        style={{marginTop:0,width:300,textAlign:"left"}}
                         allowClear showCount
                     />
                 </Form.Item>
                 <Form.Item
-                    style = {{marginRight:120,marginTop:10}}
+                    style = {{marginTop:10,marginLeft:-300}}
                     label="施工要点"
                     name="constructionPoints"
                     rules={[{ required: true, message: '请用输入施工要点!' }]}
@@ -108,49 +175,17 @@ export default class  TecAddForm  extends  React.Component{
                     <Input.TextArea
                         key={this.props.terData.proMenuId}
                         maxLength = {500}
+                        style={{marginTop:0,width:300,textAlign:"left"}}
                         allowClear showCount
                     />
                 </Form.Item>
-                <Form.Item
-                    style = {{marginRight:120,marginTop:10}}
-                    label="图片描述"
-                    name="imgDesc"
-                    rules={[{ required: true, message: '请用输入图片描述!' }]}
-                >
-                    <Input.TextArea
-                        key={this.props.terData.proMenuId}
-                        maxLength = {500}
-                        allowClear showCount
-                    />
-                </Form.Item>
-                <div className = "upload_box">
-                    <Form.Item name="files">
-                        <Dragger
-                            name="files"
-                            multiple = {true}
-                            onChange = {this.handelChange}
-                            onDrop = {this.handelDrop}
-                            beforeUpload={(value) => {console.log("value===>>>>",value)}}
-                            action = {`${ACCESS_ADDRESS}/pro-menu/uploadFile`}
-                            maxCount={3}
-                            style = {{width:400,height:50,marginLeft:70}}
-                        >
-                            <div>
-                                <p className="ant-upload-drag-icon">
-                                    <InboxOutlined />
-                                </p>
-                                <p className="ant-upload-text">Click or drag file to this area to upload</p>
-                                <p className="ant-upload-hint">
-                                    Support for a single or bulk upload. Strictly prohibited from uploading company data or other
-                                    banned files.
-                                </p>
-                            </div>
-                        </Dragger>
-                    </Form.Item>
-                </div>
+                <ImageForm
+                    handelUploadData = {this.handelUploadData}
+                    handelFileInfo = {this.handelFileInfo}
+                />
                 <div style={{position: 'absolute', right: 0, bottom: 0, width: '100%', borderTop: '1px solid #e9e9e9', padding: '10px 16px', background: '#fff', textAlign: 'right',}}>
                     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                        <Button onClick={()=>this.props.close()} style={{ marginRight: 8 }}>
+                        <Button onClick={this.handelClose} style={{ marginRight: 8 }}>
                             退出
                         </Button>
                         <Button type="primary" htmlType="submit">
@@ -159,28 +194,67 @@ export default class  TecAddForm  extends  React.Component{
                     </Form.Item>
                 </div>
             </Form>
+              <div id = "imageDesc">
+                  {/*<h1>hello world</h1>*/}
+              </div>
+          </>
         );
     }
 
+    getMenuByNameAndLevel=async()=>{
+        let params = {proName:this.state.firstTitle,levelMenu:1}
+        const result = await getMenuByNameAndLevel(params);
+        if(result.status){
+            this.setState({secData:result.data})
+        }
+    }
+
+    getMenuByNameAndLevel2=async()=>{
+        let params = {proName:this.state.secTitle,levelMenu:2}
+        const result = await getMenuByNameAndLevel(params);
+        delete result.data.child
+        if(result.status){
+            this.setState({terData:result.data})
+        }
+    }
+
     handelOnChange=async()=>{
-        await proGetMaxCode({menuCode:this.state.menuCode}).then(res=>{
-            this.setState({maxMenuCode:res.data},()=>{console.log("====>>>>>>   "+this.state.maxMenuCode)})
+        let params = {menuCode:this.state.menuCode}
+        await proGetMaxCode(params).then(res=>{
+            this.setState({maxMenuCode:res.data})
         }).catch()
     }
 
-    values = []
-    handelChange=(info)=>{
-        const { status } = info.file;
-        if (status !== 'uploading') {console.log(info.file, info.fileList);}
-        if (status === 'done') {
-            this.values.push(...info.file.response.data)
-        } else if (status === 'error') {
-            message.error(`${info.file.name}上传失败`);
+    imgDescs = []
+    handelUploadData=(e)=>{this.imgDescs.push(e.target.value)}
+
+    handelFileInfo=(values)=>{
+        let params = []
+        let length = values.length;
+        if(length>0) {
+            for (let i = 0; i < length; i++) {
+                if(values[i].response != undefined && values[i].response !=null){
+                    params.push(...values[i].response.data)
+                }else{
+
+                }
+
+            }
+            console.log("params===>>>>  ",params)
+            this.setState({filesInfo: params})
         }
-        this.setState({filesInfo:[...this.values]})
     }
-    handelDrop=(e)=> {
-        console.log('Dropped files', e.dataTransfer.files);
+
+    getBase64 = (file) => new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = (error) => reject(error);
+        });
+
+    handelClose=()=>{
+        RemoveAll()
+        this.props.close()
     }
 }
 

@@ -1,13 +1,13 @@
 import React from 'react';
-import {userGetPage, userUpdateSubmit, majorAll, userGetId, userInsert, userDeleteById} from '../../api/req'
+import {userGetPage, userUpdateSubmit, majorAll, userGetId, userInsert, userDeleteById,majorNames} from '../../api/req'
 import { SearchOutlined,PlusOutlined,ExclamationCircleOutlined} from '@ant-design/icons';
-import {Input, Button, Table, Select, message, Tooltip, Divider, Pagination, Modal} from 'antd'
+import {Input, Button, Table,message, Tooltip, Divider, Pagination, Modal} from 'antd'
+import {InputComponent,SelectComponent,ReSet} from '../../component/SearchComponent'
 import {connect} from 'react-redux'
 import Auth from '../../utils/auth'
 import UserDrawerComponent from './component/UserDrawerComponent'
 import './index.css'
 import {userInfo} from "./user_action";
-
 
 export default connect(state=>({
     login:state.login,
@@ -15,11 +15,14 @@ export default connect(state=>({
 }),{userInfo:userInfo
 
 })(class User extends React.Component {
+
+
+
     componentDidMount() {
         Auth()
         this.init()
         this.handelPage()
-
+        this.majorNames()
     }
 
 
@@ -28,6 +31,7 @@ export default connect(state=>({
         isEdit:true,
         pageData:[],
         majorData:[],
+        majorNames:[],
         updData:[],
         userName:"",
         majorName:"",
@@ -41,12 +45,26 @@ export default connect(state=>({
         return (
             <div style={{marginBottom:20}}>
                 <div style ={{height:10}}/>
-                <Input.Group style={{marginLeft:10,marginTop:8}}>
-                    <Input addonBefore = "姓名" autoFocus placeholder="请输入用户名称" onChange = {e=>this.setState({userName:e.target.value})} style={{marginRight:20,width:300}}/>
-                    <Input addonBefore = "专业"  placeholder="请输入专业名称" onChange = {e=>this.setState({majorName:e.target.value})} style={{marginRight:20,width:300}}/>
-                     <Button type="primary" style={{marginRight:20}} onClick = {this.handelPage}><SearchOutlined/>查询</Button>
-                    <Button type="primary" onClick = {this.handelShowDrawer}><PlusOutlined /> 新增</Button>
-                </Input.Group>
+                       <SelectComponent
+                           id = "majorName"
+                           title = "专业"
+                           style={{marginRight:20,width:300}}
+                           onChange = {(e)=>this.setState({majorName:e.target.value})}
+                           data = {this.state.majorNames}
+                           attr = "majorName"
+                      />
+                       <InputComponent
+                           id = "userName"
+                           title = "姓名"
+                           type = "text"
+                           placeholder = "请输入用户名称"
+                           onChange = {e=>this.setState({userName:e.target.value})}
+                           style={{marginRight:20,width:300}}
+                       />
+                    <Button type="primary" style={{marginRight:20}} onClick = {this.handelPage}><SearchOutlined/>查询</Button>
+                    <Button type="primary" style={{marginRight:20}} onClick = {this.handelShowDrawer}><PlusOutlined /> 新增</Button>
+                    <Button type="primary" style={{marginRight:20}} onClick = {this.handelReset}>重置</Button>
+                {/*</Input.Group>*/}
                 <div style ={{height:15}}/>
                 <Table columns={this.columns} dataSource={this.state.pageData} pagination = {false}/>
                 {/*分页组件*/}
@@ -68,7 +86,28 @@ export default connect(state=>({
         );
     }
 
+    /**
+     * 重置
+     */
+    handelReset=()=>{
+        ReSet()
+        this.setState({majorName:"",userName:""})
 
+
+    }
+
+
+
+    /**
+     * 获取专业名称
+     * @returns {Promise<void>}
+     */
+    majorNames=async()=>{
+        const result = await majorNames()
+        if(result.status){
+            this.setState({majorNames:result.data})
+        }
+    }
 
 
     //新增
@@ -81,15 +120,20 @@ export default connect(state=>({
     handelPage =async()=>{
         let {userName,majorName,currentPage,pageSize} = this.state
         let params = {userName:userName, majorName: majorName,currentPage:currentPage,pageSize:pageSize}
+        console.log("params====>>>>  ",params)
         const result =  await userGetPage(params)
-
         if(result.status){
             this.setState({pageData:result.data.rows,total:result.data.total})
             this.props.userInfo({...result.data.rows,total:result.data.total})
+
         }else{
             message.useMessage(result.message)
         }
     }
+
+
+
+
     //删除
     handelDelete=async(text)=>{
         Modal.confirm({

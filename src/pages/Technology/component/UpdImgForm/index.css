@@ -1,0 +1,33 @@
+#upd_box{
+    width: 225px !important;
+    height: 100px !important;
+    /*background-color: #000c17 !important;*/
+    position: absolute !important;
+    top:158px;
+    left:305px;
+    right:0;
+    bottom:0;
+    margin:0;
+}
+
+#img_del_btn{
+    display: inline-block;
+    position: absolute;
+    left:305px;
+    background-color: #FAFAFA;
+    border:1px dashed  #D9D9D9;
+    width: 105px;
+    height: 98px;
+    text-align: center;
+    line-height: 100px;
+
+}
+
+#img_del_btn:hover{
+    border:1px dashed #5DA2FF;
+    border-bottom:none;
+}
+
+.img_div_flag{
+    margin-bottom: 90px;
+}

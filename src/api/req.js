@@ -39,6 +39,9 @@ export const proAdd = (params)=>(instance.post(`${ACCESS_ADDRESS}/pro-menu/addPr
 export const proDeleteById = (params)=>(instance.get(`${ACCESS_ADDRESS}/pro-menu/delById?${qs.stringify(params)}`))
 export const proGetMaxCode= (params)=>(instance.get(`${ACCESS_ADDRESS}/pro-menu/getMaxCode?${qs.stringify(params)}`))
 export const getContentById = (params)=>(instance.get(`${ACCESS_ADDRESS}/pro-content/findByContentId?${qs.stringify(params)}`))
+export const getMenu = (params)=>(instance.get(`${ACCESS_ADDRESS}/pro-menu/getFirstMenu?${qs.stringify(params)}`))
+export const getMenuByNameAndLevel = (params)=>(instance.get(`${ACCESS_ADDRESS}/pro-menu/getMenu?${qs.stringify(params)}`))
+export const delImg = (params)=>(instance.get(`${ACCESS_ADDRESS}/pro-img/delImg?${qs.stringify(params)}`))
 
 //==================================user========================================================================================
 export const userGetPage =(params)=>(instance.get(`${ACCESS_ADDRESS}/user/queryPage?${qs.stringify(params)}`))
@@ -70,14 +73,9 @@ export const importProblem =()=>(instance.get(`${ACCESS_ADDRESS}/problem/importP
 export const exportProblem =(params,config)=>(instance.get(`${ACCESS_ADDRESS}/problem/exportProblem?${qs.stringify(params)}`,config))
 
 
-
 //==================================major========================================================================================
 export const majorPage=(params)=>(instance.get(`${ACCESS_ADDRESS}/major/getPage?${qs.stringify(params)}`))
 export const majorGetId=(params)=>(instance.get(`${ACCESS_ADDRESS}/major/${params}`))
 export const majorUpd =(params)=>(instance.post(`${ACCESS_ADDRESS}/major/upd`,params))
 export const majorInsert =(params)=>(instance.post(`${ACCESS_ADDRESS}/major/add`,params))
 export const majorDel =(params)=>(instance.post(`${ACCESS_ADDRESS}/major/upd`,params))
-
-
-
-
