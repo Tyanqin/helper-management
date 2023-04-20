@@ -13,6 +13,9 @@ export default class OpiDrawerComponent extends Component {
 
     render() {
         let {isEdit,visible} = this.props
+        console.log("this.props.detailData[0]=====>>>>>>",this.props.detailData)
+
+
         return (
             <div>
                 <Drawer

@@ -43,6 +43,11 @@ export const getMenu = (params)=>(instance.get(`${ACCESS_ADDRESS}/pro-menu/getFi
 export const getMenuByNameAndLevel = (params)=>(instance.get(`${ACCESS_ADDRESS}/pro-menu/getMenu?${qs.stringify(params)}`))
 export const delImg = (params)=>(instance.get(`${ACCESS_ADDRESS}/pro-img/delImg?${qs.stringify(params)}`))
 
+export const updImg =(params)=>(instance.post(`${ACCESS_ADDRESS}/pro-img/updImg`,params))
+export const addImg =(params)=>(instance.post(`${ACCESS_ADDRESS}/pro-img/addImg`,params))
+export const updImgDesc =(params)=>(instance.post(`${ACCESS_ADDRESS}/pro-img/upd`,params))
+
+
 //==================================user========================================================================================
 export const userGetPage =(params)=>(instance.get(`${ACCESS_ADDRESS}/user/queryPage?${qs.stringify(params)}`))
 export const majorAll =()=>(instance.get(`${ACCESS_ADDRESS}/major/getDisName`))
@@ -79,3 +84,7 @@ export const majorGetId=(params)=>(instance.get(`${ACCESS_ADDRESS}/major/${param
 export const majorUpd =(params)=>(instance.post(`${ACCESS_ADDRESS}/major/upd`,params))
 export const majorInsert =(params)=>(instance.post(`${ACCESS_ADDRESS}/major/add`,params))
 export const majorDel =(params)=>(instance.post(`${ACCESS_ADDRESS}/major/upd`,params))
+
+
+//==================================oss========================================================================================
+export const ossRemove=(params)=>(instance.get(`${ACCESS_ADDRESS}/oss/removeFile?${qs.stringify(params)}`))

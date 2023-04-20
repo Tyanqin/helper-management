@@ -45,6 +45,7 @@ export default class RegDrawerComponent extends Component {
                             <div  className="form_wrap">
                                 <RegAddForm
                                     updData = {this.props.updData}
+                                    regNames = {this.props.regNames}
                                     submit = {this.props.submit}
                                     close = {this.props.close}
                                 />

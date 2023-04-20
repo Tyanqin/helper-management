@@ -5,17 +5,7 @@ const {Option} = Select
 export default class  UserUpdForm  extends  React.Component{
 
     onFinish = (values) => {
-        console.log('Success:', values);
-        let params = {
-            detailId:this.props.updData.detailId,
-            ruleName:values.ruleName?values.ruleName:this.props.updData.ruleName,
-            staName:values.staName?values.staName:this.props.updData.staName,
-            ruleTheme:values.ruleTheme?values.ruleTheme:this.props.updData.ruleTheme,
-            ruleTitle:values.ruleTitle?values.ruleTitle:this.props.updData.ruleTitle,
-            keyPoint:values.keyPoint?values.keyPoint:this.props.updData.keyPoint
-        }
-        console.log('params:', params);
-        this.props.submit(params)
+
     };
 
     onFinishFailed = (errorInfo) => {
@@ -23,7 +13,7 @@ export default class  UserUpdForm  extends  React.Component{
     };
 
     render(){
-        let {updData} = this.props
+        let {detailData} = this.props
         return(
             <Form
                 name="basic"
@@ -45,29 +35,21 @@ export default class  UserUpdForm  extends  React.Component{
                     }]}
                 >
                     <Input
-                        key = {updData.detailId}
-                        defaultValue ={updData.ruleName}
+                        readOnly
+                        key = {detailData.detailId}
+                        defaultValue ={detailData.ruleName}
                     />
                 </Form.Item>
-
                 <Form.Item
                     style = {{marginRight:120,marginTop:30}}
                     label="阶段"
                     name="staName"
                 >
-                    <Select
-                        key = {updData.detailId}
-                        style={{marginTop:0,width:400,textAlign:"left"}}
-                        defaultValue ={updData.staName}
-                    >
-                        {
-                            this.props.proStaNames.map((item,index)=>{
-                                return (
-                                    <Option value={item.staName}>{item.staName}</Option>
-                                )
-                            })
-                        }
-                    </Select>
+                    <Input
+                        readOnly
+                        key = {detailData.detailId}
+                        defaultValue ={detailData.staName}
+                    />
                 </Form.Item>
 
                 <Form.Item
@@ -80,8 +62,9 @@ export default class  UserUpdForm  extends  React.Component{
                     }]}
                 >
                     <Input
-                        key = {updData.detailId}
-                        defaultValue ={updData.ruleTheme}
+                        readOnly
+                        key = {detailData.detailId}
+                        defaultValue ={detailData.ruleTheme}
                     />
                 </Form.Item>
                 <Form.Item
@@ -94,8 +77,9 @@ export default class  UserUpdForm  extends  React.Component{
                     }]}
                 >
                     <Input
-                        key = {updData.detailId}
-                        defaultValue ={updData.ruleTitle} />
+                        readOnly
+                        key = {detailData.detailId}
+                        defaultValue ={detailData.ruleTitle} />
                 </Form.Item>
                 <Form.Item
                     style = {{marginRight:120,marginTop:30}}
@@ -103,8 +87,9 @@ export default class  UserUpdForm  extends  React.Component{
                     name="keyPoint"
                 >
                     <Input.TextArea
-                        key={updData.detailId}
-                        defaultValue  = {updData.keyPoint}
+                        readOnly
+                        key={detailData.detailId}
+                        defaultValue  = {detailData.keyPoint}
                         maxLength = {500}
                         allowClear showCount
                     />
@@ -113,9 +98,6 @@ export default class  UserUpdForm  extends  React.Component{
                     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
                         <Button onClick={()=>this.props.close()} style={{ marginRight: 8 }}>
                             退出
-                        </Button>
-                        <Button type="primary" htmlType="submit">
-                            提交
                         </Button>
                     </Form.Item>
                 </div>

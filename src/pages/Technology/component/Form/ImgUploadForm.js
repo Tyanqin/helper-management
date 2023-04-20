@@ -3,8 +3,11 @@ import {Button, Input, Form, message, Modal} from "antd";
 import ImgAddForm from "../../component/ImgAddForm";
 import UpdImgForm from "../../component/UpdImgForm";
 
-import {delImg} from "../../../../api/req";
+
+import {delImg,addImg,updImgDesc} from "../../../../api/req";
 import {ExclamationCircleOutlined} from '@ant-design/icons';
+import {RemoveAllImg} from '../UpdImgForm/imageElement'
+
 import './index.css'
 
 class ImgUploadForm extends Component {
@@ -12,38 +15,52 @@ class ImgUploadForm extends Component {
 
     onFinish = (values) => {
 
+        //        proContentId processCode
+//        firstTitle                secTitle
+//        terTitle         processName                       processStandard                   constructionPoints
+   console.log("values===============>>>>>>values ",values)
 
-        let params = {
-            proContentId:values.proContentId?values.proContentId:this.props.detailData.proContentId,
-            processName:values.processName?values.processName:this.props.detailData.processName,
-            processStandard:values.processStandard?values.processStandard:this.props.detailData.processStandard,
-            constructionPoints:values.constructionPoints?values.constructionPoints:this.props.detailData.constructionPoints,
-            processCode:values.processCode?values.processCode:this.props.detailData.processCode,
-            imgDesc:this.imgDescs,
-            fileInfo:this.state.filesInfo
+        let proContent = {}
 
 
+
+        let fileInfo = this.state.filesInfo
+        let fileInfoLength =  fileInfo.length
+        let imgDescLength = this.imgDescArray.length
+        console.log("filesInfo===",this.state.filesInfo)
+        console.log("fileInfoLength===",fileInfoLength)
+        console.log("imgDescLength===",imgDescLength)
+
+        if(fileInfoLength === imgDescLength){
+            let proImgs = []
+            for (let i = 0; i < fileInfoLength; i++) {
+                let item = {
+                    proContentId:this.props.detailData.proContentId,
+                    imgName:fileInfo[i].fileName,
+                    imgNewName:fileInfo[i].newFileName,
+                    imgUrl:fileInfo[i].fileUrl,
+                    imgDesc:this.imgDescArray[i]
+                }
+                proImgs.push(item)
+            }
+            proContent = {
+                proContentId:this.props.detailData.proContentId,
+                firstTitle:values.firstTitle?values.firstTitle:this.props.detailData.firstTitle,
+                secTitle:values.secTitle?values.secTitle:this.props.detailData.secTitle,
+                terTitle:values.terTitle?values.terTitle:this.props.detailData.terTitle,
+                processName:values.processName?values.processName:this.props.detailData.processName,
+                processStandard:values.processStandard?values.processStandard:this.props.detailData.processStandard,
+                constructionPoints:values.constructionPoints?values.constructionPoints:this.props.detailData.constructionPoints,
+                proMenuId:values.proMenuId?values.proMenuId:this.props.detailData.proMenuId,
+                list:proImgs
+            }
+        }else{
+            message.info("请填写图片描述")
+            return
         }
-
-
-
-
-        // let params = {
-        //     firstTitle:values.firstTitle,
-        //     secTitle:values.secTitle,
-        //     terTitle:values.terTitle,
-        //     terMenuCode:values.menuCode,
-        //     processName:values.processName,
-        //     processCode:values.processCode,
-        //     imgDesc:this.imgDescs,
-        //     processStandard:values.processStandard,
-        //     constructionPoints:values.constructionPoints,
-        //     fileInfo:this.state.filesInfo
-        //
-        // }
-
-        console.log("params====>>>>>>　　",params)
-        this.props.submit(params)
+        console.log("submit====>proContent>>>>>　　",proContent)
+        // this.handelAddImg(proContent)
+        // this.props.handelSelectData()
     };
     onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
@@ -52,8 +69,6 @@ class ImgUploadForm extends Component {
 
     state = {
         filesInfo:[],
-
-
     };
 
     render() {
@@ -121,15 +136,23 @@ class ImgUploadForm extends Component {
                                             name="imgDesc"
                                         >
                                             <Input key = {item.imgDesc}
+                                                   onBlur = {(e)=>{
+                                                       let params = {proImgId:item.proImgId,imgDesc:e.target.value,proContentId:detailData.proContentId}
+                                                       this.updImgDesc(params)
+                                                   }}
                                                    style = {{width:410,marginBottom:20}}
                                                    maxLength = {50}
                                                    defaultValue = {item.imgDesc}/>
                                             <div className = "img_box">
                                                 <img src={item.imgUrl} alt=""/>
                                                 <UpdImgForm
-                                                    handelFileInfo = {this.handelImageFileInfo}
+                                                    handelImageFileInfo = {this.handelImageFileInfo}
                                                     title = "修改"
                                                     styleId = "upd_box"
+                                                    proContentId = {detailData.proContentId}
+                                                    proImgId = {item.proImgId}
+                                                    flag = "upd"
+                                                    elementId = {item.proImgId}
                                                 />
                                                 <a ref = {this.delRef} id = "img_del_btn" onClick={this.handelDelImg.bind(this,item.proImgId,detailData.proContentId)}>删除</a>
                                             </div>
@@ -142,7 +165,8 @@ class ImgUploadForm extends Component {
                     <div id = "">
                         <div>
                             <UpdImgForm
-                                handelFileInfo = {this.handelImageFileInfo}
+                                handelImageFileInfo = {this.handelImageFileInfo}
+                                handelImgDescFun={this.handelImgDescFun}
                                 title = "新增"
                                 flag = "add"
                                 styleId = "img_add"
@@ -168,11 +192,38 @@ class ImgUploadForm extends Component {
         );
     }
 
+    /**
+     * 修改图片描述
+     * @param e
+     */
+    updImgDesc=async(params)=>{
+        const result = await updImgDesc(params)
+        if(result.status){
 
+        }
+
+    }
+
+    handelAddImg=async(params)=>{
+        const result = await addImg(params)
+        if(result.status){
+            message.info("新增成功！")
+            this.props.close()
+            RemoveAllImg()
+        }
+    }
+
+    imgDescArray = []
+    handelImgDescFun=(e)=>{
+        console.log("handelImgDescFun=====>>>>>>   "+e.target.value)
+        this.imgDescArray.push(e.target.value)
+    }
 
     handelImageFileInfo=(values)=>{
+        console.log("values   length=====>>>>>>",values.length)
         let params = []
         let length = values.length;
+        console.log("length=====>>>>>>",length)
         if(length>0) {
             for (let i = 0; i < length; i++) {
                 if(values[i].response != undefined && values[i].response !=null){

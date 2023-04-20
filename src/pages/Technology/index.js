@@ -104,6 +104,7 @@ export default class Technology extends Component {
                     visible = {this.state.visible}
                     close = {this.onClose}
                     submit={this.submit}
+                    handelSelectData = {this.handelSelectData}
                 />
             </div>
         );
@@ -137,15 +138,12 @@ export default class Technology extends Component {
 
     //提交（修改与新增）
     submit = async(params) => {
-        alert(123123+"进入")
         let result = null
         if(this.state.isEdit===1){
-
-            alert(123123+"修改")
-            // await proUpdateSubmit(params).then((res)=>{
-            //     this.handelSelectData()
-            //     message.info("修改成功！")
-            // })
+            await proUpdateSubmit(params).then((res)=>{
+                this.handelSelectData()
+                message.info("修改成功！")
+            })
         }else if(this.state.isEdit===2){
             await proAdd(params).then((res)=>{
                 this.handelSelectData()

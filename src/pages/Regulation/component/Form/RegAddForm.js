@@ -2,9 +2,10 @@ import React from 'react';
 import { InboxOutlined } from '@ant-design/icons';
 import { message, Upload ,Form,Input,Button,Select} from 'antd';
 import {ACCESS_ADDRESS} from '../../../../conf/conf'
+import {ossRemove} from '../../../../api/req'
 import './index.css'
 const { Dragger } = Upload;
-
+const {Option} = Select
 export default class  RegAddForm  extends  React.Component{
 
     onFinish = (values) => {
@@ -16,7 +17,8 @@ export default class  RegAddForm  extends  React.Component{
     };
 
     state = {
-        filesInfo:""
+        filesInfo:[],
+        disabled:false
 
     };
 
@@ -31,18 +33,27 @@ export default class  RegAddForm  extends  React.Component{
                 onFinish={this.onFinish}
                 onFinishFailed={this.onFinishFailed}
                 autoComplete="off"
-                className = "form"
+                // className = "form"
             >
                 <Form.Item
-                    style = {{marginRight:120,marginTop:240}}
-                    label="规章名称"
+                    style = {{marginRight:190,marginTop:240}}
+                    label="专业"
                     name="regName"
                     rules={[{
                         required: true,
                         message: '请输入名称!'
                     }]}
                 >
-                    <Input  />
+                    <Select defaultValue="" style={{marginRight:70,width:280,textAlign:"left"}}>
+                        {
+                            this.props.regNames.map((item,index)=>{
+                                return (
+                                    <Option key={index} value={item}>{item}</Option>
+                                )
+                            })
+                        }
+                    </Select>
+                    {/*<Input  />*/}
                 </Form.Item>
                 <div className = "upload_wrap">
                     <Form.Item name="files">
@@ -51,19 +62,21 @@ export default class  RegAddForm  extends  React.Component{
                             multiple = {true}
                             onChange = {this.handelChange}
                             onDrop = {this.handelDrop}
-                            beforeUpload={(value) => {console.log("value===>>>>",value)}}
+                            beforeUpload = {this.handelBefore}
                             action = {`${ACCESS_ADDRESS}/reg/uploadFile`}
-                            maxCount={3}
-                            style = {{width:470}}
+                            onRemove = {this.handelOnRemove}
+                            maxCount={1}
+                            disabled = {this.state.disabled}
+                            style = {{width:330}}
                         >
-                            <p className="ant-upload-drag-icon">
-                                <InboxOutlined />
-                            </p>
-                            <p className="ant-upload-text">Click or drag file to this area to upload</p>
-                            <p className="ant-upload-hint">
-                                Support for a single or bulk upload. Strictly prohibited from uploading company data or other
-                                banned files.
-                            </p>
+                            {
+                               this.state.filesInfo=="" || this.state.filesInfo== []?<div >
+                                   <p className="ant-upload-drag-icon">
+                                       <InboxOutlined />
+                                   </p>
+                                   <p className="ant-upload-text">点击此处进行上传</p>
+                               </div>:<span><InboxOutlined /></span>
+                            }
                         </Dragger>
                     </Form.Item>
                 </div>
@@ -80,6 +93,38 @@ export default class  RegAddForm  extends  React.Component{
             </Form>
         );
     }
+
+    handelOnRemove=(file)=>{
+        console.log("values====>>>>>",this.values)
+        console.log("file====>>>>>",file)
+        // this.values
+
+        let length = this.values.length
+        if(length > 0){
+            for (let i = 0; i < length; i++) {
+                if(this.values[i] != null && file.response.data!=null){
+                    if(this.values[i].newFileName === file.response.data[0].newFileName){
+                        delete this.values[i]
+                    }
+                }
+            }
+            let params = {fileName:file.response.data[0].newFileName}
+            this.ossRemove(params)
+        }
+
+    }
+    /**
+     * 删除文件
+     * @param params
+     * @returns {Promise<void>}
+     */
+    ossRemove=async(params)=>{
+        const result = await ossRemove(params)
+        if(result.status){
+
+        }
+    }
+
     values = []
     handelChange=(info)=>{
         const { status } = info.file;
@@ -95,5 +140,32 @@ export default class  RegAddForm  extends  React.Component{
     handelDrop=(e)=> {
         console.log('Dropped files', e.dataTransfer.files);
     }
+
+    isAssetTypeAnImage=(ext)=> {
+        //获取最后一个.的位置
+        let varindex= ext.lastIndexOf("/");
+        //获取后缀
+        let varext = ext.substring(varindex+1);
+        return [
+            'pdf'].
+        indexOf(varext.toLowerCase()) !== -1;
+    }
+
+    handelBefore=(file)=>{
+        if(!this.isAssetTypeAnImage(file.type.toString())){
+            message.info("格式错误，上传失败！")
+            return
+        }
+        if(this.values!=null && this.values.length >=0 && this.values != []){
+            this.setState({disabled:true})
+        }
+    }
+
 }
+
+{/*<p className="ant-upload-hint">*/}
+{/*Support for a single or bulk upload. Strictly prohibited from uploading company data or other*/}
+{/*banned files.*/}
+{/*</p>*/}
+
 

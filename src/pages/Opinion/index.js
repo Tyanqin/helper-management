@@ -265,7 +265,7 @@ export default class Opinion extends Component {
         {title: '操作', key: 'action', render: (text, record) => (<span>
                 {/*<a onClick={this.updateDataById.bind(text,record)}>修改</a>*/}
                 {/*<Divider type="vertical" />*/}
-                <a onClick = {this.handelReader.bind(text,record)}>查看</a>
+                <a onClick = {this.handelReader.bind(text,record)}>详情</a>
                  <Divider type="vertical" />
                 <a onClick = {this.handelDownLoad.bind(text,record)}>下载</a>
                 <Divider type="vertical" />

@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import { Upload, Modal,message } from 'antd';
-import { PlusOutlined} from '@ant-design/icons';
 import {ACCESS_ADDRESS} from '../../../../conf/conf'
 import './index.css'
 import {GetChildLengthImg,AddInputImg,RemoveInputImg,RemoveAllImg} from "./imageElement";
+import {updImg} from '../../../../api/req'
 
 
 function getBase64(file) {
@@ -14,7 +14,7 @@ function getBase64(file) {
         reader.onerror = error => reject(error);
     });
 }
-//123
+
 export default class ImageForm extends Component {
 
 
@@ -48,9 +48,30 @@ export default class ImageForm extends Component {
         }
         if (status === 'done') {
             this.values=[...fileList]
-            console.log("this.values=====>>>>. ",this.values)
-            this.setState({files:[...this.values]},()=>{this.props.handelFileInfo(this.state.files)})
-            // this.props.handelFileInfo(this.values)
+            this.setState({files:[...this.values]},()=>{
+                if(this.props.flag != undefined &&this.props.flag != null && this.props.flag != "" && this.props.flag == "upd"){
+                    let {fileName,fileUrl,imgDesc,newFileName} = this.values[0].response.data[0]
+                    let params = {
+                        proContentId:this.props.proContentId,
+                        proImgId: this.props.proImgId,
+                        imgName:fileName,
+                        imgUrl:fileUrl,
+                        imgNewName:newFileName
+                    }
+                    this.handelUpdImg(params).then(res=>{
+                        let elementId = this.props.elementId
+                        let element = document.getElementById(elementId);
+                        var img = element.getElementsByTagName("img")[0];
+                        img.src = fileUrl
+
+                    })
+
+                }else{
+                   this.props.handelImageFileInfo(this.values)
+                }
+
+            })
+
         } else if (status === 'error') {
             message.error(`${fileList.name}上传失败`);
         }
@@ -61,7 +82,12 @@ export default class ImageForm extends Component {
 
     render() {
         const { previewVisible, previewImage, fileList } = this.state;
-        const uploadButton = (<a className="update_img">{this.props.title}</a>);
+        const uploadButton = (
+            <a className="update_img"
+                                 // onClick = {this.handelUpdImg}
+            >
+            {this.props.title}
+            </a>);
         RemoveAllImg()
         return (
             <div id = {this.props.styleId}>
@@ -87,6 +113,14 @@ export default class ImageForm extends Component {
         );
     }
 
+
+    handelUpdImg=async(params)=>{
+       const result =  await updImg(params)
+       if(result.status){
+           message.info("修改成功")
+       }
+    }
+
     handelBefore=(file,fileList)=>{
 
         if(!this.isAssetTypeAnImage(file.type.toString())){
@@ -101,7 +135,13 @@ export default class ImageForm extends Component {
         if(GetChildLengthImg()> 2){
             message.info("已上传最大数量！")
         }else{
-            AddInputImg(this.props.handelUploadData)
+            if(this.props.flag != undefined
+                &&this.props.flag != null
+                && this.props.flag != ""
+                && this.props.flag == "add"){
+                AddInputImg(this.props.handelImgDescFun)
+            }
+
         }
 
     }
@@ -114,7 +154,6 @@ export default class ImageForm extends Component {
             RemoveInputImg()
         }
     }
-
 
     isAssetTypeAnImage=(ext)=> {
         //获取最后一个.的位置

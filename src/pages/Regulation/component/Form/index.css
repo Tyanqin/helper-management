@@ -22,6 +22,12 @@
     border:1px solid #FAFAFA;
 }
 
+.upload_reg{
+    width: 300px;
+    height: 100px;
+    background-color: #87e8de;
+}
+
 /*.upload_wrap:hover{*/
     /*border:1px solid #85BEFF;*/
 /*}*/

@@ -3,6 +3,8 @@ import { SearchOutlined,PlusOutlined,ExclamationCircleOutlined} from '@ant-desig
 import {Input, Button, Table, Select, message, Tooltip, Divider, Pagination, Modal} from 'antd'
 import {regPage, distinctRegName, regGetId, regUpdateSubmit,regDeleteById, regDownload,regAdd} from '../../api/req'
 import RegDrawerComponent from './component/RegDrawerComponent'
+
+import {InputComponent,SelectAttrComponent,ReSet} from '../../component/SearchComponent'
 import Auth from '../../utils/auth'
 const {Option} = Select
 
@@ -38,22 +40,39 @@ export default class Regulation extends Component {
             <div style={{marginBottom:20}}>
                 <div style ={{height:10}}/>
                 <Input.Group style={{marginLeft:10,marginTop:8}}>
-                    <span   className = "data_span" style = {{width:80}}>规章名称</span>
-                    <Select defaultValue="" style={{marginRight:20,width:185}} onChange = {(value)=>this.setState({regName:`${value}`})}>
-                        <Option value="">全部</Option>
-                        {
-                            this.state.regNames.map((item,index)=>{
-                                return (
-                                    <Option key={index} value={item}>{item}</Option>
-                                )
-                            })
-                        }
-                    </Select>
-                    <Input addonBefore = "制度名称"  onChange = {(e)=>{this.setState({resName:e.target.value})}} style={{marginRight:20,width:300}}/>
+                    {/*<span   className = "data_span" style = {{width:80}}>专业</span>*/}
+                    {/*<Select defaultValue="" style={{marginRight:20,width:185}} onChange = {(value)=>this.setState({regName:`${value}`})}>*/}
+                        {/*<Option value="">全部</Option>*/}
+                        {/*{*/}
+                            {/*this.state.regNames.map((item,index)=>{*/}
+                                {/*return (*/}
+                                    {/*<Option key={index} value={item}>{item}</Option>*/}
+                                {/*)*/}
+                            {/*})*/}
+                        {/*}*/}
+                    {/*</Select>*/}
+                    <SelectAttrComponent
+                        id = "regName"
+                        title = "专业"
+                        style={{marginRight:20,width:300}}
+                        onChange = {(e)=>this.setState({regName:e.target.value})}
+                        data = {this.state.regNames}
+                        attr = "regName"
+                    />
+                    <InputComponent
+                        id = "resName"
+                        title = "制度"
+                        type = "text"
+                        placeholder = "请输入制度名称"
+                        onChange = {e=>this.setState({resName:e.target.value})}
+                        style={{marginRight:20,width:300}}
+                    />
+                    {/*<Input addonBefore = "制度"  onChange = {(e)=>{this.setState({resName:e.target.value})}} style={{marginRight:20,width:300}}/>*/}
                     <Button type="primary" onClick={this.handelPage} style={{marginRight:20}}><SearchOutlined/>查询</Button>
                     <Button  type="primary" onClick = {this.handelShowDrawer}>
                         <PlusOutlined /> 新增
                     </Button>
+                    <Button type="primary" style={{marginLeft:20}} onClick = {this.handelReset}>重置</Button>
                 </Input.Group>
                 <div style ={{height:15}}/>
                 <Table columns={this.columns} dataSource={this.state.pageData} pagination = {false}/>
@@ -75,6 +94,14 @@ export default class Regulation extends Component {
                 {/*<Outlet/>*/}
             </div>
         );
+    }
+
+    /**
+     * 重置
+     */
+    handelReset=()=>{
+        ReSet()
+        this.setState({ regName:"", resName:"",})
     }
 
      //获取规章制度下拉列表名称

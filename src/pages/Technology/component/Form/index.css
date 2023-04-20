@@ -1,39 +1,16 @@
-/*#add_wrap{*/
-    /*width: 100%;*/
-    /*!*background-color: pink;*!*/
-    /*text-align: center;*/
-    /*position: relative;*/
-    /*top:-50px;*/
-    /*left:0;*/
-/*}*/
+.img_input_flag{
+    width:210px;
+    height: 30px;
+    outline-style: none;
+    padding-left: 10px;
+    border:1px solid #D9D9D9;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+.img_input_flag:hover{
+    border:1px solid #5DA2FF;
+}
 
-
-
-
-
-/*.upload_box{*/
-    /*width: 30%;*/
-    /*height:50px;*/
-    /*position: absolute;*/
-    /*top:250px;*/
-    /*left:6px;*/
-    /*right: 0;*/
-    /*bottom: 0;*/
-    /*margin: auto;*/
-    /*border:1px solid #FAFAFA;*/
-    /*!*background-color: red;*!*/
-/*}*/
-
-/*.form{*/
-    /*background-color: #87e8de;*/
-    /*height: 700px;*/
-    /*width: 500px;*/
-    /*position: absolute;*/
-    /*top:50px;*/
-    /*right:100px;*/
-    /*margin: auto;*/
-    /*text-align: left;*/
-/*}*/
 
 .clear_fix{
     width: 120px;

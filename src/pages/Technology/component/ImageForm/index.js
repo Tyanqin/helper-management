@@ -113,10 +113,10 @@ export default class ImageForm extends Component {
         if(fileArray!=null && fileArray.length >=2 && fileArray != []){
             this.setState({disabled:true})
         }
-        if(GetChildLength()>=2){
+        if(GetChildLength()>=3){
             message.info("已上传最大数量！")
         }else{
-            AddInput(null)
+            AddInput(this.props.handelUploadData)
             // this.props.handelUploadData
         }
 

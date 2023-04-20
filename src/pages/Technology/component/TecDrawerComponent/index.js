@@ -56,6 +56,7 @@ export default class TecDrawerComponent extends Component {
                                     submit = {this.props.submit}
                                     close = {this.props.close}
                                     detailData = {detailData}
+                                    handelSelectData = {this.handelSelectData}
                                 />
 
                         </div>:""||isEdit===2?
@@ -67,6 +68,7 @@ export default class TecDrawerComponent extends Component {
                                     submit = {this.props.submit}
                                     close = {this.props.close}
                                     handelUploadData = {this.handelUploadData}
+
                                 />
                             </div>:"" || isEdit===3?
                                 <div key={3} style = {{marginLeft:80}}>
@@ -127,7 +129,6 @@ export default class TecDrawerComponent extends Component {
                                                                readOnly
                                                                defaultValue = {item.imgDesc}/>
                                                         <div className="img_box"><img src={item.imgUrl} alt=""/></div>
-
                                                     </Form.Item>
                                                 </>
                                             )
