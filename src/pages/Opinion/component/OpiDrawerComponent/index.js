@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {Button, Divider, Drawer, Input, Select, Table, Tooltip} from "antd";
 import CommentComponent from "../../component/CommentComponent";
+import moment from 'moment'
+import './style.css'
 const { TextArea } = Input;
 const { Option } = Select;
 
@@ -12,15 +14,13 @@ export default class OpiDrawerComponent extends Component {
     }
 
     render() {
-        let {isEdit,visible} = this.props
-        console.log("this.props.detailData[0]=====>>>>>>",this.props.detailData)
-
+        let {isEdit,visible,detailData} = this.props
 
         return (
             <div>
                 <Drawer
                     title={isEdit?"修改":"详情"}
-                    width={720}
+                    width={isEdit?720:850}
                     // onClose={()=>this.props.close()}
                     closable={false}
                     open={visible}
@@ -33,16 +33,29 @@ export default class OpiDrawerComponent extends Component {
                             </div>
                             :
                             <div>
-                                <div>签到表</div>
+                                <div className="title">评审意见主题</div>
+                                <div className="content">{detailData[0].title}</div>
+                                <div className="title">阶段</div>
+                                <div className="content">{detailData[0].stageName}</div>
+                                <div className="title">电压等级</div>
+                                <div className="content">{detailData[0].voltageName}</div>
+                                <div className="title">签到表</div>
                                 <Table columns={this.columns}
                                        dataSource={this.props.detailData[0]?this.props.detailData[0].signIns:[]}
                                        pagination = {false}
                                        style = {{marginBottom:30,marginTop:10}}
                                 />
-                                <div>内审主要意见</div>
+                                <div className="title">前言概述</div>
+                                <div className="content">{detailData[0].introOverview}</div>
+                                <div className="title">工程概述</div>
+                                <div className="content">{detailData[0].proOverview}</div>
+                                <div className="title">内审主要意见</div>
                                 <CommentComponent
                                     problemData = {this.props.detailData[0]?this.props.detailData[0].problems:[]}
                                 />
+                                <div className="title">落款</div>
+                                <div className="content">国网江西省电力有限公司鹰潭供电分公司技术中心</div>
+                                <div className="moment">{moment(detailData[0].creTime).format('YYYY年MM月DD')}</div>
                                 <div style={{position: 'absolute', right: 0, bottom: 0, width: '100%', borderTop: '1px solid #e9e9e9', padding: '10px 16px', background: '#fff', textAlign: 'right',}}>
                                     <Button type="primary" onClick={()=>this.props.close()} style={{ marginRight: 8 }}>
                                         退出
@@ -63,9 +76,10 @@ export default class OpiDrawerComponent extends Component {
             width: 100,
             render:(text,record,index)=> {
                 return(
-                    `${text.signId}`//当前页数减1乘以每一页页数再加当前页序号+1
+                    `${index+1}`//当前页数减1乘以每一页页数再加当前页序号+1
                 )
             }
+
         },
         {title: '签到人', dataIndex: 'userName', key: 'userName',
             // onCell: () => {

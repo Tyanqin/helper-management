@@ -27,9 +27,6 @@ class ImgUploadForm extends Component {
         let fileInfo = this.state.filesInfo
         let fileInfoLength =  fileInfo.length
         let imgDescLength = this.imgDescArray.length
-        console.log("filesInfo===",this.state.filesInfo)
-        console.log("fileInfoLength===",fileInfoLength)
-        console.log("imgDescLength===",imgDescLength)
 
         if(fileInfoLength === imgDescLength){
             let proImgs = []
@@ -59,8 +56,8 @@ class ImgUploadForm extends Component {
             return
         }
         console.log("submit====>proContent>>>>>　　",proContent)
-        // this.handelAddImg(proContent)
-        // this.props.handelSelectData()
+        this.handelAddImg(proContent)
+        this.props.handelSelectData()
     };
     onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);

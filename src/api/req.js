@@ -42,7 +42,6 @@ export const getContentById = (params)=>(instance.get(`${ACCESS_ADDRESS}/pro-con
 export const getMenu = (params)=>(instance.get(`${ACCESS_ADDRESS}/pro-menu/getFirstMenu?${qs.stringify(params)}`))
 export const getMenuByNameAndLevel = (params)=>(instance.get(`${ACCESS_ADDRESS}/pro-menu/getMenu?${qs.stringify(params)}`))
 export const delImg = (params)=>(instance.get(`${ACCESS_ADDRESS}/pro-img/delImg?${qs.stringify(params)}`))
-
 export const updImg =(params)=>(instance.post(`${ACCESS_ADDRESS}/pro-img/updImg`,params))
 export const addImg =(params)=>(instance.post(`${ACCESS_ADDRESS}/pro-img/addImg`,params))
 export const updImgDesc =(params)=>(instance.post(`${ACCESS_ADDRESS}/pro-img/upd`,params))

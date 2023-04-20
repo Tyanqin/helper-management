@@ -32,7 +32,13 @@ const ExampleComment = (props) => {
             author={<span style = {{fontSize:14}}>{item.proUserName}</span>}
             avatar={<Avatar src="https://joeschmoe.io/api/v1/random" alt="Han Solo" />}
             content={
-                <p>{item.proDesc}</p>
+                <div>
+                    <p>{item.proDesc}</p>
+                    <p className="content" style={{color:"red"}}>监督要点</p>
+                    <p  className="content" style={{marginTop:10}}>{item.rule.keyPoint}</p>
+                </div>
+
+
             }
         >
             {
