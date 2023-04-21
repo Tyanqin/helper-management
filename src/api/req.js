@@ -20,6 +20,12 @@ export const reqRuleGetId=(params)=>(instance.get(`${ACCESS_ADDRESS}/supervision
 export const reqInsertRule =(params)=>(instance.post(`${ACCESS_ADDRESS}/supervisionRules/add`,params))
 export const reqRuleDelId=(params)=>(instance.get(`${ACCESS_ADDRESS}/supervisionRules/delByDetailId?${qs.stringify(params)}`))
 
+export const ruleDownload =(params,config)=>(instance.get(`${ACCESS_ADDRESS}/supervisionRules/getDownloadTemplate?${qs.stringify(params)}`,config))
+export const importRule =()=>(instance.get(`${ACCESS_ADDRESS}/supervisionRules/importRule`))
+
+
+
+
 //==================================规章制度=======================
 export const regPage =(params)=>(instance.get(`${ACCESS_ADDRESS}/reg/queryPage?${qs.stringify(params)}`))
 export const distinctRegName =(params)=>(instance.post(`${ACCESS_ADDRESS}/rule-entry/distinctRegName`))

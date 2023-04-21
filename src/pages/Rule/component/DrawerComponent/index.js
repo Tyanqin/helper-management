@@ -3,7 +3,7 @@ import {Button, Drawer, Input, Select} from "antd";
 import RuleUpdForm from '../../component/Form/RuleUpdForm'
 import RuleAddForm from '../../component/Form/RuleAddForm'
 import RuleDetailForm from '../../component/Form/RuleDetailForm'
-
+import RuleImport from '../../component/Form/RuleImport'
 const { TextArea } = Input;
 const { Option } = Select;
 
@@ -25,7 +25,7 @@ export default class DrawerComponent extends Component {
         return (
             <div>
                 <Drawer
-                    title={isEdit==1?"修改":""||isEdit==2? "新增":""||isEdit==3?"详情":""}
+                    title={isEdit==1?"修改":""||isEdit==2? "新增":""||isEdit==3?"详情":"" || isEdit == 4?"导入":""}
                     width={720}
                     closable={false}
                     open={visible}
@@ -54,6 +54,11 @@ export default class DrawerComponent extends Component {
                                     detailData = {detailData}
                                     close = {this.props.close}
                                 />
+                            </div>:""|| isEdit===4?<div>
+                              <RuleImport
+                                 close = {this.props.close}
+                                 handelPage = {this.props.handelPage}
+                              />
                             </div>:""
                     }
                 </Drawer>

@@ -1,10 +1,20 @@
 import React, {Component} from 'react';
-import {distinctRuleName,proAll,page,updateSubmit,reqRuleGetId,reqInsertRule,reqRuleDelId} from '../../api/req'
+import {
+    distinctRuleName,
+    proAll,
+    page,
+    updateSubmit,
+    reqRuleGetId,
+    reqInsertRule,
+    reqRuleDelId,
+    ruleDownload,
+} from '../../api/req'
 import { SearchOutlined,PlusOutlined,ExclamationCircleOutlined} from '@ant-design/icons';
 import {Input, DatePicker, Button, Table, Divider, Select, Tooltip, Pagination,Modal,message,Popover } from 'antd'
 import DrawerComponent from './component/DrawerComponent'
 import {InputComponent,SelectAttrComponent,SelectComponent,ReSet} from '../../component/SearchComponent'
 import Auth from '../../utils/auth'
+
 import './index.css'
 const { Option } = Select;
 
@@ -68,7 +78,7 @@ export default class Rule extends Component {
                     <SelectComponent
                         id = "staName"
                         title = "选择阶段"
-                        style={{marginRight:20,width:180}}
+                        style={{marginRight:20,width:150}}
                         onChange = {(e)=>this.setState({staName:e.target.value})}
                         data = {this.state.proStaNames}
                         attr = "staName"
@@ -79,7 +89,7 @@ export default class Rule extends Component {
                         type = "text"
                         placeholder = "请输入制度名称"
                         onChange = {e=>this.setState({ruleTitle:e.target.value})}
-                        style={{marginRight:20,width:180}}
+                        style={{marginRight:20,width:150}}
                     />
                     {/*<span className = "data_span" style = {{width:80}}>项目阶段</span>*/}
                     {/*<Select defaultValue="项目可研阶段" style={{marginRight:20,width:200}}*/}
@@ -100,9 +110,8 @@ export default class Rule extends Component {
                     <Button type="primary" style={{marginRight:20}} onClick = {this.handelSelectData}><SearchOutlined/>查询</Button>
                     <Button type="primary" style={{marginRight:20}} onClick = {this.handelAddData}><PlusOutlined/>新增</Button>
                     <Button type="primary" style={{marginRight:20}} onClick = {this.handelReset}>重置</Button>
-                    <Popover placement="bottom" title={this.text} content={this.content} trigger="click">
-                        <Button type="primary">批量导入</Button>
-                    </Popover>
+                    <Button type="primary" style={{marginRight:20}} onClick = {this.downloadTemplate}>下载模版</Button>
+                    <Button type="primary" onClick = {this.importProblem}>导入</Button>
                 </Input.Group>
                 <div style ={{height:15}}/>
                 {/*表格组件*/}
@@ -118,6 +127,7 @@ export default class Rule extends Component {
                      detailData = {this.state.detailData}
                      ruleNames = {this.state.ruleNames}
                      proStaNames={this.state.proStaNames}
+                     handelPage = {this.handelSelectData}
                      visible = {this.state.visible}
                      close = {this.onClose}
                      submit={this.updateSubmit}
@@ -357,15 +367,31 @@ export default class Rule extends Component {
         },
     ]
 
-     // text = <span>批量导入</span>;
-     content = (
-        <div style = {{textAlign:"center"}}>
-            <p><a>下载模版</a></p>
-            <p><a>上传</a></p>
-        </div>
-    );
 
-     buttonWidth = 70;
+
+    /**
+     * 下载模版
+     * @returns {Promise<void>}
+     */
+    downloadTemplate=async()=>{
+        let fileName = "监督细则"
+        let params = {fileName}
+        const result = await ruleDownload(params,{responseType: 'blob'})
+        if (result) {
+            const blob = new Blob([result], {type: 'application/msexcel'})
+            const blobUrl = window.URL.createObjectURL(blob)
+            let a = document.createElement('a');
+            a.href = blobUrl;
+            a.download = fileName+'.xls';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+        }
+    }
+
+    importProblem =()=>{
+        this.setState({isEdit:4,visible:true})
+    }
 
 }
 
