@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button, Checkbox, Form, Input,Cascader,Select} from 'antd';
+import { Button, Checkbox, Form, Input,Cascader,Select,message} from 'antd';
+import {userInsert} from '../../../../api/req'
 import './index.css'
 const {Option} = Select
 export default class  UserAddForm  extends  React.Component{
@@ -12,6 +13,7 @@ export default class  UserAddForm  extends  React.Component{
     onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
+
 
     render(){
         return(
@@ -32,6 +34,14 @@ export default class  UserAddForm  extends  React.Component{
                     rules={[{ required: true, message: '请输入名称!' }]}
                 >
                     <Input maxLength = {50}/>
+                </Form.Item>
+                <Form.Item
+                    style = {{marginRight:120,marginTop:30}}
+                    label="昵称"
+                    name="loginName"
+                    rules={[{ required: true, message: '请输入登录名称!' }]}
+                >
+                    <Input maxLength = {50} onBlur = {this.handelLoginName}/>
                 </Form.Item>
                 <Form.Item
                     style = {{marginRight:120,marginTop:30}}
@@ -96,5 +106,6 @@ export default class  UserAddForm  extends  React.Component{
             </Form>
         );
     }
+
 }
 

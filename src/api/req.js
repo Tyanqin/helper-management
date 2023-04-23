@@ -60,6 +60,9 @@ export const userGetId =(params)=>(instance.get(`${ACCESS_ADDRESS}/user/getByUse
 export const userUpdateSubmit =(params)=>(instance.get(`${ACCESS_ADDRESS}/user/updateByUserId?${qs.stringify(params)}`))
 export const userDeleteById =(params)=>(instance.get(`${ACCESS_ADDRESS}/user/delById?${qs.stringify(params)}`))
 export const userInsert =(params)=>(instance.post(`${ACCESS_ADDRESS}/user/insertUser`,params))
+export const updPassword =(params)=>(instance.get(`${ACCESS_ADDRESS}/user/updPassword?${qs.stringify(params)}`))
+
+
 //==================================阶段========================================================================================
 export const staGetName =()=>(instance.get(`${ACCESS_ADDRESS}/pro-sta/getStaName`))
 //==================================电压========================================================================================

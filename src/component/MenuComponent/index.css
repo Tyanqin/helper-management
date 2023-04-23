@@ -12,11 +12,29 @@
 
 
 #individual_center{
-    width: 200px;
+    width: 150px;
     position: absolute;
     top:0;
-    right:0;
+    right:30px;
     text-align: center;
+    z-index: 99999;
+}
 
+
+#individual_center > ul {
+    position: absolute;
+    width: 150px;
+    background-color: #FFFFFF;
+    z-index: 99999;
+}
+
+#individual_center > ul > li{
+    width: 150px;
+    line-height: 30px;
+    /*border:1px solid red;*/
+    margin-bottom: 10px;
+}
+
+#individual_center > ul >li >a{
 
 }

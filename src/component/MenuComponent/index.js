@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
 import {NavLink,Outlet} from 'react-router-dom'
-import {Layout, Menu,Button, Dropdown, Space} from 'antd';
-import { DownOutlined,HomeOutlined,ToolOutlined, FileSearchOutlined, SettingOutlined,UserOutlined,ApartmentOutlined,MailOutlined,ReadOutlined} from '@ant-design/icons';
+import {Divider, Layout, Menu, message, Modal} from 'antd';
+import {HomeOutlined,ToolOutlined, FileSearchOutlined,UserOutlined,ApartmentOutlined,ReadOutlined,ExclamationCircleOutlined} from '@ant-design/icons';
 import './index.css'
 import Cache from '../../api/cache'
 import Auth from '../../utils/auth'
+import HomeDrawComponent from './DrawComponent'
+import {userDeleteById} from "../../api/req";
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -12,6 +14,9 @@ export default class MenuComponent extends Component {
     state = {
         collapsed: false,
         openKeys: ['sub1'],
+        display:"none",
+        close:false,
+        flag:"1"
     };
 
 
@@ -25,7 +30,7 @@ export default class MenuComponent extends Component {
         let loginName = Cache.localGet("loginName")
         let userMark = Cache.localGet("userMark")
         return (
-            <Layout style ={{height:770}}>
+            <Layout style ={{height:800}}>
                 <Sider
                     breakpoint="lg" collapsedWidth="0" onBreakpoint={broken => {console.log(broken);}} onCollapse={(collapsed, type) => {console.log(collapsed, type);}}>
                     <div className = "title_box">全过程监督助手</div>
@@ -91,7 +96,20 @@ export default class MenuComponent extends Component {
                 </Sider>
                 <Layout>
                     <Header style={{ background: '#fff', padding: 0,marginBottom:10,height:60,borderBottom:'1px solid #F0F0F0'}}>
-                        <div id = "individual_center"><a>个人中心</a></div>
+                        <div
+                            id = "individual_center"
+                            onMouseOver={this.handelOnMouseOver}
+                            onMouseOut={this.handelOnMouseOut}
+                             style={{display:this.state.close?"none":"block"}}>
+                            <div><UserOutlined style = {{fontSize:25,marginRight:10}} />
+                            <a>个人中心</a><Divider type="vertical" />
+                            </div>
+                            <ul style={{display:this.state.display}}>
+                                <li><a href="#" onClick = {this.handelOpen}>修改密码</a></li>
+                                <li><a href="#" onClick = {this.handelExit}>注销</a></li>
+                            </ul>
+
+                        </div>
                     </Header>
                     <Content style={{marginLeft:10,marginRight:10}}>
                         <div style={{ background: '#fff', minHeight: 700 }}>
@@ -99,6 +117,11 @@ export default class MenuComponent extends Component {
                         </div>
                     </Content>
                 </Layout>
+                <HomeDrawComponent
+                    flag = {this.state.flag}
+                    close = {this.state.close}
+                    handelClose = {this.handelClose}
+                />
             </Layout>
         );
     }
@@ -120,4 +143,52 @@ export default class MenuComponent extends Component {
         }
     };
 
+
+
+    handelExit=()=>{
+        Modal.confirm({
+        title: '确认退出系统吗？',
+        icon: <ExclamationCircleOutlined/>,
+        content: '',
+            okText: '是',
+            okType: 'danger',
+            cancelText: '否',
+            onOk: () => {
+                this.handleOk()
+            }
+,
+        onCancel() {
+
+        },
+    });
+
+   }
+        //删除回调
+        handleOk= ()=>{
+            Cache.localRemove("userName")
+            Cache.localRemove("loginName")
+            Cache.localRemove("majorName")
+            Cache.localRemove("userMark")
+            Cache.localRemove("token")
+            Cache.localRemove("uId")
+            window.location.href = "/login"
+        }
+
+
+
+
+    handelOpen=()=>{
+         this.setState({close:true})
+    }
+    handelClose=()=>{
+        this.setState({close:false})
+    }
+
+    handelOnMouseOver=()=>{
+        this.setState({display:"block"})
+    }
+
+    handelOnMouseOut=()=>{
+        this.setState({display:"none"})
+    }
 }

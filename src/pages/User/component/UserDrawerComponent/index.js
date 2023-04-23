@@ -36,6 +36,8 @@ export default class UserDrawerComponent extends Component {
                                     majorData = {this.props.majorData}
                                     close = {this.props.close}
                                     submit = {this.props.submit}
+                                    disabled = {this.props.disabled}
+                                    handelDisabled = {this.props.handelDisabled}
                                  />
                             </div>
                     }

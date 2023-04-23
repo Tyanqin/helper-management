@@ -37,7 +37,8 @@ export default connect(state=>({
         majorName:"",
         total:"",
         currentPage:"1",
-        pageSize:"10"
+        pageSize:"10",
+        disabled:"disabled"
 
     }
 
@@ -81,6 +82,7 @@ export default connect(state=>({
                     userMarkData = {this.state.userMarkData}
                     close = {this.close}
                     submit = {this.updateSubmit}
+                    disabled = {this.state.disabled}
                 />
             </div>
         );
@@ -120,7 +122,6 @@ export default connect(state=>({
     handelPage =async()=>{
         let {userName,majorName,currentPage,pageSize} = this.state
         let params = {userName:userName, majorName: majorName,currentPage:currentPage,pageSize:pageSize}
-        console.log("params====>>>>  ",params)
         const result =  await userGetPage(params)
         if(result.status){
             this.setState({pageData:result.data.rows,total:result.data.total})
@@ -172,17 +173,32 @@ export default connect(state=>({
         let result = null
         if(this.state.isEdit){
             result =  await userUpdateSubmit(params)
+            if(result.status){
+                if(result.message != "OK"){
+                    message.error(result.message)
+                }else{
+                    this.setState({visible:false,isEdit:true})
+                }
+            }
         }else{
-            let {userName,password,phone,userMark,majorName} = params
-            let paramsValue = {userName,password,phone,userMark,majorName:majorName.toString()}
+            let {userName,loginName,password,phone,userMark,majorName} = params
+            let paramsValue = {userName,loginName,password,phone,userMark,majorName:majorName.toString()}
             result =  await userInsert(paramsValue)
+            if(result.status){
+                if(result.message != "OK"){
+                    message.error(result.message)
+                }else{
+                    this.setState({visible:false,isEdit:true})
+                }
+            }
         }
-        this.setState({visible:false,isEdit:true})
+
         if(result.status === 200){
             this.handelPage();
         }
 
     };
+
 
     //修改
     updateDataById=async(text)=>{

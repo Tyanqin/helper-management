@@ -9,6 +9,7 @@ export default class  UserUpdForm  extends  React.Component{
         let params = {
             uId:this.props.updData.uId,
             userName:values.userName?values.userName:this.props.updData.userName,
+            loginName:values.loginName?values.loginName:this.props.updData.loginName,
             majorName:values.majorName?values.majorName.toString():this.props.updData.majorName.toString(),
             phone:values.phone?values.phone:this.props.updData.phone,
             userMark:values.userMark?values.userMark.toString():this.props.updData.userMark
@@ -21,7 +22,7 @@ export default class  UserUpdForm  extends  React.Component{
     };
 
     render(){
-        let {userName, majorName, phone, password, userMark,uId} = this.props.updData
+        let {userName, loginName,majorName, phone, password, userMark,uId} = this.props.updData
         return(
             <Form
                 name="basic"
@@ -43,6 +44,17 @@ export default class  UserUpdForm  extends  React.Component{
                     }]}
                 >
                     <Input defaultValue ={userName} key = {uId}/>
+                </Form.Item>
+                <Form.Item
+                    style = {{marginRight:120,marginTop:30}}
+                    label="昵称"
+                    name="loginName"
+                    rules={[{
+                        // required: false,
+                        // message: '请输入名称!'
+                    }]}
+                >
+                    <Input defaultValue ={loginName} key = {uId}/>
                 </Form.Item>
                 <Form.Item
                     style = {{marginRight:120,marginTop:30}}
