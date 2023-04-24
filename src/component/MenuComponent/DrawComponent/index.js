@@ -53,6 +53,7 @@ const HomeDrawComponent = (props) => {
             padding: 48,
             overflow: 'hidden',
             textAlign: 'center',
+            display:props.close?"block":"none"
         }}>
             <Drawer
                 title="修改密码"
@@ -76,7 +77,7 @@ const HomeDrawComponent = (props) => {
                         label="用户密码"
                         name="password"
                         rules={[{
-                            required: false,
+                            required: true,
                             message: '请输入用户密码!'
                         }]}
                     >
@@ -87,7 +88,7 @@ const HomeDrawComponent = (props) => {
                         label="新密码"
                         name="newPassword"
                         rules={[{
-                            required: false,
+                            required: true,
                             message: '请输入用户新密码!'
                         }]}
                     >
@@ -98,7 +99,7 @@ const HomeDrawComponent = (props) => {
                         label="确认密码"
                         name="repPassword"
                         rules={[{
-                            required: false,
+                            required: true,
                             message: '请输入确认密码!'
                         }]}
                     >

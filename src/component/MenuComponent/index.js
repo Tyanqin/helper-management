@@ -35,8 +35,8 @@ export default class MenuComponent extends Component {
                     breakpoint="lg" collapsedWidth="0" onBreakpoint={broken => {console.log(broken);}} onCollapse={(collapsed, type) => {console.log(collapsed, type);}}>
                     <div className = "title_box">全过程监督助手</div>
                     <Menu style={{marginTop:30}} theme="dark"  mode="inline" openKeys={this.state.openKeys} onOpenChange={this.onOpenChange}>
-                        <SubMenu key="sub1" title={<span><HomeOutlined/><span><NavLink key = {1} activeClassName="active" to = "/stat">首页</NavLink></span></span>}>
-                        </SubMenu>
+                        {/*<SubMenu key="sub1" title={<span><HomeOutlined/><span><NavLink key = {1} activeClassName="active" to = "/stat">首页</NavLink></span></span>}>*/}
+                        {/*</SubMenu>*/}
                         <SubMenu key="sub2" title={<span><UserOutlined/><span><NavLink key = {2} activeClassName="active" to = "/user">用户管理</NavLink></span></span>}>
                             {/*<Menu.Item key="1">Option 1</Menu.Item>*/}
                             {/*<Menu.Item key="2">Option 2</Menu.Item>*/}
@@ -102,13 +102,13 @@ export default class MenuComponent extends Component {
                             onMouseOut={this.handelOnMouseOut}
                              style={{display:this.state.close?"none":"block"}}>
                             <div><UserOutlined style = {{fontSize:25,marginRight:10}} />
-                            <a>个人中心</a><Divider type="vertical" />
+                            <a>个人中心</a>
+                                {/*<Divider type="vertical" />*/}
                             </div>
                             <ul style={{display:this.state.display}}>
-                                <li><a href="#" onClick = {this.handelOpen}>修改密码</a></li>
-                                <li><a href="#" onClick = {this.handelExit}>注销</a></li>
+                                <li><a onClick = {this.handelOpen}>修改密码</a></li>
+                                <li><a onClick = {this.handelExit}>注销</a></li>
                             </ul>
-
                         </div>
                     </Header>
                     <Content style={{marginLeft:10,marginRight:10}}>
