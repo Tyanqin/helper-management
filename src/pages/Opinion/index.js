@@ -44,35 +44,6 @@ export default class Opinion extends Component {
             <div style={{marginBottom:20}}>
                 <div style ={{height:10}}/>
                 <Input.Group style={{marginLeft:10,marginTop:8}}>
-                    {/*<Input addonBefore = "评审意见标题"  onChange = {(e)=>{this.setState({title:e.target.value})}} style={{marginRight:20,width:400}}/>*/}
-                    {/*<span   className = "data_span" style = {{width:80}}>阶段</span>*/}
-                    {/*<Select defaultValue="" style={{marginRight:20,width:185}} onChange = {(value)=>this.setState({stageName:`${value}`})}>*/}
-                        {/*<Option  value="">全部</Option>*/}
-                        {/*{*/}
-                            {/*this.state.staNameData.map((item,index)=>{*/}
-                                {/*return (*/}
-                                    {/*<Option key={index} value={item}>{item}</Option>*/}
-                                {/*)*/}
-                            {/*})*/}
-                        {/*}*/}
-                    {/*</Select>*/}
-                    {/*<span   className = "data_span" style = {{width:80}}>电压</span>*/}
-                    {/*<Select defaultValue="" style={{marginRight:20,width:100}} onChange = {(value)=>this.setState({voltageName:`${value}`})}>*/}
-                    {/*<Option  value="">全部</Option>*/}
-                    {/*{*/}
-                    {/*this.state.volNameData.map((item,index)=>{*/}
-                    {/*return (*/}
-                    {/*<Option key={index} value={item}>{item}</Option>*/}
-                    {/*)*/}
-                    {/*})*/}
-                    {/*}*/}
-                    {/*</Select>*/}
-                    {/*<span   className = "data_span" style = {{width:80}}>是否完成</span>*/}
-                    {/*<Select defaultValue="" style={{marginRight:20,width:100}} onChange = {(value)=>this.setState({isComplete:`${value}`})}>*/}
-                    {/*<Option  value="">全部</Option>*/}
-                    {/*<Option value={1}>{"完成"}</Option>*/}
-                    {/*<Option value={0}>{"未完成"}</Option>*/}
-                    {/*</Select>*/}
                     <InputComponent
                         id = "title"
                         title = "评审意见标题"
@@ -83,7 +54,7 @@ export default class Opinion extends Component {
                     />
                     <SelectAttrComponent
                         id = "stageName"
-                        key = "1"
+                        // key = {1}
                         title = "阶段"
                         data = {this.state.staNameData}
                         onChange = {(e)=>this.setState({stageName:e.target.value})}
@@ -91,7 +62,7 @@ export default class Opinion extends Component {
                     />
                     <SelectAttrComponent
                         id = "voltageName"
-                        key = "2"
+                        // key = {2}
                         title = "电压"
                         data = {this.state.volNameData}
                         onChange = {(e)=>this.setState({voltageName:e.target.value})}
@@ -99,7 +70,7 @@ export default class Opinion extends Component {
                     />
                     <SelectConstantComponent
                         id = "isComplete"
-                        key = "3"
+                        // key = "3"
                         title = "是否完成"
                         onChange = {(e)=>this.setState({isComplete:e.target.value})}
                         style={{marginRight:20,width:100}}
@@ -108,7 +79,7 @@ export default class Opinion extends Component {
                     <Button type="primary" style={{marginRight:20}} onClick = {this.handelReset}>重置</Button>
                 </Input.Group>
                 <div style ={{height:15}}/>
-                <Table columns={this.columns} dataSource={this.state.pageData} pagination = {false}/>
+                <Table columns={this.columns} dataSource={this.state.pageData} pagination = {false} rowKey = {record=>record.opinionId}/>
                 <Pagination
                     style = {{marginLeft:950,marginTop:20}}
                     total={this.state.total}
@@ -133,7 +104,6 @@ export default class Opinion extends Component {
     opinionPage=async()=>{
         let {title,stageName,voltageName,isComplete,currentPage,pageSize} = this.state
         let params = {title,stageName,voltageName,isComplete,currentPage,pageSize}
-        console.log("params====>>>>>  ",params)
         const result =  await opinionPage(params)
           if(result.status){
              this.setState({pageData:result.data.rows})

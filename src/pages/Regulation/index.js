@@ -40,17 +40,6 @@ export default class Regulation extends Component {
             <div style={{marginBottom:20}}>
                 <div style ={{height:10}}/>
                 <Input.Group style={{marginLeft:10,marginTop:8}}>
-                    {/*<span   className = "data_span" style = {{width:80}}>专业</span>*/}
-                    {/*<Select defaultValue="" style={{marginRight:20,width:185}} onChange = {(value)=>this.setState({regName:`${value}`})}>*/}
-                        {/*<Option value="">全部</Option>*/}
-                        {/*{*/}
-                            {/*this.state.regNames.map((item,index)=>{*/}
-                                {/*return (*/}
-                                    {/*<Option key={index} value={item}>{item}</Option>*/}
-                                {/*)*/}
-                            {/*})*/}
-                        {/*}*/}
-                    {/*</Select>*/}
                     <SelectAttrComponent
                         id = "regName"
                         title = "专业"
@@ -75,7 +64,7 @@ export default class Regulation extends Component {
                     <Button type="primary" style={{marginLeft:20}} onClick = {this.handelReset}>重置</Button>
                 </Input.Group>
                 <div style ={{height:15}}/>
-                <Table columns={this.columns} dataSource={this.state.pageData} pagination = {false}/>
+                <Table columns={this.columns} dataSource={this.state.pageData} pagination = {false} rowKey = {record=>record.ruRegId}/>
                 {/*分页组件*/}
                 <Pagination
                     style = {{marginLeft:950,marginTop:20}}
@@ -127,7 +116,6 @@ export default class Regulation extends Component {
      //提交（修改与新增）
     submit = async(params) => {
         let result = null
-        console.log("params2=====>>>>>>　　",params)
         if(this.state.isEdit === 1){
             await regUpdateSubmit(params).then((res)=>{
                 this.handelPage()

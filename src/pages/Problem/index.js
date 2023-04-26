@@ -54,11 +54,11 @@ class Problem extends Component {
                 <Input.Group style={{marginLeft:10,marginTop:8}}>
                     <span   className = "data_span" style = {{width:80}}>专业</span>
                     <Select defaultValue="" style={{marginRight:20,width:250}} onChange = {(value)=>this.setState({majorName:`${value}`})}>
-                        <Option  value="">全部</Option>
+                        <Option value="">全部</Option>
                         {
                             this.state.majorNames.map((item,index)=>{
                                 return (
-                                    <Option key={item.problemId} value={item.majorName}>{item.majorName}</Option>
+                                    <Option key={index} value={item.majorName}>{item.majorName}</Option>
                                 )
                             })
                         }
@@ -70,13 +70,14 @@ class Problem extends Component {
                     <Button type="primary" onClick={this.downloadTemplate} style={{marginRight:20}}>下载模版</Button>
                 </Input.Group>
                 <div style ={{height:15}}/>
-
-                <Table columns={this.columns} dataSource={this.state.pageData} pagination = {false}/>
+                <Table columns={this.columns} dataSource={this.state.pageData} pagination = {false} rowKey = {record=>record.problemId}/>
                 <Pagination
                     style = {{marginLeft:950,marginTop:20}}
                     total={this.state.total}
                     onChange = {(page,pageSize)=>{this.setState({currentPage:page,pageSiz:pageSize}, ()=>{this.opinionPage()})}}/>
-                <ProbelmDrawerComponent
+
+
+                    <ProbelmDrawerComponent
                     visible={this.state.visible}
                     isEdit = {this.state.isEdit}
                     updData = {this.state.updData}

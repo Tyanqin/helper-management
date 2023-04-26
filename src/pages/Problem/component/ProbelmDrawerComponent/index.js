@@ -42,7 +42,7 @@ export default class ProDrawerComponent extends Component {
                 >
                     {
                         isEdit===1?
-                            <div>
+                            <div key = "1">
                                 <ProblemUpdForm
                                     updData = {this.props.updData}
                                     majorNames = {this.props.majorNames}
@@ -51,7 +51,7 @@ export default class ProDrawerComponent extends Component {
                                 />
                             </div>
                             :""|| isEdit === 2?
-                            <div>
+                            <div key = "2">
                                 <UploadForm
                                     close = {this.props.close}
                                     handelPage = {this.props.handelPage}

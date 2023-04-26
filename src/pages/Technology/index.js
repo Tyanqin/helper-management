@@ -89,7 +89,7 @@ export default class Technology extends Component {
                     <Button type="primary" style={{marginRight:20}} onClick = {this.handelReset}>重置</Button>
                 </Input.Group>
                 <div style ={{height:15}}/>
-                <Table columns={this.columns} dataSource={this.state.pageData} pagination = {false}/>
+                <Table columns={this.columns} dataSource={this.state.pageData} pagination = {false} rowKey = {record=>record.proMenuId}/>
                 <Pagination
                     style = {{marginLeft:950,marginTop:20}}
                     total={this.state.total}

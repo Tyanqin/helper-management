@@ -48,7 +48,7 @@ export default class Major extends Component {
                     <Button type="primary" style={{marginRight:20}} onClick = {this.handelReset}>重置</Button>
                 </Input.Group>
                 <div style ={{height:15}}/>
-                <Table columns={this.columns} dataSource={this.state.pageData} pagination = {false}/>
+                <Table columns={this.columns} dataSource={this.state.pageData} pagination = {false} rowKey  = {record=>record.majorId}/>
                 {/*分页组件*/}
                 <Pagination
                     style = {{marginLeft:950,marginTop:20}}

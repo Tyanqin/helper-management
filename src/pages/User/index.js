@@ -65,10 +65,9 @@ export default connect(state=>({
                     <Button type="primary" style={{marginRight:20}} onClick = {this.handelPage}><SearchOutlined/>查询</Button>
                     <Button type="primary" style={{marginRight:20}} onClick = {this.handelShowDrawer}><PlusOutlined /> 新增</Button>
                     <Button type="primary" style={{marginRight:20}} onClick = {this.handelReset}>重置</Button>
-                {/*</Input.Group>*/}
                 <div style ={{height:15}}/>
-                <Table columns={this.columns} dataSource={this.state.pageData} pagination = {false}/>
-                {/*分页组件*/}
+                <Table columns={this.columns} dataSource={this.state.pageData} pagination = {false} rowKey  = {record=>record.uId}/>
+                {/*/!*分页组件*!/*/}
                 <Pagination
                     style = {{marginLeft:950,marginTop:20}}
                     total={this.state.total}

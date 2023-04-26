@@ -54,19 +54,6 @@ export default class Rule extends Component {
             <div style={{marginBottom:20}}>
                 <div style ={{height:10}}/>
                 <Input.Group style={{marginLeft:10,marginTop:8}}>
-                    {/*<span className = "data_span" style = {{width:80}}>细则名称</span>*/}
-                    {/*<Select defaultValue=""*/}
-                            {/*style={{marginRight:20,width:200}}*/}
-                            {/*onChange = {(value)=>this.setState({ruleName:`${value}`})}>*/}
-                        {/*<Option value="">全部</Option>*/}
-                        {/*{*/}
-                            {/*this.state.ruleNames.map((item,index)=>{*/}
-                                {/*return (*/}
-                                    {/*<Option key={index} value={item}>{item}</Option>*/}
-                                {/*)*/}
-                            {/*})*/}
-                        {/*}*/}
-                    {/*</Select>*/}
                     <SelectAttrComponent
                         id = "ruleName"
                         title = "细则名称"
@@ -91,22 +78,6 @@ export default class Rule extends Component {
                         onChange = {e=>this.setState({ruleTitle:e.target.value})}
                         style={{marginRight:20,width:150}}
                     />
-                    {/*<span className = "data_span" style = {{width:80}}>项目阶段</span>*/}
-                    {/*<Select defaultValue="项目可研阶段" style={{marginRight:20,width:200}}*/}
-                            {/*onChange = {(value)=>this.setState({staName:`${value}`})}*/}
-                    {/*>*/}
-                        {/*<Option value="">全部</Option>*/}
-                        {/*{*/}
-
-                            {/*this.state.proStaNames.map((item,index)=>{*/}
-                                {/*return (*/}
-                                    {/*<Option key = {index} value={item.staName}>{item.staName}</Option>*/}
-                                {/*)*/}
-                            {/*})*/}
-                        {/*}*/}
-
-                    {/*</Select>*/}
-                    {/*<Input addonBefore = "细则标题"  style={{marginRight:20,width:300}} onChange = {e=>this.setState({ruleTitle:e.target.value})}/>*/}
                     <Button type="primary" style={{marginRight:20}} onClick = {this.handelSelectData}><SearchOutlined/>查询</Button>
                     <Button type="primary" style={{marginRight:20}} onClick = {this.handelAddData}><PlusOutlined/>新增</Button>
                     <Button type="primary" style={{marginRight:20}} onClick = {this.handelReset}>重置</Button>
@@ -115,7 +86,7 @@ export default class Rule extends Component {
                 </Input.Group>
                 <div style ={{height:15}}/>
                 {/*表格组件*/}
-                <Table columns={this.columns} dataSource={this.state.pageData} pagination = {false}/>
+                <Table columns={this.columns} dataSource={this.state.pageData} pagination = {false} rowKey = {record=>record.detailId}/>
                 {/*分页组件*/}
                 <Pagination
                     style = {{marginLeft:950,marginTop:20}}

@@ -1,111 +1,108 @@
-import React from 'react'
-import {Navigate} from 'react-router-dom'
-import User from '../pages/User'
-import Major from '../pages/Major'
-import Login from '../pages/Login'
-import Home from '../pages/Home'
-import Rule from '../pages/Rule'
-import Technology from '../pages/Technology'
-import Regulation from '../pages/Regulation'
-import Opinion from '../pages/Opinion'
-import Statistic from '../pages/Statistic'
-import Problem from '../pages/Problem'
+import React,{Suspense,lazy} from 'react'
+import {Route, Routes, Navigate} from "react-router-dom"
+// import User from '../pages/User'
+// import Major from '../pages/Major'
+// import Login from '../pages/Login'
+// import Home from '../pages/Home'
+// import Rule from '../pages/Rule'
+// import Technology from '../pages/Technology'
+// import Regulation from '../pages/Regulation'
+// import Opinion from '../pages/Opinion'
+// import Statistic from '../pages/Statistic'
+// import Problem from '../pages/Problem'
 
-// const User = lazy(() => import('../pages/User'));
-// const Major = lazy(() => import('../pages/Major'));
-// const Home= lazy(()=>import('../pages/Home'))
-// const Rule = lazy(() => import('../pages/Rule'));
-// const Technology = lazy(() => import('../pages/Technology'));
-// const Regulation = lazy(() => import('../pages/Regulation'));
-// const Opinion = lazy(() => import('../pages/Opinion'));
-// const Statistic = lazy(()=>import('../pages/Statistic'))
+
+const Problem = lazy(() => import('../pages/Problem'));
+const Login = lazy(() => import('../pages/Login'));
+const User = lazy(() => import('../pages/User'));
+const Major = lazy(() => import('../pages/Major'));
+const Home= lazy(()=>import('../pages/Home'))
+const Rule = lazy(() => import('../pages/Rule'));
+const Technology = lazy(() => import('../pages/Technology'));
+const Regulation = lazy(() => import('../pages/Regulation'));
+const Opinion = lazy(() => import('../pages/Opinion'));
+const Statistic = lazy(()=>import('../pages/Statistic'))
 // import PdfComponent from '../pages/Regulation/component/PdfComponent'
 
 
-export default [
-    {
-        path:'/login',
-        element:<Login/>,
-    },{
-        path:'/',
-        element:<Navigate to = {<Login/>}/>
-    },{
-        path:'',
-        element:<Navigate to = {<Login/>}/>
-    },{
-        path:'*',
-        element:<Navigate to = {<Login/>}/>
-    },
-    {
-        path:'/',
-        element:<Home/>,
-        children:[
-            {
-                path:'user',
-                element:<User/>
-            }, {
-                path:'stat',
-                element:<Statistic/>
-            },{
-                path:'major',
-                element:<Major/>
-            },{
-                path:'opinion',
-                element:<Opinion/>
-            },{
-                path:'tec',
-                element:<Technology/>
-            },{
-                path:'rule',
-                element:<Rule/>
-            },{
-                path:'reg',
-                element:<Regulation/>,
-                // children:[
-                //     {
-                //         path:'pdf/:id',
-                //         element:<PdfComponent/>
-                //     }
-                // ]
-            },{
-                path:'problem',
-                element:<Problem/>
-            }
 
-        ]
-    },
+// export default [
+//     {
+//         path:'/login',
+//         element:<Login/>,
+//     },{
+//         path:'/',
+//         element:<Navigate to = {<Login/>}/>
+//     },{
+//         path:'',
+//         element:<Navigate to = {<Login/>}/>
+//     },{
+//         path:'*',
+//         element:<Navigate to = {<Login/>}/>
+//     },
+//     {
+//         path:'/',
+//         element:<Home/>,
+//         children:[
+//             {
+//                 path:'user',
+//                 element:<User/>
+//             },
+//             // {
+            //     path:'stat',
+            //     element:<Statistic/>
+            // },{
+            //     path:'major',
+            //     element:<Major/>
+            // },{
+            //     path:'opinion',
+            //     element:<Opinion/>
+            // },{
+            //     path:'tec',
+            //     element:<Technology/>
+            // },{
+            //     path:'rule',
+            //     element:<Rule/>
+            // },{
+            //     path:'reg',
+            //     element:<Regulation/>,
+            //     // children:[
+            //     //     {
+            //     //         path:'pdf/:id',
+            //     //         element:<PdfComponent/>
+            //     //     }
+            //     // ]
+            // },{
+            //     path:'problem',
+            //     element:<Problem/>
+            // }
 
-]
-
-
-
-// import React from 'react';
-// import User from '../pages/User'
-// import Dept from '../pages/Dept'
-// import Login from '../pages/Login'
-// import Technology from '../pages/Technology'
+//         ]
+//     },
 //
-//
-//
-// export default function Routers(){
-//       return(
-//           <Suspense fallback={<p> Loading...</p>}>
-//               <Routes>
-//                   <Route exact path='/login' element={<Login/>} />
-//                   <Route exact path='/user' element={<User/>} />
-//                   <Route exact path='/dept' element={<Dept/>} />
-//                   <Route exact path='/tec' element={<Technology/>} />
-//                   <Route exact path='/rule' element={<Technology/>} />
-//                   <Route exact path='/reg' element={<Technology/>} />
-//                   <Route exact path='/opinion' element={<Technology/>} />
-//                   {/*<Route path="*" element={<Navigate to="/login" />} />*/}
-//                   {/*<Route exact path='/' element={<Home/>} >*/}
-//                       {/*/!* url为/home时主动触发二级路由 *!/*/}
-//                       {/*/!*<Route exact index element={<Main />} />*!/*/}
-//                       {/*/!*<Route exact path='/home/user/auth' element={<Auth />} />*!/*/}
-//                   {/*</Route>*/}
-//
-//               </Routes>
-//           </Suspense>
-//       )
-// }
+// ]
+
+export const Routers=()=>{
+      return(
+          <>
+              <Suspense fallback = {<div>Loading...</div>}>
+                  <Routes>
+                      <Route  path='/login' element={<Login/>} />
+                      <Route  path='/' element={<Home/>} >
+                          <Route  path='/user' element={<User/>} />
+                          <Route  path='/major' element={<Major/>} />
+                          <Route  path='/tec' element={<Technology/>} />
+                          <Route  path='/rule' element={<Rule/>} />
+                          <Route  path='/reg' element={<Regulation/>} />
+                          <Route  path='/opinion' element={<Opinion/>} />
+                          <Route  path='/Problem' element={<Problem/>} />
+                          <Route  path='/sta' element={<Statistic/>} />
+                          <Route path="*" element={<Navigate to="/login" />} />
+                          <Route path="/" element={<Navigate to="/login" />} />
+                      </Route>
+                  </Routes>
+              </Suspense>
+           </>
+      )
+}
+

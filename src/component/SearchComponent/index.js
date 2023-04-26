@@ -14,13 +14,13 @@ export const InputComponent =(props)=>{
     }
     return(
         <>
-            <span class = "search_span">{props.title}</span>
+            <span className = "search_span">{props.title}</span>
             <input
                 id = {props.id}
                 type={props.type}
                 placeholder = {props.placeholder}
                 style = {props.style}
-                class = "search"
+                className = "search"
                 ref = {props.ref}
             />
         </>
@@ -40,14 +40,14 @@ export const SelectComponent =(props)=>{
     }
     return(
         <>
-            <span class = "search_span">{props.title}</span>
+            <span className = "search_span">{props.title}</span>
             <span style = {{display:"inline-block",height:5}}></span>
-            <select class = "search" id = {props.id} style = {props.style} ref = {props.ref}>
-                <option class = "option" style = {{ fontWeight:"bold",padding:10,display:"block"}} value="">全部</option>
+            <select className = "search" id = {props.id} style = {props.style} ref = {props.ref}>
+                <option className = "option" style = {{ fontWeight:"bold",padding:10,display:"block"}} value="">全部</option>
                 {
-                    props.data==""||props.data==undefined?"":props.data.map((item)=>{
+                    props.data==""||props.data==undefined?"":props.data.map((item,index)=>{
                         return (
-                            <option class = "option" value={item[props.attr]}>{item[props.attr]}</option>
+                            <option key = {index} className = "option" value={item[props.attr]}>{item[props.attr]}</option>
                         )
                     })
                 }
@@ -64,14 +64,14 @@ export const SelectAttrComponent =(props)=>{
     }
     return(
         <>
-            <span class = "search_span">{props.title}</span>
+            <span className = "search_span">{props.title}</span>
             <span style = {{display:"inline-block",height:5}}></span>
-            <select key = {props.key} class = "search" id ={props.id} style = {props.style}>
-                <option class = "option" style = {{ fontWeight:"bold",padding:10,display:"block"}} value="">全部</option>
+            <select key = {props.id} className = "search" id ={props.id} style = {props.style}>
+                <option key = {props.id} className = "option" style = {{ fontWeight:"bold",padding:10,display:"block"}} value="">全部</option>
                 {
-                    props.data==""||props.data==undefined?"":props.data.map((item)=>{
+                    props.data==""||props.data==undefined?"":props.data.map((item,index)=>{
                         return (
-                            <option class = "option" value={item}>{item}</option>
+                            <option key = {index} className = "option" value={item}>{item}</option>
                         )
                     })
                 }
@@ -88,12 +88,12 @@ export const SelectConstantComponent =(props)=>{
     }
     return(
         <>
-            <span class = "search_span">{props.title}</span>
+            <span className = "search_span">{props.title}</span>
             <span style = {{display:"inline-block",height:5}}></span>
-            <select key = {props.key} class = "search" id ={props.id} style = {props.style}>
-                <option class = "option" style = {{ fontWeight:"bold",padding:10,display:"block"}} value="">全部</option>
-                <option class="option" style={{ padding: 10, display: "block"}} value="1">完成</option>
-                <option class="option" style={{ padding: 10, display: "block"}} value="0">未完成</option>
+            <select key = {props.key} className = "search" id ={props.id} style = {props.style}>
+                <option className = "option" style = {{ fontWeight:"bold",padding:10,display:"block"}} value="">全部</option>
+                <option className="option" style={{ padding: 10, display: "block"}} value="1">完成</option>
+                <option className="option" style={{ padding: 10, display: "block"}} value="0">未完成</option>
             </select>
         </>
     )
