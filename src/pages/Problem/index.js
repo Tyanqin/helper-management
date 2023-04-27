@@ -9,11 +9,10 @@ import {
     problemDelById,
     proDownload,
     exportProblem,
-    opinionDownload,
     importProblem
 } from '../../api/req'
 import ProbelmDrawerComponent from './component/ProbelmDrawerComponent'
-import {nanoid} from 'nanoid'
+import {SelectComponent, InputComponent, ReSet} from "../../component/SearchComponent";
 
 
 
@@ -52,19 +51,37 @@ class Problem extends Component {
             <div>
                 <div style ={{height:10}}/>
                 <Input.Group style={{marginLeft:10,marginTop:8}}>
-                    <span   className = "data_span" style = {{width:80}}>专业</span>
-                    <Select defaultValue="" style={{marginRight:20,width:250}} onChange = {(value)=>this.setState({majorName:`${value}`})}>
-                        <Option value="">全部</Option>
-                        {
-                            this.state.majorNames.map((item,index)=>{
-                                return (
-                                    <Option key={index} value={item.majorName}>{item.majorName}</Option>
-                                )
-                            })
-                        }
-                    </Select>
-                    <Input addonBefore = "问题名称"  onChange = {(e)=>{this.setState({problemName:e.target.value})}} style={{marginRight:20,width:400}}/>
+                    {/*<span   className = "data_span" style = {{width:80}}>专业</span>*/}
+                    {/*<Select defaultValue="" style={{marginRight:20,width:250}} onChange = {(value)=>this.setState({majorName:`${value}`})}>*/}
+                        {/*<Option value="">全部</Option>*/}
+                        {/*{*/}
+                            {/*this.state.majorNames.map((item,index)=>{*/}
+                                {/*return (*/}
+                                    {/*<Option key={index} value={item.majorName}>{item.majorName}</Option>*/}
+                                {/*)*/}
+                            {/*})*/}
+                        {/*}*/}
+                    {/*</Select>*/}
+                    {/*<Input addonBefore = "问题名称"  onChange = {(e)=>{this.setState({problemName:e.target.value})}} style={{marginRight:20,width:400}}/>*/}
+
+                    <SelectComponent
+                        id = "majorName"
+                        title = "专业"
+                        style={{marginRight:20,width:250}}
+                        onChange = {(e)=>this.setState({majorName:e.target.value})}
+                        data = {this.state.majorNames}
+                        attr = "majorName"
+                    />
+                    <InputComponent
+                        id = "problemName"
+                        title = "问题名称"
+                        type = "text"
+                        placeholder = "请输入问题名称"
+                        onChange = {e=>this.setState({problemName:e.target.value})}
+                        style={{marginRight:20,width:250}}
+                    />
                     <Button type="primary" onClick={this.selectPage} style={{marginRight:20}}><SearchOutlined/>查询</Button>
+                    <Button type="primary" style={{marginRight:20}} onClick = {this.handelReset}>重置</Button>
                     <Button type="primary" onClick={this.importProblem} style={{marginRight:20}}>导入</Button>
                     <Button type="primary" onClick={this.HandelExportProblem} style={{marginRight:20}}>导出</Button>
                     <Button type="primary" onClick={this.downloadTemplate} style={{marginRight:20}}>下载模版</Button>
@@ -72,7 +89,10 @@ class Problem extends Component {
                 <div style ={{height:15}}/>
                 <Table columns={this.columns} dataSource={this.state.pageData} pagination = {false} rowKey = {record=>record.problemId}/>
                 <Pagination
-                    style = {{marginLeft:950,marginTop:20}}
+                    className = "pag"
+                    showQuickJumper
+                    showSizeChanger = "false"
+                    pageSizeOptions = {[10]}
                     total={this.state.total}
                     onChange = {(page,pageSize)=>{this.setState({currentPage:page,pageSiz:pageSize}, ()=>{this.opinionPage()})}}/>
 
@@ -88,6 +108,16 @@ class Problem extends Component {
                 />
             </div>
         );
+    }
+
+    /**
+     * 重置
+     */
+    handelReset=()=>{
+        this.setState({ majorName:"", problemName:"",currentPage:"1"},()=>{
+            this.handelPage()
+            ReSet()
+        })
     }
 
     importProblem =()=>{
@@ -144,8 +174,6 @@ class Problem extends Component {
      */
     updateSubmit = async(params) => {
         let result = null
-
-        console.log("params====>>>>",params)
         if(this.state.isEdit){
             result =  await problemUpdate(params)
         }
@@ -158,7 +186,6 @@ class Problem extends Component {
 
     majorNames=async()=>{
          const result = await majorNames();
-         console.log("result=====majorNames====>>>> ",result)
          if(result.status){
              this.setState({majorNames:result.data})
          }

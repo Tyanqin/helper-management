@@ -81,7 +81,10 @@ export default class Opinion extends Component {
                 <div style ={{height:15}}/>
                 <Table columns={this.columns} dataSource={this.state.pageData} pagination = {false} rowKey = {record=>record.opinionId}/>
                 <Pagination
-                    style = {{marginLeft:950,marginTop:20}}
+                    className = "pag"
+                    showQuickJumper
+                    showSizeChanger = "false"
+                    pageSizeOptions = {[10]}
                     total={this.state.total}
                     onChange = {(page,pageSize)=>{this.setState({currentPage:page,pageSiz:pageSize}, ()=>{this.opinionPage()})}}/>
                 <OpiDrawerComponent
@@ -96,10 +99,14 @@ export default class Opinion extends Component {
         );
     }
 
-
+    /**
+     * 重置
+     */
     handelReset=()=>{
-        ReSet()
-        this.setState({title:"",stageName:"",voltageName:"",isComplete:""})
+        this.setState({title:"",stageName:"",voltageName:"",isComplete:"",currentPage:"1"},()=>{
+            this.opinionPage()
+            ReSet()
+        })
     }
     opinionPage=async()=>{
         let {title,stageName,voltageName,isComplete,currentPage,pageSize} = this.state

@@ -7,7 +7,7 @@ import {Cache} from './cache'
 
 
 const instance = axios.create({
-  timeout:4000
+  timeout:8000
 })
 
 //请求拦截器
@@ -25,7 +25,7 @@ instance.interceptors.response.use(
   respons=>{
    Nprgresss.done()
       if(respons.data.code === 403){
-          window.location.href = "localhost:3000/backLogin"
+          window.location.href = "/login"
       }
    return respons.data;
 }, (error => {

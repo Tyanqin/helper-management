@@ -29,6 +29,7 @@ export default class UserDrawerComponent extends Component {
                                     updData = {this.props.updData}
                                     close = {this.props.close}
                                     submit = {this.props.submit}
+                                    handelPage = {this.props.handelPage}
                                 />
                             </div>:
                             <div className="form_wrap">

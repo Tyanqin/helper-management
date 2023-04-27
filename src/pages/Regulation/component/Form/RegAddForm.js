@@ -11,6 +11,7 @@ export default class  RegAddForm  extends  React.Component{
     onFinish = (values) => {
         let params = {regName:values.regName,fileInfo:this.state.filesInfo}
         this.props.submit(params)
+        this.setState({filesInfo:[]})
     };
     onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
@@ -36,8 +37,8 @@ export default class  RegAddForm  extends  React.Component{
                 // className = "form"
             >
                 <Form.Item
-                    style = {{marginRight:190,marginTop:240}}
-                    label="专业"
+                    style = {{marginRight:205,marginTop:180}}
+                    label="规章"
                     name="regName"
                     rules={[{
                         required: true,
@@ -53,7 +54,6 @@ export default class  RegAddForm  extends  React.Component{
                             })
                         }
                     </Select>
-                    {/*<Input  />*/}
                 </Form.Item>
                 <div className = "upload_wrap">
                     <Form.Item name="files">
@@ -65,7 +65,7 @@ export default class  RegAddForm  extends  React.Component{
                             beforeUpload = {this.handelBefore}
                             action = {`${ACCESS_ADDRESS}/reg/uploadFile`}
                             onRemove = {this.handelOnRemove}
-                            maxCount={1}
+                            maxCount={3}
                             disabled = {this.state.disabled}
                             style = {{width:330}}
                         >
@@ -130,13 +130,15 @@ export default class  RegAddForm  extends  React.Component{
         const { status } = info.file;
         if (status !== 'uploading') {console.log(info.file, info.fileList);}
         if (status === 'done') {
-            console.log("info.file.response.data====>>>>",info.file.response.data[0])
+            // console.log("info.file.response.data====>>>>",info.file.response.data[0])
             this.values.push(...info.file.response.data)
         } else if (status === 'error') {
             message.error(`${info.file.name}上传失败`);
         }
         this.setState({filesInfo:[...this.values]},()=>{console.log("this.fileInfo---》》》",this.state.filesInfo)})
     }
+
+
     handelDrop=(e)=> {
         console.log('Dropped files', e.dataTransfer.files);
     }

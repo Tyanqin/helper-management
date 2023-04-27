@@ -4,6 +4,11 @@ import './index.css'
 const {Option} = Select
 export default class  UserUpdForm  extends  React.Component{
 
+
+    state={
+        majorName: []
+    }
+
     onFinish = (values) => {
         console.log('Success:', values);
         let params = {
@@ -14,15 +19,26 @@ export default class  UserUpdForm  extends  React.Component{
             phone:values.phone?values.phone:this.props.updData.phone,
             userMark:values.userMark?values.userMark.toString():this.props.updData.userMark
         }
-        this.props.submit(params)
+        this.props.submit(params).then(res=>{
+            this.forceUpdate()
+        })
     };
 
     onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
 
+
+
     render(){
         let {userName, loginName,majorName, phone, password, userMark,uId} = this.props.updData
+        let majorNames = []
+        if(majorName.toString().indexOf(",")>=1){
+            majorNames = majorName.split(",")
+        }else{
+            majorNames = majorName
+        }
+        console.log("majorNames====>>>>>",majorNames)
         return(
             <Form
                 name="basic"
@@ -70,10 +86,11 @@ export default class  UserUpdForm  extends  React.Component{
                 >
                     <Cascader
                         key = {uId}
-                        defaultValue ={majorName}
+                        defaultValue ={majorNames.toString()}
                         options={this.props.majorData}
                         multiple
-                        maxTagCount={1}
+                        maxTagCount={4}
+                        allowClear
                     />
                 </Form.Item>
                 <Form.Item
@@ -105,7 +122,11 @@ export default class  UserUpdForm  extends  React.Component{
                 </Form.Item>
                 <div style={{position: 'absolute', right: 0, bottom: 0, width: '100%', borderTop: '1px solid #e9e9e9', padding: '10px 16px', background: '#fff', textAlign: 'right',}}>
                     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                        <Button onClick={()=>this.props.close()} style={{ marginRight: 8 }}>
+                        <Button onClick={()=>{
+                            // this.props.handelPage()
+                            this.props.close()
+                        }}
+                                style={{ marginRight: 8 }}>
                             退出
                         </Button>
                         <Button type="primary" htmlType="submit">

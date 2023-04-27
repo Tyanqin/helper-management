@@ -1,5 +1,6 @@
 import React,{Suspense,lazy} from 'react'
 import {Route, Routes, Navigate} from "react-router-dom"
+import {message} from 'antd'
 // import User from '../pages/User'
 // import Major from '../pages/Major'
 // import Login from '../pages/Login'
@@ -81,11 +82,11 @@ const Statistic = lazy(()=>import('../pages/Statistic'))
 //     },
 //
 // ]
-
+// {message.loading("加载中...")}
 export const Routers=()=>{
       return(
           <>
-              <Suspense fallback = {<div>Loading...</div>}>
+              <Suspense fallback = {<div>loading...</div>}>
                   <Routes>
                       <Route  path='/login' element={<Login/>} />
                       <Route  path='/' element={<Home/>} >

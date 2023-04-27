@@ -69,7 +69,10 @@ export default connect(state=>({
                 <Table columns={this.columns} dataSource={this.state.pageData} pagination = {false} rowKey  = {record=>record.uId}/>
                 {/*/!*分页组件*!/*/}
                 <Pagination
-                    style = {{marginLeft:950,marginTop:20}}
+                    className = "pag"
+                    showQuickJumper
+                    showSizeChanger = "false"
+                    pageSizeOptions = {[10]}
                     total={this.state.total}
                     onChange = {(page,pageSize)=>{this.setState({currentPage:page,pageSiz:pageSize}, ()=>{this.handelPage()})}}/>
 
@@ -82,6 +85,7 @@ export default connect(state=>({
                     close = {this.close}
                     submit = {this.updateSubmit}
                     disabled = {this.state.disabled}
+                    handelPage = {this.handelPage}
                 />
             </div>
         );
@@ -91,10 +95,10 @@ export default connect(state=>({
      * 重置
      */
     handelReset=()=>{
-        ReSet()
-        this.setState({majorName:"",userName:""})
-
-
+        this.setState({majorName:"",userName:"",currentPage:"1"},()=>{
+            this.handelPage()
+            ReSet()
+        })
     }
 
 

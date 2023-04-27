@@ -41,15 +41,6 @@ export default class Technology extends Component {
             <div>
                 <div style ={{height:10}}/>
                 <Input.Group style={{marginLeft:10,marginTop:8}}>
-                    {/*<Input addonBefore = "一级目录" autoFocus placeholder="请输入名称" style={{marginRight:20,width:250}}*/}
-                           {/*onChange = {(e)=>{this.setState({firstTitle:e.target.value})}}/>*/}
-                    {/*<Input addonBefore = "二级目录"  placeholder="请输入名称" style={{marginRight:20,width:250}}*/}
-                    {/*onChange = {(e)=>{this.setState({secTitle:e.target.value})}}/>*/}
-                    {/*<Input addonBefore = "三级目录"  placeholder="请输入名称" style={{marginRight:20,width:250}}*/}
-                    {/*onChange = {(e)=>{this.setState({terTitle:e.target.value})}}/>*/}
-                    {/*<Input addonBefore = "工艺名称"  placeholder="请输入名称" style={{marginRight:20,width:250}}*/}
-                    {/*onChange = {(e)=>{this.setState({processName:e.target.value})}}/>*/}
-
                     <SelectComponent
                        id = "firstTitle"
                        title = "一级目录"
@@ -91,7 +82,10 @@ export default class Technology extends Component {
                 <div style ={{height:15}}/>
                 <Table columns={this.columns} dataSource={this.state.pageData} pagination = {false} rowKey = {record=>record.proMenuId}/>
                 <Pagination
-                    style = {{marginLeft:950,marginTop:20}}
+                    className = "pag"
+                    showQuickJumper
+                    showSizeChanger = "false"
+                    pageSizeOptions = {[10]}
                     total={this.state.total}
                     onChange = {(page,pageSize)=>{this.setState({currentPage:page,pageSiz:pageSize}, ()=>{this.handelSelectData()})}}/>
                 <TecDrawerComponent
@@ -109,10 +103,17 @@ export default class Technology extends Component {
             </div>
         );
     }
-    handelReset =()=>{
-        ReSet()
-        this.setState({firstTitle:"",secTitle:"",terTitle:"",processName:""})
+    /**
+     * 重置
+     */
+    handelReset=()=>{
+        this.setState({firstTitle:"",secTitle:"",terTitle:"",processName:"",currentPage:"1"},()=>{
+            this.handelSelectData()
+            ReSet()
+        })
     }
+
+
 
     getFirstMenu =async ()=>{
         let params = {levelMenu:1}

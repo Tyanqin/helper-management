@@ -110,7 +110,7 @@ class  Login  extends  React.Component{
                 Cache.localSet("uId",uId).localSet("userName",userName).localSet("loginName",loginName)
                     .localSet("majorName",majorName).localSet("userMark",userMark).localSet("token",token)
                 this.props.login({...loginState})
-                window.location.href="/user"
+                window.location.href="/sta"
 
 
             }else{

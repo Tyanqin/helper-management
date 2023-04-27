@@ -45,7 +45,7 @@ export default memo((props) => {
         <div className="pdf_wrap">
 
             <PDF
-                scale={1}
+                scale={1.1}
                 file={props.detailsData.ruRegUrl} //文件地址
                 onDocumentComplete={getAllPages}
                 page={pages["page"]} //文件页码

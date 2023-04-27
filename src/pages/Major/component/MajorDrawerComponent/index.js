@@ -18,7 +18,7 @@ export default class MajorDrawerComponent extends Component {
                 >
                     {
                         isEdit===true?
-                            <div className="form_box">
+                            <div className="form_box" key = {updData.majorId}>
                                 <Form
                                     name="basic"
                                     labelCol={{ span: 8 }}

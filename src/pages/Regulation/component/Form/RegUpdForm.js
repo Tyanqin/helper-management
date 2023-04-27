@@ -36,14 +36,13 @@ export default class  RegUpdForm  extends  React.Component{
             >
                 <Form.Item
                     style = {{marginRight:120,marginTop:130}}
-                    label="规章名称"
+                    label="规章"
                     name="regName"
                     rules={[{
                         // required: false,
                         // message: '请输入名称!'
                     }]}
                 >
-                    {/*<Input key = {ruRegId} defaultValue ={regName} />*/}
                     <Select defaultValue ={regName} style={{width:400,textAlign:"Left"}} onChange = {(value)=>this.setState({regName:`${value}`})}>
                         <Option value="">全部</Option>
                         {
@@ -68,7 +67,7 @@ export default class  RegUpdForm  extends  React.Component{
                 </Form.Item>
                 <div style={{position: 'absolute', right: 0, bottom: 0, width: '100%', borderTop: '1px solid #e9e9e9', padding: '10px 16px', background: '#fff', textAlign: 'right',}}>
                     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                        <Button onClick={()=>this.props.close()} style={{ marginRight: 8 }}>
+                        <Button onClick={()=>{this.props.close()}} style={{ marginRight: 8 }}>
                             退出
                         </Button>
                         <Button type="primary" htmlType="submit">

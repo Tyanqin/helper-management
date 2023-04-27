@@ -89,7 +89,10 @@ export default class Rule extends Component {
                 <Table columns={this.columns} dataSource={this.state.pageData} pagination = {false} rowKey = {record=>record.detailId}/>
                 {/*分页组件*/}
                 <Pagination
-                    style = {{marginLeft:950,marginTop:20}}
+                    className = "pag"
+                    showQuickJumper
+                    showSizeChanger = "false"
+                    pageSizeOptions = {[10]}
                     total={this.state.total}
                     onChange = {(page,pageSize)=>{this.setState({currentPage:page,pageSiz:pageSize}, ()=>{this.handelSelectData()})}}/>
                  <DrawerComponent
@@ -107,15 +110,17 @@ export default class Rule extends Component {
         );
     }
 
+    /**
+     * 重置
+     */
     handelReset=()=>{
-        ReSet()
-        this.setState({
-            ruleName:"",
-            staName:"",
-            ruleTitle:"",})
-
-
+        this.setState({ ruleName:"", staName:"", ruleTitle:"",currentPage:"1"},()=>{
+            this.handelSelectData()
+            ReSet()
+        })
     }
+
+
     /**
      * 删除
      * @param text

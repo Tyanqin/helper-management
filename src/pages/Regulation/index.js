@@ -42,7 +42,7 @@ export default class Regulation extends Component {
                 <Input.Group style={{marginLeft:10,marginTop:8}}>
                     <SelectAttrComponent
                         id = "regName"
-                        title = "专业"
+                        title = "规章"
                         style={{marginRight:20,width:300}}
                         onChange = {(e)=>this.setState({regName:e.target.value})}
                         data = {this.state.regNames}
@@ -67,7 +67,10 @@ export default class Regulation extends Component {
                 <Table columns={this.columns} dataSource={this.state.pageData} pagination = {false} rowKey = {record=>record.ruRegId}/>
                 {/*分页组件*/}
                 <Pagination
-                    style = {{marginLeft:950,marginTop:20}}
+                    className = "pag"
+                    showQuickJumper
+                    showSizeChanger = "false"
+                    pageSizeOptions = {[10]}
                     total={this.state.total}
                     onChange = {(page,pageSize)=>{this.setState({currentPage:page,pageSiz:pageSize}, ()=>{this.handelPage()})}}/>
                 <RegDrawerComponent
@@ -89,8 +92,10 @@ export default class Regulation extends Component {
      * 重置
      */
     handelReset=()=>{
-        ReSet()
-        this.setState({ regName:"", resName:"",})
+        this.setState({regName:"", resName:"",currentPage:"1"},()=>{
+            this.handelPage()
+            ReSet()
+        })
     }
 
      //获取规章制度下拉列表名称

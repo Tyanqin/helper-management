@@ -31,10 +31,6 @@ export default class Major extends Component {
             <div style={{marginBottom:20}}>
                 <div style ={{height:10}}/>
                 <Input.Group style={{marginLeft:10,marginTop:8}}>
-                    {/*<Input addonBefore = "专业名称"*/}
-                           {/*placeholder="请输入专业名称"*/}
-                           {/*onChange = {e=>this.setState({majorName:e.target.value})}*/}
-                           {/*style={{marginRight:20,width:400}}/>*/}
                     <InputComponent
                         id = "major"
                         title = "专业"
@@ -51,10 +47,12 @@ export default class Major extends Component {
                 <Table columns={this.columns} dataSource={this.state.pageData} pagination = {false} rowKey  = {record=>record.majorId}/>
                 {/*分页组件*/}
                 <Pagination
-                    style = {{marginLeft:950,marginTop:20}}
+                    className = "pag"
+                    showQuickJumper
+                    showSizeChanger = "false"
+                    pageSizeOptions = {[10]}
                     total={this.state.total}
                     onChange = {(page,pageSize)=>{this.setState({currentPage:page,pageSiz:pageSize}, ()=>{this.handelPage()})}}/>
-
                 <MajorDrawerComponent
                     visible={this.state.visible}
                     isEdit = {this.state.isEdit}
@@ -67,9 +65,14 @@ export default class Major extends Component {
         );
     }
 
+    /**
+     * 重置
+     */
     handelReset=()=>{
-        ReSet()
-        this.setState({majorName:""})
+        this.setState({majorName:"",currentPage:"1"},()=>{
+            this.handelPage()
+            ReSet()
+        })
     }
 
 
