@@ -282,6 +282,23 @@ export default connect(state=>({
                     {resName}
                 </Tooltip>
             )
+        },{title: '联系方式', dataIndex: 'phone', key: 'phone',
+            onCell: () => {
+                return {
+                    style: {
+                        maxWidth: 200,
+                        overflow: 'hidden',
+                        whiteSpace: 'nowrap',
+                        textOverflow: 'ellipsis',
+                        cursor: 'pointer'
+                    }
+                }
+            },
+            render: phone => (
+                <Tooltip placement="topLeft" title={phone}>
+                    {phone}
+                </Tooltip>
+            )
         },
         {title: '操作', key: 'action', render: (text, record) => (<span>
                     <a onClick={this.updateDataById.bind(text,record)}>修改</a>

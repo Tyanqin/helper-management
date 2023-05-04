@@ -34,7 +34,7 @@ export default class MenuComponent extends Component {
         };
     }
     items = [
-        this.getItem(<NavLink key = {1} activeclassname="active" to = "/sta">首页</NavLink>, '1', <HomeOutlined />),
+        // this.getItem(<NavLink key = {1} activeclassname="active" to = "/sta">首页</NavLink>, '1', <HomeOutlined />),
         this.getItem(<NavLink key = {2} activeclassname="active" to = "/user">用户管理</NavLink>, '2', <UserOutlined />),
         this.getItem(<NavLink key = {3} activeclassname="active" to = "/major">专业管理</NavLink>, '3', <ApartmentOutlined />),
         this.getItem(<NavLink key = {4} activeclassname="active" to = "/opinion">意见审批</NavLink>, '4', <SnippetsOutlined />),

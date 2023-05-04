@@ -40,7 +40,7 @@ class RuleImport extends Component {
                 </Dragger>
                 <div style={{position: 'absolute', right: 0, bottom: 0, width: '100%', borderTop: '1px solid #e9e9e9', padding: '10px 16px', background: '#fff', textAlign: 'right',}}>
                     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                        <Button onClick={()=>{
+                        <Button type="primary" onClick={()=>{
                             this.props.handelPage()
                             this.props.close()
                         }} style={{ marginRight: 8 }}>

@@ -3,7 +3,9 @@ import {Input, DatePicker, Button, Table, Pagination, Tooltip, Divider, message,
 import { SearchOutlined,PlusOutlined,ExclamationCircleOutlined} from '@ant-design/icons';
 import TecDrawerComponent from "./component/TecDrawerComponent";
 import Auth from '../../utils/auth'
-import {technologyPage, disProName, proGetId, proUpdateSubmit, proAdd,proDeleteById,getContentById,getMenu} from '../../api/req'
+import {technologyPage, disProName, proGetId, proUpdateSubmit, proAdd,proDeleteById,
+    getContentById,getMenu,getMenuByNameAndLevel,
+} from '../../api/req'
 import {SelectComponent,InputComponent,ReSet} from '../../component/SearchComponent'
 /**
  * 标准工艺
@@ -46,7 +48,7 @@ export default class Technology extends Component {
                        title = "一级目录"
                        data = {this.state.firstData}
                        style={{marginRight:20,width:160}}
-                       onChange = {(e)=>{this.setState({firstTitle:e.target.value})}}
+                       onChange = {(e)=>{this.setState({firstTitle:e.target.value},this.getMenuByNameAndLevel)}}
                        attr = "proName"
                     />
                     <SelectComponent
@@ -54,7 +56,7 @@ export default class Technology extends Component {
                         title = "二级目录"
                         data = {this.state.secData}
                         style={{marginRight:20,width:120}}
-                        onChange = {(e)=>{this.setState({secTitle:e.target.value})}}
+                        onChange = {(e)=>{this.setState({secTitle:e.target.value},this.getMenuByNameAndLevel2)}}
                         attr = "proName"
                     />
                     <SelectComponent
@@ -114,6 +116,29 @@ export default class Technology extends Component {
     }
 
 
+    getMenuByNameAndLevel=async()=>{
+        let firstTitle = this.state.firstTitle;
+        if(firstTitle){
+            let params = {proName:firstTitle,levelMenu:1}
+            const result = await getMenuByNameAndLevel(params);
+            if(result.status){
+                this.setState({secData:result.data})
+            }
+        }
+
+    }
+
+    getMenuByNameAndLevel2=async()=>{
+        let secTitle = this.state.secTitle;
+        if(secTitle) {
+            let params = {proName: secTitle, levelMenu: 2}
+            const result = await getMenuByNameAndLevel(params);
+            delete result.data.child
+            if (result.status) {
+                this.setState({terData: result.data})
+            }
+        }
+    }
 
     getFirstMenu =async ()=>{
         let params = {levelMenu:1}

@@ -1,0 +1,11 @@
+.rule_detail_box>div:nth-child(odd){
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.rule_detail_box>div:nth-child(even){
+    font-size: 14px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}

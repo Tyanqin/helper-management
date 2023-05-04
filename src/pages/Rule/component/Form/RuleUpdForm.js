@@ -51,13 +51,13 @@ export default class  UserUpdForm  extends  React.Component{
                 </Form.Item>
 
                 <Form.Item
-                    style = {{marginRight:120,marginTop:30}}
+                    style = {{marginTop:30,marginRight:123}}
                     label="阶段"
                     name="staName"
                 >
                     <Select
                         key = {updData.detailId}
-                        style={{marginTop:0,width:400,textAlign:"left"}}
+                        style={{marginTop:0,width:370,textAlign:"left"}}
                         defaultValue ={updData.staName}
                     >
                         {
@@ -68,21 +68,6 @@ export default class  UserUpdForm  extends  React.Component{
                             })
                         }
                     </Select>
-                </Form.Item>
-
-                <Form.Item
-                    style = {{marginRight:120,marginTop:30}}
-                    label="专业"
-                    name="ruleTheme"
-                    rules={[{
-                        // required: false,
-                        // message: '请输入名称!'
-                    }]}
-                >
-                    <Input
-                        key = {updData.detailId}
-                        defaultValue ={updData.ruleTheme}
-                    />
                 </Form.Item>
                 <Form.Item
                     style = {{marginRight:120,marginTop:30}}
@@ -99,13 +84,29 @@ export default class  UserUpdForm  extends  React.Component{
                 </Form.Item>
                 <Form.Item
                     style = {{marginRight:120,marginTop:30}}
+                    label="监督项目"
+                    name="ruleTheme"
+                    rules={[{
+                        // required: false,
+                        // message: '请输入名称!'
+                    }]}
+                >
+                    <Input
+                        key = {updData.detailId}
+                        defaultValue ={updData.ruleTheme}
+                    />
+                </Form.Item>
+                <Form.Item
+                    style = {{marginRight:120,marginTop:30}}
                     label="监督要点"
                     name="keyPoint"
                 >
                     <Input.TextArea
                         key={updData.detailId}
                         defaultValue  = {updData.keyPoint}
-                        maxLength = {500}
+                        maxLength = {2500}
+
+                        bordered = "true"
                         allowClear showCount
                     />
                 </Form.Item>

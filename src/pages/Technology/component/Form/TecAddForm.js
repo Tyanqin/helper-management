@@ -148,7 +148,7 @@ export default class  TecAddForm  extends  React.Component{
                 >
                     <Input
                         key={this.props.terData.proMenuId}
-                        placeholder = {this.state.maxMenuCode?"当前最大编号是："+this.state.maxMenuCode:""}
+                        placeholder = {this.state.maxMenuCode?"当前最大编号是："+this.state.maxMenuCode:"当前编号初始值为："+this.state.menuCode}
                         style={{marginTop:0,width:300,textAlign:"left",}}
                         maxLength = {50}
                     />

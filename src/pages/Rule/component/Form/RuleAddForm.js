@@ -30,7 +30,7 @@ export default class  RuleAddForm  extends  React.Component{
                     name="ruleName"
                     rules={[{
                         required: true,
-                        message: '请输入细则名称!'
+                        message: '请输入...'
                     }]}
                 >
                     <Input
@@ -38,23 +38,12 @@ export default class  RuleAddForm  extends  React.Component{
                 </Form.Item>
                 <Form.Item
                     style = {{marginRight:120,marginTop:30}}
-                    label="细则主题"
-                    name="ruleTheme"
-                    rules={[{
-                        required: true,
-                        message: '请输入细则主题!'
-                    }]}
-                >
-                    <Input/>
-                </Form.Item>
-                <Form.Item
-                    style = {{marginRight:120,marginTop:30}}
                     label="项目阶段"
                     name="staName"
-                    rules={[{ required: true, message: '请用输入项目阶段!' }]}
+                    rules={[{ required: true, message: '请输入...' }]}
                 >
                     <Select
-                        style={{marginTop:0,width:400,textAlign:"left"}}
+                        style={{marginTop:0,width:368,textAlign:"left"}}
                     >
                         {
                             this.props.proStaNames.map((item,index)=>{
@@ -67,11 +56,22 @@ export default class  RuleAddForm  extends  React.Component{
                 </Form.Item>
                 <Form.Item
                     style = {{marginRight:120,marginTop:30}}
-                    label="细则标题"
+                    label="专业"
+                    name="ruleTheme"
+                    rules={[{
+                        required: true,
+                        message: '请输入...'
+                    }]}
+                >
+                    <Input/>
+                </Form.Item>
+                <Form.Item
+                    style = {{marginRight:120,marginTop:30}}
+                    label="设备"
                     name="ruleTitle"
                     rules={[{
                         required: true,
-                        message: '请输入细则标题!'
+                        message: '请输入...'
                     }]}
                 >
                     <Input

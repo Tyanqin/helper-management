@@ -34,7 +34,6 @@ export default class  RegAddForm  extends  React.Component{
                 onFinish={this.onFinish}
                 onFinishFailed={this.onFinishFailed}
                 autoComplete="off"
-                // className = "form"
             >
                 <Form.Item
                     style = {{marginRight:205,marginTop:180}}
@@ -95,10 +94,6 @@ export default class  RegAddForm  extends  React.Component{
     }
 
     handelOnRemove=(file)=>{
-        console.log("values====>>>>>",this.values)
-        console.log("file====>>>>>",file)
-        // this.values
-
         let length = this.values.length
         if(length > 0){
             for (let i = 0; i < length; i++) {
@@ -130,7 +125,6 @@ export default class  RegAddForm  extends  React.Component{
         const { status } = info.file;
         if (status !== 'uploading') {console.log(info.file, info.fileList);}
         if (status === 'done') {
-            // console.log("info.file.response.data====>>>>",info.file.response.data[0])
             this.values.push(...info.file.response.data)
         } else if (status === 'error') {
             message.error(`${info.file.name}上传失败`);
@@ -164,10 +158,5 @@ export default class  RegAddForm  extends  React.Component{
     }
 
 }
-
-{/*<p className="ant-upload-hint">*/}
-{/*Support for a single or bulk upload. Strictly prohibited from uploading company data or other*/}
-{/*banned files.*/}
-{/*</p>*/}
 
 

@@ -46,6 +46,7 @@ class ImgUploadForm extends Component {
                 secTitle:values.secTitle?values.secTitle:this.props.detailData.secTitle,
                 terTitle:values.terTitle?values.terTitle:this.props.detailData.terTitle,
                 processName:values.processName?values.processName:this.props.detailData.processName,
+                processCode:values.processCode?values.processCode:this.props.detailData.processCode,
                 processStandard:values.processStandard?values.processStandard:this.props.detailData.processStandard,
                 constructionPoints:values.constructionPoints?values.constructionPoints:this.props.detailData.constructionPoints,
                 proMenuId:values.proMenuId?values.proMenuId:this.props.detailData.proMenuId,
@@ -94,7 +95,17 @@ class ImgUploadForm extends Component {
                            defaultValue = {detailData.processName}
                     />
                 </Form.Item>
-
+                    <Form.Item
+                        style = {{marginRight:500}}
+                        label="工艺编号"
+                        name="processCode"
+                    >
+                        <Input key = {detailData.proContentId}
+                               style = {{width:410}}
+                               maxLength = {50}
+                               defaultValue = {detailData.processCode}
+                        />
+                    </Form.Item>
                 <Form.Item
                     style = {{marginRight:500,marginTop:20}}
                     label="工艺内容"

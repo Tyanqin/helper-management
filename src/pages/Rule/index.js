@@ -72,7 +72,7 @@ export default class Rule extends Component {
                     />
                     <InputComponent
                         id = "ruleTitle"
-                        title = "细则名称"
+                        title = "设备名称"
                         type = "text"
                         placeholder = "请输入制度名称"
                         onChange = {e=>this.setState({ruleTitle:e.target.value})}
@@ -274,26 +274,7 @@ export default class Rule extends Component {
                     {staName}
                 </Tooltip>
             )},
-        {title: '专业', dataIndex: 'ruleTheme', key: 'ruleTheme',onCell: () => {
-                return {
-                    style: {
-                        maxWidth: 250,
-                        overflow: 'hidden',
-                        whiteSpace: 'nowrap',
-                        textOverflow: 'ellipsis',
-                        cursor: 'pointer'
-                    }
-                }
-            },
-            render: ruleTheme => (
-                <Tooltip placement="topLeft"
-                         title={ruleTheme}
-                         overlayClassName = {'newTooltip'}
-                >
-                    {ruleTheme}
-                </Tooltip>
-            )},
-        {title: '设备', dataIndex: 'ruleTitle', key: 'ruleTitle',onCell: () => {
+        {title: '专业', dataIndex: 'ruleTitle', key: 'ruleTitle',onCell: () => {
                 return {
                     style: {
                         maxWidth: 200,
@@ -310,6 +291,25 @@ export default class Rule extends Component {
                          overlayClassName = {'newTooltip'}
                 >
                     {ruleTitle}
+                </Tooltip>
+            )},
+        {title: '设备', dataIndex: 'ruleTheme', key: 'ruleTheme',onCell: () => {
+                return {
+                    style: {
+                        maxWidth: 250,
+                        overflow: 'hidden',
+                        whiteSpace: 'nowrap',
+                        textOverflow: 'ellipsis',
+                        cursor: 'pointer'
+                    }
+                }
+            },
+            render: ruleTheme => (
+                <Tooltip placement="topLeft"
+                         title={ruleTheme}
+                         overlayClassName = {'newTooltip'}
+                >
+                    {ruleTheme}
                 </Tooltip>
             )},
         {title: '监督要点', dataIndex: 'keyPoint', key: 'keyPoint',
