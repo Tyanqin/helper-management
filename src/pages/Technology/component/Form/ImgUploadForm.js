@@ -73,7 +73,6 @@ class ImgUploadForm extends Component {
 
         let {detailData} = this.props
         console.log("detailData======>>>>>  ",detailData)
-
         return (
                 <Form
                     name="basic"
@@ -215,7 +214,6 @@ class ImgUploadForm extends Component {
     handelAddImg=async(params)=>{
         const result = await addImg(params)
         if(result.status){
-            message.info("新增成功！")
             this.props.close()
             RemoveAllImg()
         }

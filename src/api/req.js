@@ -51,7 +51,7 @@ export const delImg = (params)=>(instance.get(`${ACCESS_ADDRESS}/pro-img/delImg?
 export const updImg =(params)=>(instance.post(`${ACCESS_ADDRESS}/pro-img/updImg`,params))
 export const addImg =(params)=>(instance.post(`${ACCESS_ADDRESS}/pro-img/addImg`,params))
 export const updImgDesc =(params)=>(instance.post(`${ACCESS_ADDRESS}/pro-img/upd`,params))
-
+export const delByImgName = (params)=>(instance.get(`${ACCESS_ADDRESS}/pro-img/delByImgName?${qs.stringify(params)}`))
 
 //==================================user========================================================================================
 export const userGetPage =(params)=>(instance.get(`${ACCESS_ADDRESS}/user/queryPage?${qs.stringify(params)}`))

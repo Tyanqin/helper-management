@@ -56,7 +56,7 @@ export default class TecDrawerComponent extends Component {
                                     submit = {this.props.submit}
                                     close = {this.props.close}
                                     detailData = {detailData}
-                                    handelSelectData = {this.handelSelectData}
+                                    handelSelectData = {this.props.handelSelectData}
                                 />
 
                         </div>:""||isEdit===2?

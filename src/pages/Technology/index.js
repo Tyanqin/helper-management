@@ -164,6 +164,8 @@ export default class Technology extends Component {
 
     //提交（修改与新增）
     submit = async(params) => {
+        console.log("params====>>>>  ",params)
+
         let result = null
         if(this.state.isEdit===1){
             await proUpdateSubmit(params).then((res)=>{

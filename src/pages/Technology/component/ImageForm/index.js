@@ -3,6 +3,7 @@ import { Upload, Modal,message } from 'antd';
 import { PlusOutlined} from '@ant-design/icons';
 import {ACCESS_ADDRESS} from '../../../../conf/conf'
 import {AddInput,RemoveInput,RemoveAll,GetChildLength} from './imageElement'
+import {delByImgName} from '../../../../api/req'
 import './index.css'
 
 function getBase64(file) {
@@ -48,9 +49,9 @@ export default class ImageForm extends Component {
     };
 
     values = []
-    handleChange = ({ fileList }) => {
-
-        let status = fileList[0].status
+    //fileList
+    handleChange = ({ fileList,file }) => {
+        let status = file.status
         if (status !== 'uploading') {
             console.log(fileList)
         }
@@ -60,6 +61,8 @@ export default class ImageForm extends Component {
             // this.props.handelFileInfo(this.values)
         } else if (status === 'error') {
             message.error(`${fileList.name}上传失败`);
+        }else if (status === 'removed') {
+            message.info(`${file.name}删除成功`);
         }
         this.setState({ fileList })
 
@@ -123,11 +126,20 @@ export default class ImageForm extends Component {
 
     }
 
-    handelRemove=()=>{
+    delByImgName=async(params)=>{
+        const result = await delByImgName(params)
+    }
+
+    handelRemove=(e)=>{
+        let params = {newFileName:e.response.data[0].newFileName,fileUrl:e.response.data[0].fileUrl}
+        this.delByImgName(params)
         let length = this.state.fileList.length
         let childLength = GetChildLength();
         if(length == childLength && childLength != null && childLength > 0){
             RemoveInput()
+        }
+        if(length == 1){
+          this.setState({fileList:[]})
         }
     }
 
