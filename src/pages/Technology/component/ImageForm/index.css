@@ -27,6 +27,7 @@
     padding-right: 10px;
     overflow: auto;
     width: 370px;
+    /*background-color: #87e8de;*/
 }
 
 .input_flag:hover{
@@ -51,8 +52,6 @@
     padding-right: 5px;
     font-size: 18px;
     display: inline-block;
-
-
 }
 
 .upload_wrap{

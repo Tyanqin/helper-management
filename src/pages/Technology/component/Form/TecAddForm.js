@@ -10,8 +10,6 @@ import './index.css'
 const {Option} = Select
 export default class  TecAddForm  extends  React.Component{
 
-
-
     onFinish = (values) => {
         if(IsHaveValue()){
             message.info("请填写图片描述！")
@@ -32,7 +30,7 @@ export default class  TecAddForm  extends  React.Component{
 
         }
 
-        console.log("params====>>>>>>　　",params)
+        console.log("params=====>>>>>>  ",params)
         this.props.submit(params)
     };
     onFinishFailed = (errorInfo) => {
@@ -62,8 +60,7 @@ export default class  TecAddForm  extends  React.Component{
                 onFinish={this.onFinish}
                 onFinishFailed={this.onFinishFailed}
                 autoComplete="off"
-                style = {{marginLeft:0,marginTop:80}}
-
+                style = {{marginLeft:0,marginTop:-10}}
             >
                 <Form.Item
                     label="一级标题"
@@ -90,7 +87,6 @@ export default class  TecAddForm  extends  React.Component{
                     label="二级标题"
                     name="secTitle"
                     rules={[{ required: true, message: '请输入标题!' }]}
-
                 >
                     <Select
                         key={this.props.secData.proMenuId}
@@ -126,8 +122,6 @@ export default class  TecAddForm  extends  React.Component{
                         }
                     </Select>
                 </Form.Item>
-
-
                 <Form.Item
                     style = {{marginTop:5,marginLeft:-300}}
                     label="工艺名称"
@@ -161,7 +155,7 @@ export default class  TecAddForm  extends  React.Component{
                 >
                     <Input.TextArea
                         key={this.props.terData.proMenuId}
-                        maxLength = {500}
+                        maxLength = {5000}
                         style={{marginTop:0,width:300,textAlign:"left"}}
                         allowClear showCount
                     />
@@ -174,7 +168,7 @@ export default class  TecAddForm  extends  React.Component{
                 >
                     <Input.TextArea
                         key={this.props.terData.proMenuId}
-                        maxLength = {500}
+                        maxLength = {5000}
                         style={{marginTop:0,width:300,textAlign:"left"}}
                         allowClear showCount
                     />
@@ -226,7 +220,10 @@ export default class  TecAddForm  extends  React.Component{
     }
 
     imgDescs = []
-    handelUploadData=(e)=>{this.imgDescs.push(e.target.value)}
+    handelUploadData=(e)=>{
+        console.log("e.target.value====>>>>>>  ",e.target.value)
+        this.imgDescs.push(e.target.value)
+    }
 
     handelFileInfo=(values)=>{
         let params = []

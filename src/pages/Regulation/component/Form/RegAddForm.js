@@ -64,7 +64,7 @@ export default class  RegAddForm  extends  React.Component{
                             beforeUpload = {this.handelBefore}
                             action = {`${ACCESS_ADDRESS}/reg/uploadFile`}
                             onRemove = {this.handelOnRemove}
-                            maxCount={3}
+                            maxCount={10}
                             disabled = {this.state.disabled}
                             style = {{width:330}}
                         >

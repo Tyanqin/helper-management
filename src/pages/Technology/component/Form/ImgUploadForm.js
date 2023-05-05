@@ -21,9 +21,6 @@ class ImgUploadForm extends Component {
    console.log("values===============>>>>>>values ",values)
 
         let proContent = {}
-
-
-
         let fileInfo = this.state.filesInfo
         let fileInfoLength =  fileInfo.length
         let imgDescLength = this.imgDescArray.length
@@ -70,9 +67,21 @@ class ImgUploadForm extends Component {
     };
 
     render() {
-
         let {detailData} = this.props
-        console.log("detailData======>>>>>  ",detailData)
+        let imgInfos = []
+        if(detailData.list !=""){
+            detailData.list.map(item=>{
+                let info = {
+                    uid:item.proImgId,
+                    name:item.imgNewName,
+                    imgDesc:item.imgDesc,
+                    url:item.imgUrl,
+                    proContentId:item.proContentId,
+                    status:'done'
+                }
+                imgInfos.push(info)
+            })
+        }
         return (
                 <Form
                     name="basic"
@@ -113,7 +122,7 @@ class ImgUploadForm extends Component {
                     <Input.TextArea
                         key={detailData.proContentId}
                         defaultValue = {detailData.processStandard}
-                        maxLength = {500}
+                        maxLength = {5000}
                         style = {{width:410}}
                         allowClear showCount
                     />
@@ -127,7 +136,7 @@ class ImgUploadForm extends Component {
                         key={detailData.proContentId}
                         defaultValue = {detailData.constructionPoints}
                         style = {{width:410}}
-                        maxLength = {500}
+                        maxLength = {5000}
                         allowClear showCount
                     />
 

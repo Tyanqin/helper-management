@@ -50,7 +50,7 @@ export default connect(state=>({
                            id = "majorName"
                            title = "专业"
                            style={{marginRight:20,width:300}}
-                           onChange = {(e)=>this.setState({majorName:e.target.value})}
+                           onChange = {(e)=>this.setState({majorName:e.target.value},this.handelPage)}
                            data = {this.state.majorNames}
                            attr = "majorName"
                       />
@@ -63,8 +63,8 @@ export default connect(state=>({
                            style={{marginRight:20,width:300}}
                        />
                     <Button type="primary" style={{marginRight:20}} onClick = {this.handelPage}><SearchOutlined/>查询</Button>
-                    <Button type="primary" style={{marginRight:20}} onClick = {this.handelShowDrawer}><PlusOutlined /> 新增</Button>
                     <Button type="primary" style={{marginRight:20}} onClick = {this.handelReset}>重置</Button>
+                    <Button type="primary" style={{marginLeft:265}} onClick = {this.handelShowDrawer}><PlusOutlined /> 新增</Button>
                 <div style ={{height:15}}/>
                 <Table columns={this.columns} dataSource={this.state.pageData} pagination = {false} rowKey  = {record=>record.uId}/>
                 {/*/!*分页组件*!/*/}
@@ -135,9 +135,6 @@ export default connect(state=>({
         }
     }
 
-
-
-
     //删除
     handelDelete=async(text)=>{
         Modal.confirm({
@@ -195,7 +192,6 @@ export default connect(state=>({
                 }
             }
         }
-
         if(result.status === 200){
             this.handelPage();
         }

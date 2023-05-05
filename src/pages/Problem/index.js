@@ -68,7 +68,7 @@ class Problem extends Component {
                         id = "majorName"
                         title = "专业"
                         style={{marginRight:20,width:250}}
-                        onChange = {(e)=>this.setState({majorName:e.target.value})}
+                        onChange = {(e)=>this.setState({majorName:e.target.value},this.selectPage)}
                         data = {this.state.majorNames}
                         attr = "majorName"
                     />

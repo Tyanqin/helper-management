@@ -42,9 +42,9 @@ export default class Regulation extends Component {
                 <Input.Group style={{marginLeft:10,marginTop:8}}>
                     <SelectAttrComponent
                         id = "regName"
-                        title = "规章"
+                        title = "单位"
                         style={{marginRight:20,width:300}}
-                        onChange = {(e)=>this.setState({regName:e.target.value})}
+                        onChange = {(e)=>this.setState({regName:e.target.value},this.handelPage)}
                         data = {this.state.regNames}
                         attr = "regName"
                     />
@@ -56,12 +56,11 @@ export default class Regulation extends Component {
                         onChange = {e=>this.setState({resName:e.target.value})}
                         style={{marginRight:20,width:300}}
                     />
-                    {/*<Input addonBefore = "制度"  onChange = {(e)=>{this.setState({resName:e.target.value})}} style={{marginRight:20,width:300}}/>*/}
                     <Button type="primary" onClick={this.handelPage} style={{marginRight:20}}><SearchOutlined/>查询</Button>
-                    <Button  type="primary" onClick = {this.handelShowDrawer}>
+                    <Button type="primary" style={{marginLeft:0}} onClick = {this.handelReset}>重置</Button>
+                    <Button  type="primary" onClick = {this.handelShowDrawer} style={{marginLeft:265}}>
                         <PlusOutlined /> 新增
                     </Button>
-                    <Button type="primary" style={{marginLeft:20}} onClick = {this.handelReset}>重置</Button>
                 </Input.Group>
                 <div style ={{height:15}}/>
                 <Table columns={this.columns} dataSource={this.state.pageData} pagination = {false} rowKey = {record=>record.ruRegId}/>
@@ -232,11 +231,29 @@ export default class Regulation extends Component {
                 )
             }
         },
-        {title: '规章制度名称', dataIndex: 'resName', key: 'resName',
+        {title: '单位名称', dataIndex: 'regName', key: 'regName',
             onCell: () => {
                 return {
                     style: {
                         maxWidth: 200,
+                        overflow: 'hidden',
+                        whiteSpace: 'nowrap',
+                        textOverflow: 'ellipsis',
+                        cursor: 'pointer'
+                    }
+                }
+            },
+            render: regName => (
+                <Tooltip placement="topLeft" title={regName}>
+                    {regName}
+                </Tooltip>
+            )
+        },
+        {title: '规章制度名称', dataIndex: 'resName', key: 'resName',
+            onCell: () => {
+                return {
+                    style: {
+                        maxWidth: 550,
                         overflow: 'hidden',
                         whiteSpace: 'nowrap',
                         textOverflow: 'ellipsis',

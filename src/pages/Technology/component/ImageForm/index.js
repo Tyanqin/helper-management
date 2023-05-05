@@ -29,10 +29,8 @@ export default class ImageForm extends Component {
             //     url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
             // }
         ],
-
         files:[],
         disabled:false
-
     };
 
     handleCancel = () => this.setState({ previewVisible: false });
@@ -87,14 +85,14 @@ export default class ImageForm extends Component {
                     openFileDialogOnClick = "true"
                     beforeUpload = {this.handelBefore}
                     onRemove = {this.handelRemove}
-                    multiple = {true}
+                    multiple = {false}
                     disabled = {this.state.disabled}
-                    maxCount={3}
+                    maxCount={5}
                     fileList={fileList}
                     onPreview={this.handlePreview}
                     onChange={this.handleChange}
                 >
-                    {fileList.length >= 8 ? null : uploadButton}
+                    {fileList.length >= 5 ? null : uploadButton}
                 </Upload>
                 <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
                     <img alt="example" style={{ width: '100%' }} src={previewImage} />
@@ -104,26 +102,21 @@ export default class ImageForm extends Component {
     }
 
 
-
-
     handelBefore=(file,fileList)=>{
-
         if(!this.isAssetTypeAnImage(file.type.toString())){
              message.info("格式错误，上传失败！")
              return
         }
         let fileArray = this.state.fileList
-        if(fileArray!=null && fileArray.length >=2 && fileArray != []){
+        if(fileArray!=null && fileArray.length >=5 && fileArray != []){
             this.setState({disabled:true})
         }
-        if(GetChildLength()>=3){
+        if(GetChildLength()>=5){
             message.info("已上传最大数量！")
         }else{
             AddInput(this.props.handelUploadData)
             // this.props.handelUploadData
         }
-
-
     }
 
     delByImgName=async(params)=>{

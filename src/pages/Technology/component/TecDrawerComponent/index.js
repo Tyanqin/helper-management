@@ -28,8 +28,6 @@ export default class TecDrawerComponent extends Component {
         processCode:"",
         imgDesc:"",
         files:[],
-
-
     }
 
     render() {
@@ -68,7 +66,6 @@ export default class TecDrawerComponent extends Component {
                                     submit = {this.props.submit}
                                     close = {this.props.close}
                                     handelUploadData = {this.handelUploadData}
-
                                 />
                             </div>:"" || isEdit===3?
                                 <div key={3} style = {{marginLeft:80}}>
@@ -95,7 +92,7 @@ export default class TecDrawerComponent extends Component {
                                                 key={detailData.proContentId}
                                                 readOnly
                                                 defaultValue = {detailData.processStandard}
-                                                maxLength = {500}
+                                                maxLength = {2000}
                                                 style = {{width:404}}
                                                 allowClear showCount
                                             />
@@ -110,7 +107,7 @@ export default class TecDrawerComponent extends Component {
                                                 defaultValue = {detailData.constructionPoints}
                                                 readOnly
                                                 style = {{width:404}}
-                                                maxLength = {500}
+                                                maxLength = {2000}
                                                 allowClear showCount
                                             />
                                         </Form.Item>

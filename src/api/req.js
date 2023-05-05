@@ -63,6 +63,12 @@ export const userInsert =(params)=>(instance.post(`${ACCESS_ADDRESS}/user/insert
 export const updPassword =(params)=>(instance.get(`${ACCESS_ADDRESS}/user/updPassword?${qs.stringify(params)}`))
 
 
+export const updatePhone =(params)=>(instance.get(`${ACCESS_ADDRESS}/user/updatePhone?${qs.stringify(params)}`))
+export const updateUserName =(params)=>(instance.get(`${ACCESS_ADDRESS}/user/updateUserName?${qs.stringify(params)}`))
+export const updateLoginName =(params)=>(instance.get(`${ACCESS_ADDRESS}/user/updateLoginName?${qs.stringify(params)}`))
+export const updateMajorName =(params)=>(instance.get(`${ACCESS_ADDRESS}/user/updateMajorName?${qs.stringify(params)}`))
+export const updateUserMark =(params)=>(instance.get(`${ACCESS_ADDRESS}/user/updateUserMark?${qs.stringify(params)}`))
+
 //==================================阶段========================================================================================
 export const staGetName =()=>(instance.get(`${ACCESS_ADDRESS}/pro-sta/getStaName`))
 //==================================电压========================================================================================

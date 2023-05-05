@@ -97,7 +97,12 @@ export const AddInputImg=(fun)=>{
 
     let input = document.createElement("input")
     input.className = "img_input_flag"
-    input.placeholder = "请输入图片描述信息"
+    // if(info!=""){
+    //     input.defaultValue = info
+    // }else{
+        input.placeholder = "请输入图片描述信息"
+    // }
+
     input.style.marginTop = "3px"
 
     let span = document.createElement("span")

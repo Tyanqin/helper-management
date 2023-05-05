@@ -21,10 +21,35 @@ export default class ImageForm extends Component {
     state = {
         previewVisible: false,
         previewImage: '',
-        fileList: [],
+        fileList: [
+            // {
+            //     uid: '-1',
+            //     name: 'image.png',
+            //     status: 'done',
+            //     url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+            // },
+        ],
         files:[],
         disabled:false
     };
+
+    // static  getDerivedStateFromProps(props,state){
+    //     console.log("imgInfos=====>>>>> ",props.imgInfos)
+    //     return {fileList: props.imgInfos };
+    // }
+
+   // componentDidMount() {
+   //      let listImg = []
+   //    let list =  this.state.fileList
+   //     if(list != ""){
+   //         list.forEach(item=>{
+   //             listImg.push(item.imgDesc)
+   //         })
+   //         AddInputImg(this.props.handelImgDescFun,defaultValueList)
+   //     }
+   //     console.log("listImg=====>>>>> ",listImg)
+   //
+   // }
 
     handleCancel = () => this.setState({ previewVisible: false });
 
@@ -98,11 +123,14 @@ export default class ImageForm extends Component {
                     openFileDialogOnClick = "true"
                     beforeUpload = {this.handelBefore}
                     onRemove = {this.handelRemove}
-                    maxCount={3}
+                    maxCount={this.props.flag=="upd"?1:3}
+                    // maxCount = {6}
                     disabled = {this.state.disabled}
                     fileList={fileList}
                     onPreview={this.handlePreview}
                     onChange={this.handleChange}
+                    showUploadList = {this.props.flag=="upd"?false:true}
+
                 >
                     {fileList.length >= 8 ? null : uploadButton}
                 </Upload>
@@ -122,7 +150,6 @@ export default class ImageForm extends Component {
     }
 
     handelBefore=(file,fileList)=>{
-
         if(!this.isAssetTypeAnImage(file.type.toString())){
             message.info("格式错误，上传失败！")
             return
@@ -132,7 +159,8 @@ export default class ImageForm extends Component {
         if(fileArray!=null && fileArray.length >=2 && fileArray != []){
             this.setState({disabled:true})
         }
-        if(GetChildLengthImg()> 2){
+
+        if(GetChildLengthImg()> 6){
             message.info("已上传最大数量！")
         }else{
             if(this.props.flag != undefined

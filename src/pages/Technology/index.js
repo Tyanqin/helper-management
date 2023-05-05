@@ -6,7 +6,7 @@ import Auth from '../../utils/auth'
 import {technologyPage, disProName, proGetId, proUpdateSubmit, proAdd,proDeleteById,
     getContentById,getMenu,getMenuByNameAndLevel,
 } from '../../api/req'
-import {SelectComponent,InputComponent,ReSet} from '../../component/SearchComponent'
+import {SelectComponent,InputComponent,ReSet,ReSetClass,SelectComponentClass} from '../../component/SearchComponent'
 /**
  * 标准工艺
  */
@@ -51,7 +51,8 @@ export default class Technology extends Component {
                        onChange = {(e)=>{this.setState({firstTitle:e.target.value},this.getMenuByNameAndLevel)}}
                        attr = "proName"
                     />
-                    <SelectComponent
+                    <SelectComponentClass
+                        classDec = "menu"
                         id = "secTitle"
                         title = "二级目录"
                         data = {this.state.secData}
@@ -59,12 +60,13 @@ export default class Technology extends Component {
                         onChange = {(e)=>{this.setState({secTitle:e.target.value},this.getMenuByNameAndLevel2)}}
                         attr = "proName"
                     />
-                    <SelectComponent
+                    <SelectComponentClass
+                        classDec = "menu-ter"
                         id = "terTitle"
                         title = "三级目录"
                         data = {this.state.terData}
                         style={{marginRight:20,width:120}}
-                        onChange = {(e)=>{this.setState({terTitle:e.target.value})}}
+                        onChange = {(e)=>{this.setState({terTitle:e.target.value},this.handelSelectData)}}
                         attr = "proName"
                     />
                     <InputComponent
@@ -74,12 +76,11 @@ export default class Technology extends Component {
                         onChange = {(e)=>{this.setState({processName:e.target.value})}}
                         style={{marginRight:20,width:140}}
                     />
-
                     <Button type="primary" style={{marginRight:20}} onClick = {this.handelSelectData}><SearchOutlined/>查询</Button>
+                    <Button type="primary" style={{marginRight:20}} onClick = {this.handelReset}>重置</Button>
                     <Button  type="primary" style={{marginRight:20}} onClick = {this.handelShowDrawer}>
                         <PlusOutlined /> 新增
                     </Button>
-                    <Button type="primary" style={{marginRight:20}} onClick = {this.handelReset}>重置</Button>
                 </Input.Group>
                 <div style ={{height:15}}/>
                 <Table columns={this.columns} dataSource={this.state.pageData} pagination = {false} rowKey = {record=>record.proMenuId}/>
@@ -117,7 +118,9 @@ export default class Technology extends Component {
 
 
     getMenuByNameAndLevel=async()=>{
+        this.handelSelectData()
         let firstTitle = this.state.firstTitle;
+        console.log("firstTitle====>>>>>  ",firstTitle)
         if(firstTitle){
             let params = {proName:firstTitle,levelMenu:1}
             const result = await getMenuByNameAndLevel(params);
@@ -125,10 +128,13 @@ export default class Technology extends Component {
                 this.setState({secData:result.data})
             }
         }
+        ReSetClass("menu")
+        ReSetClass("menu-ter")
 
     }
 
     getMenuByNameAndLevel2=async()=>{
+        this.handelSelectData()
         let secTitle = this.state.secTitle;
         if(secTitle) {
             let params = {proName: secTitle, levelMenu: 2}
@@ -138,6 +144,7 @@ export default class Technology extends Component {
                 this.setState({terData: result.data})
             }
         }
+        ReSetClass("menu-ter")
     }
 
     getFirstMenu =async ()=>{

@@ -12,7 +12,7 @@ import {
 import { SearchOutlined,PlusOutlined,ExclamationCircleOutlined} from '@ant-design/icons';
 import {Input, DatePicker, Button, Table, Divider, Select, Tooltip, Pagination,Modal,message,Popover } from 'antd'
 import DrawerComponent from './component/DrawerComponent'
-import {InputComponent,SelectAttrComponent,SelectComponent,ReSet} from '../../component/SearchComponent'
+import {InputComponent,SelectAttrComponent,SelectComponentClass,ReSet,ReSetClass} from '../../component/SearchComponent'
 import Auth from '../../utils/auth'
 
 import './index.css'
@@ -58,15 +58,16 @@ export default class Rule extends Component {
                         id = "ruleName"
                         title = "细则名称"
                         style={{marginRight:20,width:180}}
-                        onChange = {(e)=>this.setState({ruleName:e.target.value})}
+                        onChange = {(e)=>this.setState({ruleName:e.target.value},this.handelChangeRuleName)}
                         data = {this.state.ruleNames}
                         attr = "ruleName"
                     />
-                    <SelectComponent
+                    <SelectComponentClass
+                        classDec = "menu"
                         id = "staName"
                         title = "选择阶段"
                         style={{marginRight:20,width:150}}
-                        onChange = {(e)=>this.setState({staName:e.target.value})}
+                        onChange = {(e)=>this.setState({staName:e.target.value},this.handelSelectData)}
                         data = {this.state.proStaNames}
                         attr = "staName"
                     />
@@ -79,8 +80,8 @@ export default class Rule extends Component {
                         style={{marginRight:20,width:150}}
                     />
                     <Button type="primary" style={{marginRight:20}} onClick = {this.handelSelectData}><SearchOutlined/>查询</Button>
-                    <Button type="primary" style={{marginRight:20}} onClick = {this.handelAddData}><PlusOutlined/>新增</Button>
                     <Button type="primary" style={{marginRight:20}} onClick = {this.handelReset}>重置</Button>
+                    <Button type="primary" style={{marginRight:20}} onClick = {this.handelAddData}><PlusOutlined/>新增</Button>
                     <Button type="primary" style={{marginRight:20}} onClick = {this.downloadTemplate}>下载模版</Button>
                     <Button type="primary" onClick = {this.importProblem}>导入</Button>
                 </Input.Group>
@@ -108,6 +109,13 @@ export default class Rule extends Component {
                  />
             </div>
         );
+    }
+
+
+    handelChangeRuleName=()=>{
+        this.handelSelectData()
+        ReSetClass("menu")
+
     }
 
     /**
