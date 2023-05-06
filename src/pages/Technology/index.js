@@ -113,6 +113,8 @@ export default class Technology extends Component {
         this.setState({firstTitle:"",secTitle:"",terTitle:"",processName:"",currentPage:"1"},()=>{
             this.handelSelectData()
             ReSet()
+            ReSetClass("menu")
+            ReSetClass("menu-ter")
         })
     }
 

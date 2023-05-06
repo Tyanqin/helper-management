@@ -9,7 +9,8 @@ import {
     problemDelById,
     proDownload,
     exportProblem,
-    importProblem
+    importProblem,
+    problemAdd
 } from '../../api/req'
 import ProbelmDrawerComponent from './component/ProbelmDrawerComponent'
 import {SelectComponent, InputComponent, ReSet} from "../../component/SearchComponent";
@@ -41,8 +42,9 @@ class Problem extends Component {
         let {problemName,majorName,currentPage,pageSize} = this.state
         let params = {problemName,majorName,currentPage,pageSize}
        const result = await problemQueryPage(params)
+        console.log("problem===result===》》》",result)
         if(result.status){
-            this.setState({pageData:result.data.rows})
+            this.setState({pageData:result.data.rows,total:result.data.total})
         }
     }
 
@@ -82,9 +84,10 @@ class Problem extends Component {
                     />
                     <Button type="primary" onClick={this.selectPage} style={{marginRight:20}}><SearchOutlined/>查询</Button>
                     <Button type="primary" style={{marginRight:20}} onClick = {this.handelReset}>重置</Button>
+                    <Button type="primary" style={{marginRight:20}} onClick = {this.problemAdd}><PlusOutlined /> 新增</Button>
+                    <Button type="primary" onClick={this.downloadTemplate} style={{marginRight:20}}>下载模版</Button>
                     <Button type="primary" onClick={this.importProblem} style={{marginRight:20}}>导入</Button>
                     <Button type="primary" onClick={this.HandelExportProblem} style={{marginRight:20}}>导出</Button>
-                    <Button type="primary" onClick={this.downloadTemplate} style={{marginRight:20}}>下载模版</Button>
                 </Input.Group>
                 <div style ={{height:15}}/>
                 <Table columns={this.columns} dataSource={this.state.pageData} pagination = {false} rowKey = {record=>record.problemId}/>
@@ -94,22 +97,27 @@ class Problem extends Component {
                     showSizeChanger = "false"
                     pageSizeOptions = {[10]}
                     total={this.state.total}
-                    onChange = {(page,pageSize)=>{this.setState({currentPage:page,pageSiz:pageSize}, ()=>{this.opinionPage()})}}/>
-
+                    onChange = {(page,pageSize)=>{this.setState({currentPage:page,pageSiz:pageSize}, ()=>{this.handelPage()})}}/>
 
                     <ProbelmDrawerComponent
-                    visible={this.state.visible}
-                    isEdit = {this.state.isEdit}
-                    updData = {this.state.updData}
-                    majorNames = {this.state.majorNames}
-                    close = {this.close}
-                    submit = {this.updateSubmit}
-                    handelPage = {this.handelPage}
+                        visible={this.state.visible}
+                        isEdit = {this.state.isEdit}
+                        updData = {this.state.updData}
+                        majorNames = {this.state.majorNames}
+                        close = {this.close}
+                        submit = {this.updateSubmit}
+                        handelPage = {this.handelPage}
                 />
             </div>
         );
     }
 
+
+
+    //新增
+    problemAdd=()=>{
+        this.setState({visible:true,isEdit:2})
+    }
     /**
      * 重置
      */
@@ -121,7 +129,7 @@ class Problem extends Component {
     }
 
     importProblem =()=>{
-       this.setState({isEdit:2,visible:true})
+       this.setState({isEdit:3,visible:true})
     }
 
     /**
@@ -174,10 +182,12 @@ class Problem extends Component {
      */
     updateSubmit = async(params) => {
         let result = null
-        if(this.state.isEdit){
+        if(this.state.isEdit==1){
             result =  await problemUpdate(params)
+        }else if(this.state.isEdit==2){
+            result =  await problemAdd(params)
         }
-        this.setState({visible:false,isEdit:true})
+        this.setState({visible:false,isEdit:1})
         if(result.status === 200){
             this.handelPage();
         }

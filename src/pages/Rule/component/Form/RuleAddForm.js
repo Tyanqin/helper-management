@@ -43,7 +43,7 @@ export default class  RuleAddForm  extends  React.Component{
                     rules={[{ required: true, message: '请输入...' }]}
                 >
                     <Select
-                        style={{marginTop:0,width:368,textAlign:"left"}}
+                        style={{marginTop:0,width:400,textAlign:"left"}}
                     >
                         {
                             this.props.proStaNames.map((item,index)=>{
@@ -87,7 +87,7 @@ export default class  RuleAddForm  extends  React.Component{
                     }]}
                 >
                     <Input.TextArea
-                        maxLength = {500}
+                        maxLength = {5000}
                         allowClear showCount
                     />
                 </Form.Item>

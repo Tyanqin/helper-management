@@ -64,7 +64,7 @@ export default connect(state=>({
                        />
                     <Button type="primary" style={{marginRight:20}} onClick = {this.handelPage}><SearchOutlined/>查询</Button>
                     <Button type="primary" style={{marginRight:20}} onClick = {this.handelReset}>重置</Button>
-                    <Button type="primary" style={{marginLeft:265}} onClick = {this.handelShowDrawer}><PlusOutlined /> 新增</Button>
+                    <Button type="primary" style={{marginRight:20}} onClick = {this.handelShowDrawer}><PlusOutlined /> 新增</Button>
                 <div style ={{height:15}}/>
                 <Table columns={this.columns} dataSource={this.state.pageData} pagination = {false} rowKey  = {record=>record.uId}/>
                 {/*/!*分页组件*!/*/}
@@ -75,7 +75,6 @@ export default connect(state=>({
                     pageSizeOptions = {[10]}
                     total={this.state.total}
                     onChange = {(page,pageSize)=>{this.setState({currentPage:page,pageSiz:pageSize}, ()=>{this.handelPage()})}}/>
-
                 <UserDrawerComponent
                     visible={this.state.visible}
                     isEdit = {this.state.isEdit}

@@ -49,7 +49,7 @@ export default class  TecUpdForm  extends  React.Component{
                         <Input.TextArea
                             key={updData.proContentId}
                             defaultValue = {updData.processStandard}
-                            maxLength = {500}
+                            maxLength = {5000}
                             allowClear showCount
                         />
                     </Form.Item>
@@ -61,7 +61,7 @@ export default class  TecUpdForm  extends  React.Component{
                         <Input.TextArea
                             key={updData.proContentId}
                             defaultValue = {updData.constructionPoints}
-                            maxLength = {500}
+                            maxLength = {5000}
                             allowClear showCount
                         />
                     </Form.Item>

@@ -8,6 +8,7 @@ import {
     reqInsertRule,
     reqRuleDelId,
     ruleDownload,
+    majorNames
 } from '../../api/req'
 import { SearchOutlined,PlusOutlined,ExclamationCircleOutlined} from '@ant-design/icons';
 import {Input, DatePicker, Button, Table, Divider, Select, Tooltip, Pagination,Modal,message,Popover } from 'antd'
@@ -29,6 +30,7 @@ export default class Rule extends Component {
         total:1,
         ruleNames:[],
         proStaNames:[],
+        majorNames:[],
         pageData:[],
         updData:{},
         addData:{},
@@ -46,6 +48,7 @@ export default class Rule extends Component {
     componentDidMount() {
         Auth()
       this.init()
+
 
 
     }
@@ -99,6 +102,7 @@ export default class Rule extends Component {
                  <DrawerComponent
                      isEdit = {this.state.isEdit}
                      updData = {this.state.updData}
+                     majorNames = {this.state.majorNames}
                      detailData = {this.state.detailData}
                      ruleNames = {this.state.ruleNames}
                      proStaNames={this.state.proStaNames}
@@ -125,9 +129,18 @@ export default class Rule extends Component {
         this.setState({ ruleName:"", staName:"", ruleTitle:"",currentPage:"1"},()=>{
             this.handelSelectData()
             ReSet()
+            ReSetClass("menu")
         })
     }
 
+
+    getMajorNames=async()=>{
+        const result = majorNames()
+        if(result.status === 200){
+           this.setState({majorNames:result.data})
+
+        }
+    }
 
     /**
      * 删除
@@ -175,6 +188,7 @@ export default class Rule extends Component {
              this.setState({proStaNames:[...proStageResult.data]})
          }
         this.handelSelectData()
+        this.getMajorNames()
 
     }
 

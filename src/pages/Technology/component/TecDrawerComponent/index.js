@@ -92,7 +92,7 @@ export default class TecDrawerComponent extends Component {
                                                 key={detailData.proContentId}
                                                 readOnly
                                                 defaultValue = {detailData.processStandard}
-                                                maxLength = {2000}
+                                                maxLength = {5000}
                                                 style = {{width:404}}
                                                 allowClear showCount
                                             />
@@ -107,7 +107,7 @@ export default class TecDrawerComponent extends Component {
                                                 defaultValue = {detailData.constructionPoints}
                                                 readOnly
                                                 style = {{width:404}}
-                                                maxLength = {2000}
+                                                maxLength = {5000}
                                                 allowClear showCount
                                             />
                                         </Form.Item>

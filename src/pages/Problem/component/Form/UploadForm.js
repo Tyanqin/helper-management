@@ -36,22 +36,15 @@ export default class  UploadForm  extends  React.Component{
                     <Form.Item name="file">
                         <Dragger
                             name="file"
-                            multiple = {true}
+                            multiple = "false"
                             onChange = {this.handelChange}
+                            beforeUpload = {this.handelBefore}
                             onDrop = {this.handelDrop}
-                            beforeUpload={(value) => {console.log("value===>>>>",value)}}
                             action = {`${ACCESS_ADDRESS}/problem/importProblem`}
-                            maxCount={3}
+                            maxCount={1}
                             style = {{width:470}}
                         >
-                            <p className="ant-upload-drag-icon">
-                                <InboxOutlined />
-                            </p>
-                            <p className="ant-upload-text">Click or drag file to this area to upload</p>
-                            <p className="ant-upload-hint">
-                                Support for a single or bulk upload. Strictly prohibited from uploading company data or other
-                                banned files.
-                            </p>
+                            <p className="ant-upload-text">请上传模版文件</p>
                         </Dragger>
                     </Form.Item>
                 </div>
@@ -68,20 +61,34 @@ export default class  UploadForm  extends  React.Component{
     values = []
     handelChange=(info)=>{
         const { status } = info.file;
-        console.log("this.values====>>>>",this.values)
-        console.log("status====>>>>",status)
         if (status !== 'uploading') {console.log(info.file, info.fileList);}
         if (status === 'done') {
-            // console.log("info.file.response.data====>>>>",info.file.response.data)
-            // this.values.push(info.file.response.data)
+            this.props.handelPage()
+            this.props.close()
+            this.setState({fileList:[]})
         } else if (status === 'error') {
             message.error(`${info.file.name}上传失败`);
         }
-
-        this.props.handelPage()
-        // this.setState({filesInfo:[...this.values]},()=>{console.log("this.fileInfo---》》》",this.state.filesInfo)})
     }
     handelDrop=(e)=> {
         console.log('Dropped files', e.dataTransfer.files);
+    }
+
+    handelBefore=(file,fileList)=>{
+        console.log("file.type.toString()===>>>> ",file.type.toString())
+        if(!this.isAssetTypeAnImage(file.type.toString())){
+            message.info("格式错误，上传失败！")
+            return
+        }
+
+    }
+
+    isAssetTypeAnImage=(ext)=> {
+        //获取最后一个.的位置
+        let varindex= ext.lastIndexOf("/");
+        //获取后缀
+        let varext = ext.substring(varindex+1);
+        console.log("varext==>",varext)
+        return ['vnd.ms-excel'].indexOf(varext.toLowerCase()) !== -1;
     }
 }

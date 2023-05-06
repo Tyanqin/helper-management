@@ -104,8 +104,7 @@ export default class  UserUpdForm  extends  React.Component{
                     <Input.TextArea
                         key={updData.detailId}
                         defaultValue  = {updData.keyPoint}
-                        maxLength = {2500}
-
+                        maxLength = {5000}
                         bordered = "true"
                         allowClear showCount
                     />

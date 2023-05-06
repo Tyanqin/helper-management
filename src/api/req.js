@@ -90,7 +90,7 @@ export const majorNames =()=>(instance.get(`${ACCESS_ADDRESS}/major/getDisName`)
 export const proDownload =(params,config)=>(instance.get(`${ACCESS_ADDRESS}/problem/getDownloadTemplate?${qs.stringify(params)}`,config))
 export const importProblem =()=>(instance.get(`${ACCESS_ADDRESS}/problem/importProblem`))
 export const exportProblem =(params,config)=>(instance.get(`${ACCESS_ADDRESS}/problem/exportProblem?${qs.stringify(params)}`,config))
-
+export const problemAdd =(params)=>(instance.post(`${ACCESS_ADDRESS}/problem/add`,params))
 
 //==================================major========================================================================================
 export const majorPage=(params)=>(instance.get(`${ACCESS_ADDRESS}/major/getPage?${qs.stringify(params)}`))

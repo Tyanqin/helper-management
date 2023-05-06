@@ -68,13 +68,13 @@ export default class Opinion extends Component {
                         onChange = {(e)=>this.setState({voltageName:e.target.value})}
                         style={{marginRight:20,width:100}}
                     />
-                    <SelectConstantComponent
-                        id = "isComplete"
-                        // key = "3"
-                        title = "是否完成"
-                        onChange = {(e)=>this.setState({isComplete:e.target.value})}
-                        style={{marginRight:20,width:100}}
-                    />
+                    {/*<SelectConstantComponent*/}
+                        {/*id = "isComplete"*/}
+                        {/*// key = "3"*/}
+                        {/*title = "是否完成"*/}
+                        {/*onChange = {(e)=>this.setState({isComplete:e.target.value})}*/}
+                        {/*style={{marginRight:20,width:100}}*/}
+                    {/*/>*/}
                     <Button type="primary" onClick={this.opinionPage} style={{marginRight:20}}><SearchOutlined/>查询</Button>
                     <Button type="primary" style={{marginRight:20}} onClick = {this.handelReset}>重置</Button>
                 </Input.Group>

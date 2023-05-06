@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {Button, Divider, Drawer, Input, message, Select, Table, Tooltip, Upload,Form} from "antd";
 import ProblemUpdForm from '../Form/ProblemUpdForm'
+import ProblemAddForm from '../Form/ProblemAddForm'
+
 import { InboxOutlined } from '@ant-design/icons';
 import {ACCESS_ADDRESS} from "../../../../conf/conf";
 import UploadForm from '../../component/Form/UploadForm'
@@ -30,10 +32,11 @@ export default class ProDrawerComponent extends Component {
 
     render() {
         let {isEdit,visible} = this.props
+        console.log("this.props.majorNames===>>>>",this.props.majorNames)
         return (
             <div>
                 <Drawer
-                    title={isEdit===1?"修改":""|| isEdit === 2?"导入":""}
+                    title={isEdit===1?"修改":""|| isEdit === 2?"新增":""|| isEdit === 3?"导入":""}
                     width={720}
                     // onClose={()=>this.props.close()}
                     closable={false}
@@ -52,11 +55,18 @@ export default class ProDrawerComponent extends Component {
                             </div>
                             :""|| isEdit === 2?
                             <div key = "2">
-                                <UploadForm
-                                    close = {this.props.close}
-                                    handelPage = {this.props.handelPage}
-                                />
-                            </div>:""
+                               <ProblemAddForm
+                                   majorNames = {this.props.majorNames}
+                                   close = {this.props.close}
+                                   submit  = {this.props.submit}
+                               />
+                            </div>:""|| isEdit == 3?
+                                <div>
+                                    <UploadForm
+                                        close = {this.props.close}
+                                        handelPage = {this.props.handelPage}
+                                    />
+                                </div>:""
                     }
                 </Drawer>
             </div>

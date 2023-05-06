@@ -1,15 +1,14 @@
 import React, {Component} from 'react';
 import { Button, Checkbox, Form,Cascader,Select,Input} from 'antd';
 const {Option} = Select
-class ProblemUpdForm extends Component {
+class ProblemAddForm extends Component {
 
 
     onFinish = (values) => {
         console.log('Success:', values);
         let params = {
-            problemId: this.props.updData.problemId,
-            majorName: values.majorName?values.majorName:this.props.updData.majorName,
-            problemName: values.problemName?values.problemName:this.props.updData.problemName
+            majorName: values.majorName,
+            problemName: values.problemName
         }
         this.props.submit(params)
     };
@@ -43,13 +42,15 @@ class ProblemUpdForm extends Component {
                         style = {{marginRight:120,marginTop:130}}
                         label="专业名称"
                         name="majorName"
+                        rules={[{ required: true, message: '请输入专业名称...' }]}
                     >
-                        <Select defaultValue ={updData.majorName} style={{width:400,textAlign:"Left"}}>
-                            <Option value="">全部</Option>
+                        <Select
+                            style={{marginTop:0,width:400,textAlign:"left"}}
+                        >
                             {
                                 this.props.majorNames.map((item,index)=>{
                                     return (
-                                        <Option key={item.majorId} value={item.majorName}>{item.majorName}</Option>
+                                        <Option value={item.majorName}>{item.majorName}</Option>
                                     )
                                 })
                             }
@@ -59,12 +60,12 @@ class ProblemUpdForm extends Component {
                         style = {{marginRight:120,marginTop:30}}
                         label="问题描述"
                         name="problemName"
+                        rules={[{
+                            required: true,
+                            message: '请输入问题描述'
+                        }]}
                     >
-                        <Input.TextArea
-                            key={this.props.updData.problemId}
-                            defaultValue = {this.props.updData.problemName}
-                            maxLength = {5000}
-                            allowClear showCount
+                        <Input
                         />
                     </Form.Item>
                     <div style={{position: 'absolute', right: 0, bottom: 0, width: '100%', borderTop: '1px solid #e9e9e9', padding: '10px 16px', background: '#fff', textAlign: 'right',}}>
@@ -83,4 +84,4 @@ class ProblemUpdForm extends Component {
     }
 }
 
-export default ProblemUpdForm;
+export default ProblemAddForm;

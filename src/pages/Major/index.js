@@ -41,7 +41,7 @@ export default class Major extends Component {
                     />
                     <Button type="primary" style={{marginRight:20}} onClick = {this.handelPage}><SearchOutlined/>查询</Button>
                     <Button type="primary" style={{marginRight:20}} onClick = {this.handelReset}>重置</Button>
-                    <Button type="primary" style={{marginLeft:643}} onClick = {this.handelShowDrawer}><PlusOutlined /> 新增</Button>
+                    <Button type="primary" style={{marginRight:20}} onClick = {this.handelShowDrawer}><PlusOutlined /> 新增</Button>
                 </Input.Group>
                 <div style ={{height:15}}/>
                 <Table columns={this.columns} dataSource={this.state.pageData} pagination = {false} rowKey  = {record=>record.majorId}/>
