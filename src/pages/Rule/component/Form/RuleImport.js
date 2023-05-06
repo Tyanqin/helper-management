@@ -2,7 +2,9 @@ import React, {Component} from 'react';
 import { InboxOutlined } from '@ant-design/icons';
 import {Button, Form, message, Upload} from 'antd';
 import {ACCESS_ADDRESS} from '../../../../conf/conf'
+import './index.css'
 const { Dragger } = Upload;
+
 
 
 class RuleImport extends Component {
@@ -17,19 +19,15 @@ class RuleImport extends Component {
 
     render() {
         return (
-            <div>
+            <div className="upload_rule_box">
                 <Dragger
                     name="file"
-                    className = "upload_wrap"
                     multiple = "false"
-                    action={`${ACCESS_ADDRESS}/supervisionRules/importRule`}
-                    // openFileDialogOnClick = "true"
+                    onChange = {this.handelChange}
                     beforeUpload = {this.handelBefore}
-                    onRemove = {this.handelRemove}
+                    onDrop = {this.handelDrop}
+                    action={`${ACCESS_ADDRESS}/supervisionRules/importRule`}
                     maxCount={1}
-                    fileList={this.state.fileList}
-                    onPreview={this.handlePreview}
-                    onChange={this.handleChange}
                     style = {{width:470}}
                 >
                     <p className="ant-upload-text">请上传模版文件</p>
@@ -63,11 +61,10 @@ class RuleImport extends Component {
         });
     };
 
-    handelRemove=()=>{
+    handelRemove=()=>{}
 
-    }
 
-    values = []
+
     handelChange=(info)=>{
         const { status } = info.file;
         if (status !== 'uploading') {console.log(info.file, info.fileList);}
@@ -79,8 +76,7 @@ class RuleImport extends Component {
             message.error(`${info.file.name}上传失败`);
         }
     }
-
-    handelBefore=(file,fileList)=>{
+    handelBefore=(file)=>{
         console.log("file.type.toString()====>>>>",file.type.toString())
         if(!this.isAssetTypeAnImage(file.type.toString())){
             message.info("格式错误，上传失败！")
@@ -99,7 +95,18 @@ class RuleImport extends Component {
         indexOf(varext.toLowerCase()) !== -1;
     }
 
-
+//     name="file"
+//     // className = "upload_wrap"
+//     multiple = "false"
+//     action={`${ACCESS_ADDRESS}/supervisionRules/importRule`}
+// // openFileDialogOnClick = "true"
+// beforeUpload = {this.handelBefore}
+// onRemove = {this.handelRemove}
+// maxCount={1}
+// fileList={this.state.fileList}
+// onPreview={this.handlePreview}
+// onChange={this.handelChange}
+// style = {{width:470}}
 
 }
 

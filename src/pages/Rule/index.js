@@ -197,6 +197,8 @@ export default class Rule extends Component {
         let {ruleName,staName,ruleTitle,startTime,endTime,currentPage,pageSize} = this.state
         let params = {ruleName:ruleName, staName: staName,ruleTitle:ruleTitle,startTime:startTime,endTime:endTime,currentPage:currentPage,pageSize:pageSize}
         const result = await page(params)
+        console.log("params123=====>>>>>>  ",params)
+        console.log("result123=====>>>>>>  ",result)
         if(result.status === 200){
             this.setState({pageData:[...result.data.rows],total:result.data.total},()=>console.log({...this.state.pageData}))
         }
