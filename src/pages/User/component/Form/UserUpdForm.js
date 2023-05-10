@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Checkbox, Form, Input,Cascader,Select} from 'antd';
+import { Button, Checkbox, Form, Input,Cascader,Select,message} from 'antd';
 import {updatePhone,updateUserName,updateLoginName,updateMajorName,updateUserMark} from '../../../../api/req'
 import './index.css'
 const {Option} = Select
@@ -19,7 +19,6 @@ export default class  UserUpdForm  extends  React.Component{
             phone:values.phone?values.phone:this.props.updData.phone,
             userMark:values.userMark?values.userMark.toString():this.props.updData.userMark
         }
-        console.log("params====>>>>>>> ",params)
         this.props.submit(params).then(res=>{
             this.forceUpdate()
         })
@@ -40,8 +39,6 @@ export default class  UserUpdForm  extends  React.Component{
 
     render(){
         let {userName, loginName,majorName, phone, password, userMark,uId} = this.props.updData
-        console.log("uID====>>>>> ",uId)
-        console.log("phone====>>>>> ",phone)
         let majorNames = []
         if(majorName !== undefined && majorName.indexOf(",")>=1){
             majorNames = majorName.split(",")
@@ -100,8 +97,8 @@ export default class  UserUpdForm  extends  React.Component{
                     rules={[
                         {
                             type: 'Array',
-                            // required: false,
-                            // message: '请选择专业!',
+                            required: true,
+                            message: '请选择专业!',
                         },
                     ]}
                 >
@@ -115,7 +112,10 @@ export default class  UserUpdForm  extends  React.Component{
                         onChange = {e=>{
                             let majorName = e.toString()
                             let params = {uId:uId,majorName:majorName}
-                            console.log("params====>>>>> ",params)
+                            if(majorName == null || majorName == undefined || majorName.trim()== ""){
+                               message.error("请选择专业")
+                                return
+                            }
                             this.updateMajorName(params)
                         }
 

@@ -157,6 +157,7 @@ export default class  TecAddForm  extends  React.Component{
                         key={this.props.terData.proMenuId}
                         maxLength = {5000}
                         style={{marginTop:0,width:300,textAlign:"left"}}
+                        autoSize="true"
                         allowClear showCount
                     />
                 </Form.Item>
@@ -170,6 +171,7 @@ export default class  TecAddForm  extends  React.Component{
                         key={this.props.terData.proMenuId}
                         maxLength = {5000}
                         style={{marginTop:0,width:300,textAlign:"left"}}
+                        autoSize="true"
                         allowClear showCount
                     />
                 </Form.Item>

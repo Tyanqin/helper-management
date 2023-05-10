@@ -57,7 +57,7 @@ export default class  RuleAddForm  extends  React.Component{
                 <Form.Item
                     style = {{marginRight:120,marginTop:30}}
                     label="专业"
-                    name="ruleTheme"
+                    name="ruleTitle"
                     rules={[{
                         required: true,
                         message: '请输入...'
@@ -68,7 +68,7 @@ export default class  RuleAddForm  extends  React.Component{
                 <Form.Item
                     style = {{marginRight:120,marginTop:30}}
                     label="设备"
-                    name="ruleTitle"
+                    name="ruleTheme"
                     rules={[{
                         required: true,
                         message: '请输入...'
@@ -89,6 +89,7 @@ export default class  RuleAddForm  extends  React.Component{
                     <Input.TextArea
                         maxLength = {5000}
                         allowClear showCount
+                        autoSize = "true"
                     />
                 </Form.Item>
                 <div style={{position: 'absolute', right: 0, bottom: 0, width: '100%', borderTop: '1px solid #e9e9e9', padding: '10px 16px', background: '#fff', textAlign: 'right',}}>

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Drawer, Input, Form} from "antd";
+import {Button, Drawer, Input, Form,message} from "antd";
 import './index.css'
 
 export default class MajorDrawerComponent extends Component {
@@ -33,7 +33,7 @@ export default class MajorDrawerComponent extends Component {
                                         style = {{marginRight:120,marginTop:130}}
                                         label="专业"
                                         name="majorName"
-                                        // rules={[{ required: false, message: '请输入专业名称!' }]}
+                                        rules={[{ required: true, message: '请输入专业名称!' }]}
                                     >
                                         <Input key={majorId} maxLength = {50} defaultValue = {majorName}/>
                                     </Form.Item>
@@ -88,6 +88,7 @@ export default class MajorDrawerComponent extends Component {
         console.log('Success:', values.majorName);
         let params = {}
         if(this.props.isEdit){
+            let majorName = values.majorName
             params = {
                 majorId:this.props.updData.majorId,
                 majorName:values.majorName?values.majorName:this.props.updData.majorName

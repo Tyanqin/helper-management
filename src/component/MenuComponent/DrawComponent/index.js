@@ -1,11 +1,11 @@
 import React from "react";
 import { useState } from 'react';
 import {Button, Cascader, Drawer, Form, Input, Select, theme,message} from 'antd';
-import {updPassword} from '../../../api/req'
+import {updPas} from '../../../api/req'
 import {Cache} from '../../../api/cache'
 
-const HomeDrawComponent = (props) => {
 
+const HomeDrawComponent = (props) => {
 
     const onFinish = async(values) => {
         console.log('Success:', values);
@@ -22,8 +22,19 @@ const HomeDrawComponent = (props) => {
             message.error("用户确认密码不能为空！")
             return
         }
-        let params = {uId:Cache.localGet("uId"), password, newPassword,repPassword}
-        const result = await updPassword(params)
+        if(newPassword !== repPassword){
+            message.error("确认密码不一致")
+            return
+        }
+
+
+        let params = {userId:Cache.localGet("uId"),
+            password:window.btoa(password),
+            newPassword:window.btoa(newPassword),
+            dupPassword:window.btoa(repPassword)}
+
+        console.log("uId===>>>",params)
+        const result = await updPas(params)
         if(result.status){
             if(result.message != ""){
                 message.error(result.message)
@@ -121,8 +132,6 @@ const HomeDrawComponent = (props) => {
             </Drawer>
         </div>
     );
-
-
 
 };
 export default HomeDrawComponent;

@@ -25,6 +25,7 @@ export default class  RegUpdForm  extends  React.Component{
         let {regName, resName, ruRegId} = this.props.updData
         return(
             <Form
+                key = {ruRegId}
                 name="basic"
                 labelCol={{ span: 8 }}
                 wrapperCol={{ span: 16 }}

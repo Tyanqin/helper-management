@@ -26,6 +26,7 @@ export default class  UserUpdForm  extends  React.Component{
         let {updData} = this.props
         return(
             <Form
+                key = {updData.detailId}
                 name="basic"
                 labelCol={{ span: 8 }}
                 wrapperCol={{ span: 16 }}
@@ -106,6 +107,7 @@ export default class  UserUpdForm  extends  React.Component{
                         defaultValue  = {updData.keyPoint}
                         maxLength = {5000}
                         bordered = "true"
+                        autoSize = "true"
                         allowClear showCount
                     />
                 </Form.Item>

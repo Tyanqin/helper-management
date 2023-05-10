@@ -311,7 +311,6 @@ export default class Opinion extends Component {
         let result = await opinionDel(params)
         if(result.status === 200){
             this.opinionPage()
-            message.success("删除成功!")
         }
     }
 

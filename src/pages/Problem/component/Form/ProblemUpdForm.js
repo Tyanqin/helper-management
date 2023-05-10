@@ -30,6 +30,7 @@ class ProblemUpdForm extends Component {
         return (
             <div>
                 <Form
+                    key = {updData.problemId}
                     name="basic"
                     labelCol={{ span: 8 }}
                     wrapperCol={{ span: 16 }}
@@ -64,6 +65,7 @@ class ProblemUpdForm extends Component {
                             key={this.props.updData.problemId}
                             defaultValue = {this.props.updData.problemName}
                             maxLength = {5000}
+                            autoSize = "true"
                             allowClear showCount
                         />
                     </Form.Item>

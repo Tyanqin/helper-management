@@ -126,6 +126,7 @@ class ImgUploadForm extends Component {
                         defaultValue = {detailData.processStandard}
                         maxLength = {5000}
                         style = {{width:410}}
+                        autoSize = "true"
                         allowClear showCount
                     />
                 </Form.Item>
@@ -139,6 +140,7 @@ class ImgUploadForm extends Component {
                         defaultValue = {detailData.constructionPoints}
                         style = {{width:410}}
                         maxLength = {5000}
+                        autoSize = "true"
                         allowClear showCount
                     />
 

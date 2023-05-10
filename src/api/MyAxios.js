@@ -31,7 +31,7 @@ instance.interceptors.response.use(
         /**
          * token过期
          */
-        if(code === 55000){
+        if(code === 55000 || code === 55002){
             setTimeout(()=>{window.location.href = "/login"},2000)
         }
         message.error(error.response.data.message,2);

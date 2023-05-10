@@ -44,12 +44,6 @@ export default class TecDrawerComponent extends Component {
                     {
                         isEdit===1?
                             <div key={1} style = {{marginLeft:80}}>
-                              {/*<TecUpdForm*/}
-                                  {/*updData = {detailData}*/}
-                                  {/*submit = {this.props.submit}*/}
-                                  {/*close = {this.props.close}*/}
-                              {/*/>*/}
-
                                 <ImgUploadForm
                                     submit = {this.props.submit}
                                     close = {this.props.close}
@@ -94,6 +88,7 @@ export default class TecDrawerComponent extends Component {
                                                 defaultValue = {detailData.processStandard}
                                                 maxLength = {5000}
                                                 style = {{width:404}}
+                                                autoSize = "true"
                                                 allowClear showCount
                                             />
                                         </Form.Item>
@@ -107,6 +102,7 @@ export default class TecDrawerComponent extends Component {
                                                 defaultValue = {detailData.constructionPoints}
                                                 readOnly
                                                 style = {{width:404}}
+                                                autoSize = "true"
                                                 maxLength = {5000}
                                                 allowClear showCount
                                             />
