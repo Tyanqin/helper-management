@@ -57,7 +57,7 @@ export default class  UserUpdForm  extends  React.Component{
                 >
                     <Select
                         key = {updData.detailId}
-                        style={{marginTop:0,width:370,textAlign:"left"}}
+                        style={{marginTop:0,width:400,textAlign:"left"}}
                         defaultValue ={updData.staName}
                     >
                         {
@@ -71,7 +71,7 @@ export default class  UserUpdForm  extends  React.Component{
                 </Form.Item>
                 <Form.Item
                     style = {{marginRight:120,marginTop:30}}
-                    label="设备"
+                    label="专业"
                     name="ruleTitle"
                     rules={[{
                         // required: false,
@@ -84,7 +84,7 @@ export default class  UserUpdForm  extends  React.Component{
                 </Form.Item>
                 <Form.Item
                     style = {{marginRight:120,marginTop:30}}
-                    label="监督项目"
+                    label="设备"
                     name="ruleTheme"
                     rules={[{
                         // required: false,

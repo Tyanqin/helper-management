@@ -6,6 +6,7 @@ import {InputComponent,SelectAttrComponent,SelectConstantComponent,ReSet} from '
 
 import OpiDrawerComponent from './component/OpiDrawerComponent'
 import Auth from '../../utils/auth'
+import qs from "querystring";
 
 
 const {Option} = Select
@@ -57,7 +58,7 @@ export default class Opinion extends Component {
                         // key = {1}
                         title = "阶段"
                         data = {this.state.staNameData}
-                        onChange = {(e)=>this.setState({stageName:e.target.value})}
+                        onChange = {(e)=>this.setState({stageName:e.target.value},()=>{this.opinionPage()})}
                         style={{marginRight:20,width:185}}
                     />
                     <SelectAttrComponent
@@ -65,7 +66,7 @@ export default class Opinion extends Component {
                         // key = {2}
                         title = "电压"
                         data = {this.state.volNameData}
-                        onChange = {(e)=>this.setState({voltageName:e.target.value})}
+                        onChange = {(e)=>this.setState({voltageName:e.target.value},()=>{this.opinionPage()})}
                         style={{marginRight:20,width:100}}
                     />
                     {/*<SelectConstantComponent*/}
@@ -306,6 +307,7 @@ export default class Opinion extends Component {
 
     handleOk=async(text)=>{
         let params = {formId:text.formId}
+        console.log("formId====>>>>  ",qs.stringify(params))
         let result = await opinionDel(params)
         if(result.status === 200){
             this.opinionPage()

@@ -76,7 +76,7 @@ export const volGetName =()=>(instance.get(`${ACCESS_ADDRESS}/vol/getVolName`))
 
 //==================================审批意见========================================================================================
 export const opinionPage =(params)=>(instance.get(`${ACCESS_ADDRESS}/opinion/queryPage?${qs.stringify(params)}`))
-export const opinionDel =(params)=>(instance.get(`${ACCESS_ADDRESS}/opinion/delByFormId?${qs.stringify(params)}`))
+export const opinionDel =(params)=>(instance.get(`${ACCESS_ADDRESS}/opinion/deleteByFormId?${qs.stringify(params)}`))
 export const opinionDownload =(params,config)=>(instance.get(`${ACCESS_ADDRESS}/opinion/downloadFile?${qs.stringify(params)}`,config))
 
 
@@ -102,3 +102,5 @@ export const majorDel =(params)=>(instance.post(`${ACCESS_ADDRESS}/major/upd`,pa
 
 //==================================oss========================================================================================
 export const ossRemove=(params)=>(instance.get(`${ACCESS_ADDRESS}/oss/removeFile?${qs.stringify(params)}`))
+export const getToken=(params)=>(instance.get(`${ACCESS_ADDRESS}/oss/getToken/${params}`))
+export const test=(params)=>(instance.get(`${ACCESS_ADDRESS}/oss/test/?${qs.stringify(params)}`))

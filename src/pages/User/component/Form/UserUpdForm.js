@@ -43,7 +43,7 @@ export default class  UserUpdForm  extends  React.Component{
         console.log("uID====>>>>> ",uId)
         console.log("phone====>>>>> ",phone)
         let majorNames = []
-        if(majorName.toString().indexOf(",")>=1){
+        if(majorName !== undefined && majorName.indexOf(",")>=1){
             majorNames = majorName.split(",")
         }else{
             majorNames = majorName

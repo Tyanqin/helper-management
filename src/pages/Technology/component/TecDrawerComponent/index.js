@@ -85,7 +85,7 @@ export default class TecDrawerComponent extends Component {
 
                                         <Form.Item
                                             style = {{marginRight:120,marginTop:20}}
-                                            label="工艺内容"
+                                            label="工艺标准"
                                             name="processStandard"
                                         >
                                             <Input.TextArea

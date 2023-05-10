@@ -24,14 +24,17 @@ instance.interceptors.request.use(function(config){
 instance.interceptors.response.use(
   respons=>{
    Nprgresss.done()
-      if(respons.data.code === 403){
-          window.location.href = "/login"
-      }
    return respons.data;
 }, (error => {
    Nprgresss.done()
-    message.error(error.message,2);
-    return new Promise(()=>{})
+        let code = error.response.data.status
+        /**
+         * token过期
+         */
+        if(code === 55000){
+            setTimeout(()=>{window.location.href = "/login"},2000)
+        }
+        message.error(error.response.data.message,2);
   })
   )
 

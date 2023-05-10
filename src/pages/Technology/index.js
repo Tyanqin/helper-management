@@ -177,6 +177,7 @@ export default class Technology extends Component {
 
         let result = null
         if(this.state.isEdit===1){
+            console.log("----->>>>>>","修改")
             await proUpdateSubmit(params).then((res)=>{
                 this.handelSelectData()
                 message.info("修改成功！")
@@ -252,7 +253,8 @@ export default class Technology extends Component {
     }
      //删除回调
     handleOk=async (text)=>{
-        let params = {proContentId:text.proContentId}
+        let params = {proContentId:text.proContentId,proMenuId:text.proMenuId}
+        console.log("删除回调params====>>>>>",params)
         await proDeleteById(params).then(res=>{
             this.handelSelectData()
             message.info("删除成功！")

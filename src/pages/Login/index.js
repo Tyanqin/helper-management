@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import { Button, Checkbox, Form, Input,message,} from 'antd';
-import {userLogin} from '../../api/req'
+import {test, userLogin} from '../../api/req'
 import './index.css'
 import LoginState from './LoginState'
 import Cache from '../../api/cache'
@@ -79,19 +79,6 @@ class  Login  extends  React.Component{
                             >
                                 <Input.Password />
                             </Form.Item>
-
-                            {/*<Form.Item*/}
-                            {/*className="login_form_item"*/}
-                            {/*name="remember"*/}
-                            {/*valuePropName="checked"*/}
-                            {/*wrapperCol={{*/}
-                            {/*offset: 8,*/}
-                            {/*span: 16,*/}
-                            {/*}}*/}
-                            {/*>*/}
-                            {/*<Checkbox>记住我</Checkbox>*/}
-                            {/*</Form.Item>*/}
-
                             <Form.Item
                                 wrapperCol={{
                                     offset: 8,
@@ -119,8 +106,6 @@ class  Login  extends  React.Component{
                     .localSet("majorName",majorName).localSet("userMark",userMark).localSet("token",token)
                 this.props.login({...loginState})
                 window.location.href="/user"
-
-
             }else{
                 message.error(result.message,1)
             }
@@ -128,7 +113,10 @@ class  Login  extends  React.Component{
             message.error(result.message,1)
         }
 
-
     }
+
+
+
+
 })
 

@@ -22,10 +22,10 @@ export default class  RuleDetailForm  extends  React.Component{
                 <div>阶段</div>
                 <div>{detailData.staName}</div>
 
-                <div>设备</div>
+                <div>专业</div>
                 <div>{detailData.ruleTitle}</div>
 
-                <div>监督项目</div>
+                <div>设备</div>
                 <div>{detailData.ruleTheme}</div>
 
                 <div>监督要点</div>

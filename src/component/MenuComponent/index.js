@@ -66,8 +66,6 @@ export default class MenuComponent extends Component {
                         items={this.items}
                         defaultOpenKeys={['sub1']}
                         defaultSelectedKeys={['1']}
-
-
                     />
                 </Sider>
                 <Layout>

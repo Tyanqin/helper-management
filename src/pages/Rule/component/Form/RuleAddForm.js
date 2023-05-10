@@ -38,7 +38,7 @@ export default class  RuleAddForm  extends  React.Component{
                 </Form.Item>
                 <Form.Item
                     style = {{marginRight:120,marginTop:30}}
-                    label="项目阶段"
+                    label="阶段"
                     name="staName"
                     rules={[{ required: true, message: '请输入...' }]}
                 >

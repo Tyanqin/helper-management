@@ -43,7 +43,7 @@ export default class  TecUpdForm  extends  React.Component{
                     </Form.Item>
                     <Form.Item
                         style = {{marginRight:120,marginTop:30}}
-                        label="工艺内容"
+                        label="工艺标准"
                         name="processStandard"
                     >
                         <Input.TextArea

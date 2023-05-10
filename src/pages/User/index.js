@@ -173,7 +173,7 @@ export default connect(state=>({
         if(this.state.isEdit){
             result =  await userUpdateSubmit(params)
             if(result.status){
-                if(result.message != "OK"){
+                if(result.message != ""){
                     message.error(result.message)
                 }else{
                     this.setState({visible:false,isEdit:true})
@@ -184,7 +184,7 @@ export default connect(state=>({
             let paramsValue = {userName,loginName,password,phone,userMark,majorName:majorName.toString()}
             result =  await userInsert(paramsValue)
             if(result.status){
-                if(result.message != "OK"){
+                if(result.message != ""){
                     message.error(result.message)
                 }else{
                     this.setState({visible:false,isEdit:true})
@@ -194,9 +194,7 @@ export default connect(state=>({
         if(result.status === 200){
             this.handelPage();
         }
-
     };
-
 
     //修改
     updateDataById=async(text)=>{

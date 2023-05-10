@@ -149,7 +149,7 @@ export default class  TecAddForm  extends  React.Component{
                 </Form.Item>
                 <Form.Item
                     style = {{marginTop:5,marginLeft:-300}}
-                    label="工艺内容"
+                    label="工艺标准"
                     name="processStandard"
                     rules={[{ required: true, message: '请用输入工艺内容!' }]}
                 >

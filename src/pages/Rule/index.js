@@ -168,7 +168,7 @@ export default class Rule extends Component {
         let params = {detailId:text.detailId}
         const result = await reqRuleDelId(params)
         if(result.status === 200){
-            this.handelSelectData()
+            this.init()
             message.success("删除成功!")
         }
     };

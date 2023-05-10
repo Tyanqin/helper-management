@@ -25,7 +25,7 @@ const HomeDrawComponent = (props) => {
         let params = {uId:Cache.localGet("uId"), password, newPassword,repPassword}
         const result = await updPassword(params)
         if(result.status){
-            if(result.message != "OK"){
+            if(result.message != ""){
                 message.error(result.message)
             }else{
                 message.info(result.message)

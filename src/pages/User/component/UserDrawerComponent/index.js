@@ -9,7 +9,6 @@ import './index.css'
 export default class UserDrawerComponent extends Component {
 
 
-
     render() {
         let {visible,isEdit,close} = this.props
         return (

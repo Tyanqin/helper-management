@@ -68,8 +68,10 @@ class ImgUploadForm extends Component {
 
     render() {
         let {detailData} = this.props
+        let list = detailData.list
         let imgInfos = []
-        if(detailData.list !=""){
+
+        if(list !== undefined){
             detailData.list.map(item=>{
                 let info = {
                     uid:item.proImgId,
@@ -116,7 +118,7 @@ class ImgUploadForm extends Component {
                     </Form.Item>
                 <Form.Item
                     style = {{marginRight:500,marginTop:20}}
-                    label="工艺内容"
+                    label="工艺标准"
                     name="processStandard"
                 >
                     <Input.TextArea
