@@ -42,7 +42,6 @@ class Problem extends Component {
         let {problemName,majorName,currentPage,pageSize} = this.state
         let params = {problemName,majorName,currentPage,pageSize}
        const result = await problemQueryPage(params)
-        console.log("problem===result===》》》",result)
         if(result.status){
             this.setState({pageData:result.data.rows,total:result.data.total})
         }

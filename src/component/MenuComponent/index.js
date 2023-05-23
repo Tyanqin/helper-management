@@ -16,12 +16,24 @@ export default class MenuComponent extends Component {
         close:false,
         flag:"1",
         height:750,
+        defaultSelectedKeys:['1']
     };
     componentDidMount() {
         Auth()
         let bodyHeight = document.body.clientHeight
         this.setState({height:bodyHeight})
+
     }
+
+    componentWillMount() {
+        let path = window.location.pathname
+        if(path != undefined){
+            this.matchPath(path)
+        }
+    }
+
+
+
 
 
      getItem(label, key, icon, children, type) {
@@ -62,10 +74,11 @@ export default class MenuComponent extends Component {
                         style={{marginTop:30}}
                         theme="dark"
                         mode="inline"
-                        openKeys = {['sub1']}
+                        openKeys = {this.state.openKeys}
                         items={this.items}
-                        defaultOpenKeys={['sub1']}
-                        defaultSelectedKeys={['1']}
+                        defaultOpenKeys={this.state.openKeys}
+                        defaultSelectedKeys={this.state.defaultSelectedKeys}
+
                     />
                 </Sider>
                 <Layout>
@@ -143,5 +156,34 @@ export default class MenuComponent extends Component {
 
     handelOnMouseOut=()=>{
         this.setState({display:"none"})
+    }
+
+
+    matchPath=(params)=>{
+        switch (params) {
+            case "/user":
+                this.setState({defaultSelectedKeys:['1'],openKeys: ['sub1']})
+                break;
+            case "/major":
+                this.setState({defaultSelectedKeys:['2'],openKeys: ['sub2']})
+                break;
+            case "/opinion":
+                this.setState({defaultSelectedKeys:['3'],openKeys: ['sub3']})
+                break;
+            case "/tec":
+                this.setState({defaultSelectedKeys:['4'],openKeys: ['sub4']})
+                break;
+            case "/rule":
+                this.setState({defaultSelectedKeys:['5'],openKeys: ['sub5']})
+                break;
+            case "/reg":
+                this.setState({defaultSelectedKeys:['6'],openKeys: ['sub6']})
+                break;
+            case "/problem":
+                this.setState({defaultSelectedKeys:['7'],openKeys: ['sub7']})
+                break;
+            default:
+                this.setState({defaultSelectedKeys:['1'],openKeys: ['sub1']})
+        }
     }
 }

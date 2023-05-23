@@ -46,7 +46,6 @@ class ProblemUpdForm extends Component {
                         name="majorName"
                     >
                         <Select defaultValue ={updData.majorName} style={{width:400,textAlign:"Left"}}>
-                            <Option value="">全部</Option>
                             {
                                 this.props.majorNames.map((item,index)=>{
                                     return (
@@ -60,6 +59,12 @@ class ProblemUpdForm extends Component {
                         style = {{marginRight:120,marginTop:30}}
                         label="问题描述"
                         name="problemName"
+                        // rules={[
+                        //     {
+                        //         required: true,
+                        //         message: '输入问题描述!',
+                        //     },
+                        // ]}
                     >
                         <Input.TextArea
                             key={this.props.updData.problemId}

@@ -299,7 +299,7 @@ export default class Opinion extends Component {
                 this.handleOk(text)
             },
             onCancel() {
-                message.error("删除失败!")
+                message.error("取消删除!")
             },
         });
 
@@ -307,10 +307,10 @@ export default class Opinion extends Component {
 
     handleOk=async(text)=>{
         let params = {formId:text.formId}
-        console.log("formId====>>>>  ",qs.stringify(params))
         let result = await opinionDel(params)
         if(result.status === 200){
             this.opinionPage()
+            message.success("删除成功!")
         }
     }
 

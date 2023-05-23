@@ -254,12 +254,11 @@ export default class Technology extends Component {
      //删除回调
     handleOk=async (text)=>{
         let params = {proContentId:text.proContentId,proMenuId:text.proMenuId}
-        console.log("删除回调params====>>>>>",params)
         await proDeleteById(params).then(res=>{
             this.handelSelectData()
             message.info("删除成功！")
         }).catch(err=>{
-            message.err("删除失败！")
+            message.err("取消删除")
         })
     }
      //字段

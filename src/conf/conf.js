@@ -1,1 +1,1 @@
-export const ACCESS_ADDRESS = 'http://192.168.124.153:9191'
+export const ACCESS_ADDRESS = 'http://123.60.36.8:9191'

@@ -39,8 +39,9 @@ const HomeDrawComponent = (props) => {
             if(result.message != ""){
                 message.error(result.message)
             }else{
-                message.info(result.message)
+                message.info("修改成功")
                 props.handelClose()
+                // window.location.href = "/login"
             }
         }
 

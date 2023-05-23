@@ -7,7 +7,7 @@ import qs from 'querystring'
   login  reg
  */
 
-export const userLogin =(params)=>(instance.post(`${ACCESS_ADDRESS}/user/login`,params))
+export const userLogin =(params)=>(instance.post(`${ACCESS_ADDRESS}/user/manageLogin`,params))
 
 
 

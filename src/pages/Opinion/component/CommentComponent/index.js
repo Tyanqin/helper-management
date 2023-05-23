@@ -17,12 +17,6 @@ export default class CommentComponent extends React.Component{
             </>
         )
     }
-
-
-
-
-
-
 }
 
 const ExampleComment = (props) => {
@@ -35,7 +29,7 @@ const ExampleComment = (props) => {
                 <div>
                     <p>{item.proDesc}</p>
                     <p className="content" style={{color:"red"}}>监督要点</p>
-                    <p  className="content" style={{marginTop:10}}>{item.rule == undefined || item.rule == null?"无":item.rule.keyPoint.trim()}</p>
+                    <p  className="content" style={{marginTop:10}}>{item.rule == undefined || item.rule == null?"无":item.rule.keyPoint.trim().toString()}</p>
                 </div>
 
 

@@ -159,7 +159,7 @@ export default class Rule extends Component {
             }
             ,
             onCancel() {
-                message.error("删除失败!")
+                message.error("取消删除!")
             },
         });
     }
