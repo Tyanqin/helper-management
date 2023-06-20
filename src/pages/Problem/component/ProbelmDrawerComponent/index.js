@@ -26,13 +26,12 @@ export default class ProDrawerComponent extends Component {
 
     state = {
         filesInfo:""
-
     };
 
 
     render() {
         let {isEdit,visible} = this.props
-        console.log("this.props.majorNames===>>>>",this.props.majorNames)
+        console.log("this.props.staNames===>>>>",this.props.staNames)
         return (
             <div>
                 <Drawer
@@ -48,7 +47,7 @@ export default class ProDrawerComponent extends Component {
                             <div key = "1">
                                 <ProblemUpdForm
                                     updData = {this.props.updData}
-                                    majorNames = {this.props.majorNames}
+                                    staNames = {this.props.staNames}
                                     close = {this.props.close}
                                     submit  = {this.props.submit}
                                 />
@@ -56,7 +55,7 @@ export default class ProDrawerComponent extends Component {
                             :""|| isEdit === 2?
                             <div key = "2">
                                <ProblemAddForm
-                                   majorNames = {this.props.majorNames}
+                                   staNames = {this.props.staNames}
                                    close = {this.props.close}
                                    submit  = {this.props.submit}
                                />

@@ -30,7 +30,7 @@ class  Login  extends  React.Component{
                 <div className="login_img_box"></div>
 
                 <div className="login_form_box">
-                  <div>技术监督全过程后台管理系统</div>
+                  <div>全过程技术监督小助手后台管理系统</div>
                     <div>
                         <div>登录</div>
                         <Form

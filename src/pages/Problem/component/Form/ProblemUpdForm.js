@@ -8,7 +8,7 @@ class ProblemUpdForm extends Component {
         console.log('Success:', values);
         let params = {
             problemId: this.props.updData.problemId,
-            majorName: values.majorName?values.majorName:this.props.updData.majorName,
+            staName: values.staName?values.staName:this.props.updData.staName,
             problemName: values.problemName?values.problemName:this.props.updData.problemName
         }
         this.props.submit(params)
@@ -19,14 +19,14 @@ class ProblemUpdForm extends Component {
     };
 
     state={
-        majorName:"",
+        staName:"",
         problemName:"",
     }
 
     render() {
-        let {updData,staNameData} = this.props
+        let {updData,staNames} = this.props
 
-        console.log("this.props.majorNames====>>>>",this.props.majorNames)
+        console.log("this.props.staNames====>>>>",this.props.staNames)
         return (
             <div>
                 <Form
@@ -42,14 +42,14 @@ class ProblemUpdForm extends Component {
                 >
                     <Form.Item
                         style = {{marginRight:120,marginTop:130}}
-                        label="专业名称"
-                        name="majorName"
+                        label="阶段名称"
+                        name="staName"
                     >
-                        <Select defaultValue ={updData.majorName} style={{width:400,textAlign:"Left"}}>
+                        <Select defaultValue ={updData.staName} style={{width:400,textAlign:"Left"}}>
                             {
-                                this.props.majorNames.map((item,index)=>{
+                                this.props.staNames.map((item,index)=>{
                                     return (
-                                        <Option key={item.majorId} value={item.majorName}>{item.majorName}</Option>
+                                        <Option key={index} value={item}>{item}</Option>
                                     )
                                 })
                             }

@@ -10,10 +10,11 @@ import {
     proDownload,
     exportProblem,
     importProblem,
-    problemAdd
+    problemAdd,
+    staGetName
 } from '../../api/req'
 import ProbelmDrawerComponent from './component/ProbelmDrawerComponent'
-import {SelectComponent, InputComponent, ReSet} from "../../component/SearchComponent";
+import {SelectAttrComponent, InputComponent, ReSet} from "../../component/SearchComponent";
 
 
 
@@ -24,9 +25,11 @@ class Problem extends Component {
         isEdit:1,
         visible:false,
         majorNames:[],
+        staNames:[],
         pageData:[],
         updData:[],
         majorName:"",
+        staName:"",
         problemName:"",
         total:"",
         currentPage:"1",
@@ -34,14 +37,16 @@ class Problem extends Component {
     }
 
     componentDidMount() {
-        this.majorNames()
+        //this.majorNames()
+        this.getStaNames()
         this.handelPage()
     }
 
     handelPage=async()=>{
-        let {problemName,majorName,currentPage,pageSize} = this.state
-        let params = {problemName,majorName,currentPage,pageSize}
-       const result = await problemQueryPage(params)
+        let {problemName,staName,currentPage,pageSize} = this.state
+        let params = {problemName,staName,currentPage,pageSize}
+        const result = await problemQueryPage(params)
+        console.log("result=====>>handelPage>>>> ",result)
         if(result.status){
             this.setState({pageData:result.data.rows,total:result.data.total})
         }
@@ -65,20 +70,19 @@ class Problem extends Component {
                     {/*</Select>*/}
                     {/*<Input addonBefore = "问题名称"  onChange = {(e)=>{this.setState({problemName:e.target.value})}} style={{marginRight:20,width:400}}/>*/}
 
-                    <SelectComponent
-                        id = "majorName"
-                        title = "专业"
+                    <SelectAttrComponent
+                        id = "staName"
+                        title = "阶段"
                         style={{marginRight:20,width:250}}
-                        onChange = {(e)=>this.setState({majorName:e.target.value},this.selectPage)}
-                        data = {this.state.majorNames}
-                        attr = "majorName"
+                        onChange = {(e)=>this.setState({staName:e.target.value},this.selectPage)}
+                        data = {this.state.staNames}
                     />
                     <InputComponent
                         id = "problemName"
                         title = "问题名称"
                         type = "text"
                         placeholder = "请输入问题名称"
-                        onChange = {e=>this.setState({problemName:e.target.value})}
+                        onChange = {e=>this.setState({problemName:e.target.value},this.selectPage)}
                         style={{marginRight:20,width:250}}
                     />
                     <Button type="primary" onClick={this.selectPage} style={{marginRight:20}}><SearchOutlined/>查询</Button>
@@ -102,7 +106,7 @@ class Problem extends Component {
                         visible={this.state.visible}
                         isEdit = {this.state.isEdit}
                         updData = {this.state.updData}
-                        majorNames = {this.state.majorNames}
+                        staNames = {this.state.staNames}
                         close = {this.close}
                         submit = {this.updateSubmit}
                         handelPage = {this.handelPage}
@@ -121,7 +125,7 @@ class Problem extends Component {
      * 重置
      */
     handelReset=()=>{
-        this.setState({ majorName:"", problemName:"",currentPage:"1"},()=>{
+        this.setState({ staName:"", problemName:"",currentPage:"1"},()=>{
             this.handelPage()
             ReSet()
         })
@@ -138,7 +142,7 @@ class Problem extends Component {
      */
     HandelExportProblem=async()=>{
         let fileName = "问题汇总"
-        let params = {majorName:this.state.majorName,problemName:this.state.problemName,fileName}
+        let params = {staName:this.state.staName,problemName:this.state.problemName,fileName}
         const result = await exportProblem(params,{responseType: 'blob'})
         if(result){
             const blob = new Blob([result], {type: 'application/msexcel'})
@@ -219,7 +223,7 @@ class Problem extends Component {
                 )
             }
         },
-        {title: '专业', dataIndex: 'majorName', key: 'majorName',
+        {title: '阶段', dataIndex: 'staName', key: 'staName',
             onCell: () => {
                 return {
                     style: {
@@ -273,6 +277,7 @@ class Problem extends Component {
     updateDataById=async(text)=>{
         let params = {problemId:text.problemId}
        const result =  await problemFindById(params)
+        console.log("result=====>>>>56756765>>",result)
         if(result.status===200){
             this.setState({updData:result.data,isEdit:1,visible:true},()=>{console.log("updData===>>>",this.state.updData)})
         }
@@ -308,6 +313,17 @@ class Problem extends Component {
         }
 
 
+    }
+
+
+    getStaNames =async()=>{
+        const result = await staGetName();
+        console.log("result=====》》》》》》123123   ",result)
+        if(result.status){
+            this.setState({staNames:result.data})
+        }else{
+            message.error("获取阶段信息失败！")
+        }
     }
 
 

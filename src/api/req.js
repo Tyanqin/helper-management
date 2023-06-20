@@ -75,7 +75,7 @@ export const staGetName =()=>(instance.get(`${ACCESS_ADDRESS}/pro-sta/getStaName
 export const volGetName =()=>(instance.get(`${ACCESS_ADDRESS}/vol/getVolName`))
 
 //==================================审批意见========================================================================================
-export const opinionPage =(params)=>(instance.get(`${ACCESS_ADDRESS}/opinion/queryPage?${qs.stringify(params)}`))
+export const opinionPage =(params)=>(instance.get(`${ACCESS_ADDRESS}/opinion/queryPageComplete?${qs.stringify(params)}`))
 export const opinionDel =(params)=>(instance.get(`${ACCESS_ADDRESS}/opinion/deleteByFormId?${qs.stringify(params)}`))
 export const opinionDownload =(params,config)=>(instance.get(`${ACCESS_ADDRESS}/opinion/downloadFile?${qs.stringify(params)}`,config))
 
@@ -86,7 +86,7 @@ export const problemFindById =(params)=>(instance.get(`${ACCESS_ADDRESS}/problem
 export const problemUpdById =(params)=>(instance.post(`${ACCESS_ADDRESS}/problem/updateById`,params))
 export const problemDelById =(params)=>(instance.get(`${ACCESS_ADDRESS}/problem/updateByProblemId?${qs.stringify(params)}`))
 export const problemUpdate =(params)=>(instance.post(`${ACCESS_ADDRESS}/problem/update`,params))
-export const majorNames =()=>(instance.get(`${ACCESS_ADDRESS}/major/getDisName`))
+export const majorNames =()=>(instance.get(`${ACCESS_ADDRESS}/major/getMajorNames`))
 export const proDownload =(params,config)=>(instance.get(`${ACCESS_ADDRESS}/problem/getDownloadTemplate?${qs.stringify(params)}`,config))
 export const importProblem =()=>(instance.get(`${ACCESS_ADDRESS}/problem/importProblem`))
 export const exportProblem =(params,config)=>(instance.get(`${ACCESS_ADDRESS}/problem/exportProblem?${qs.stringify(params)}`,config))

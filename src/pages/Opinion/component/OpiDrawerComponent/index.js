@@ -53,9 +53,9 @@ export default class OpiDrawerComponent extends Component {
                                 <CommentComponent
                                     problemData = {this.props.detailData[0]?this.props.detailData[0].problems:[]}
                                 />
-                                <div className="title">落款</div>
-                                <div className="content">{detailData[0].signOff}</div>
-                                <div className="moment">{moment(detailData[0].creTime).format('YYYY年MM月DD')}</div>
+                                {/*<div className="title">落款</div>*/}
+                                {/*<div className="content">{detailData[0].signOff}</div>*/}
+                                {/*<div className="moment">{moment(detailData[0].creTime).format('YYYY年MM月DD')}</div>*/}
                                 <div style={{position: 'absolute', right: 0, bottom: 0, width: '100%', borderTop: '1px solid #e9e9e9', padding: '10px 16px', background: '#fff', textAlign: 'right',}}>
                                     <Button type="primary" onClick={()=>this.props.close()} style={{ marginRight: 8 }}>
                                         退出

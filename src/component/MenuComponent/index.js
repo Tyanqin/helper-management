@@ -48,11 +48,11 @@ export default class MenuComponent extends Component {
     items = [
         // this.getItem(<NavLink key = {1} activeclassname="active" to = "/sta">首页</NavLink>, '1', <HomeOutlined />),
         this.getItem(<NavLink key = {1} activeclassname="active" to = "/user">用户管理</NavLink>, '1', <UserOutlined />),
-        this.getItem(<NavLink key = {2} activeclassname="active" to = "/major">专业管理</NavLink>, '2', <ApartmentOutlined />),
+        this.getItem(<NavLink key = {2} activeclassname="active" to = "/major">部门管理</NavLink>, '2', <ApartmentOutlined />),
         this.getItem(<NavLink key = {3} activeclassname="active" to = "/opinion">意见审批</NavLink>, '3', <SnippetsOutlined />),
         this.getItem(<NavLink key = {4} activeclassname="active" to = "/tec">标准工艺</NavLink>, '4', <ToolOutlined />),
         this.getItem(<NavLink key = {5} activeclassname="active" to = "/rule">监督细则</NavLink>, '5', <FileSearchOutlined />),
-        this.getItem(<NavLink key = {6} activeclassname="active" to = "/reg">规章制度</NavLink>, '6', <ReadOutlined />),
+        this.getItem(<NavLink key = {6} activeclassname="active" to = "/reg">技术标准</NavLink>, '6', <ReadOutlined />),
         this.getItem(<NavLink key = {7} activeclassname="active" to = "/problem">问题汇总</NavLink>, '7', <ReadOutlined />)
 
     ]
@@ -69,7 +69,7 @@ export default class MenuComponent extends Component {
             <Layout style ={{height:this.state.height}}>
                 <Sider
                     breakpoint="lg" collapsedWidth="0" onBreakpoint={broken => {console.log(broken);}} onCollapse={(collapsed, type) => {console.log(collapsed, type);}}>
-                    <div className = "title_box">全过程监督助手</div>
+                    <div className = "title_box">全过程技术监督小助手</div>
                     <Menu
                         style={{marginTop:30}}
                         theme="dark"

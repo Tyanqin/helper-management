@@ -7,7 +7,7 @@ class ProblemAddForm extends Component {
     onFinish = (values) => {
         console.log('Success:', values);
         let params = {
-            majorName: values.majorName,
+            staName: values.staName,
             problemName: values.problemName
         }
         this.props.submit(params)
@@ -18,14 +18,14 @@ class ProblemAddForm extends Component {
     };
 
     state={
-        majorName:"",
+        staName:"",
         problemName:"",
     }
 
     render() {
-        let {updData,staNameData} = this.props
+        let {updData,staNames} = this.props
 
-        console.log("this.props.majorNames====>>>>",this.props.majorNames)
+        console.log("this.props.staNames====>>>>",this.props.staNames)
         return (
             <div>
                 <Form
@@ -40,17 +40,17 @@ class ProblemAddForm extends Component {
                 >
                     <Form.Item
                         style = {{marginRight:120,marginTop:130}}
-                        label="专业名称"
-                        name="majorName"
-                        rules={[{ required: true, message: '请输入专业名称...' }]}
+                        label="阶段名称"
+                        name="staName"
+                        rules={[{ required: true, message: '请输入阶段名称...' }]}
                     >
                         <Select
                             style={{marginTop:0,width:400,textAlign:"left"}}
                         >
                             {
-                                this.props.majorNames.map((item,index)=>{
+                                this.props.staNames.map((item,index)=>{
                                     return (
-                                        <Option value={item.majorName}>{item.majorName}</Option>
+                                        <Option value={item} key = {index}>{item}</Option>
                                     )
                                 })
                             }
